@@ -1,0 +1,138 @@
+<div xmlns="http://www.w3.org/1999/xhtml"
+  xmlns:f="http://java.sun.com/jsf/core"
+  xmlns:h="http://java.sun.com/jsf/html"
+  xmlns:c="http://java.sun.com/jstl/core"
+  xmlns:t="http://myfaces.apache.org/tomahawk"
+  xmlns:ui="http://java.sun.com/jsf/facelets"
+  xmlns:nxu="http://nuxeo.org/nxweb/util"
+  xmlns:nxd="http://nuxeo.org/nxweb/document"
+  xmlns:nxh="http://nuxeo.org/nxweb/html"
+  xmlns:nxdir="http://nuxeo.org/nxdirectory"
+  xmlns:a4j="https://ajax4jsf.dev.java.net/ajax">
+
+
+  <h2>This is Book "#{currentDocument.dublincore.title}"</h2>
+  <p>(The parent folder is called #{bookManager.parentTitle})</p>
+
+  <h:messages styleClass="errorMessage" />
+
+  <h:form>
+    <h:panelGrid columns="3" styleClass="dataInput"
+      columnClasses="labelColumn, fieldColumn, fieldColumn">
+      <h:outputLabel value="First name" />
+      <h:inputText id="thefirstname" value="#{bookManager.firstName}"
+        required="true" />
+      <h:message for="thefirstname" styleClass="errorMessage" />
+
+      <h:outputLabel value="Last name" />
+      <h:inputText id="thelastname" value="#{bookManager.lastName}">
+        <f:validateLength minimum="5" />
+      </h:inputText>
+      <h:message for="thelastname" styleClass="errorMessage" />
+
+      <h:outputLabel value="Note" />
+      <h:inputText id="therating" value="#{bookManager.rating}"
+        validator="#{bookManager.validation}">
+        <f:converter converterId="BookIntegerConverter" />
+        <f:validator validatorId="BookIntegerValidator" />
+      </h:inputText>
+      <h:message for="therating" styleClass="errorMessage" />
+
+      <h:outputLabel value="Keywords" />
+      <h:selectManyListbox id="thekeywords"
+        value="#{bookManager.keywords}">
+        <f:selectItems value="#{bookManager.availableKeywords}" />
+      </h:selectManyListbox>
+      <h:message for="thekeywords" styleClass="errorMessage" />
+
+      <h:commandButton action="#{bookManager.changeData}"
+        value="Change..." />
+
+    </h:panelGrid>
+  </h:form>
+
+
+  <div>
+    <h3>Cover display</h3>
+    <h:form rendered="#{currentDocument.file.content != null}">
+      <h:panelGrid>
+        <nxh:outputLink
+          value="#{nxd:fileUrl('downloadFile', currentDocument, 'file:content', currentDocument.file.filename)}">
+          Download the file #{currentDocument.file.filename}
+        </nxh:outputLink>
+        <nxh:graphicImage
+          value="#{nxd:fileUrl('downloadFile', currentDocument, 'file:content', currentDocument.file.filename)}" />
+      </h:panelGrid>
+    </h:form>
+  </div>
+
+
+  <div>
+    <h3>Ajax example</h3>
+    <h:form>
+      <a4j:region>
+        <a4j:outputPanel id="myfilter">
+          <div>The current selection is: #{bookManager.filter}</div>
+        </a4j:outputPanel>
+        <nxdir:selectOneListbox value="#{bookManager.filter}"
+          directoryName="subject" localize="true">
+          <a4j:support event="onchange" reRender="myfilter" />
+        </nxdir:selectOneListbox>
+        <!-- This button would be useful if there was no a4j:support above -->
+        <a4j:commandButton value="Change the filter"
+          reRender="myfilter" />
+      </a4j:region>
+    </h:form>
+  </div>
+
+
+  <div>
+    <h3>Seam remoting example</h3>
+    <script type="text/javascript"
+      src="#{baseURL}seam/remoting/interface.js?bookManager">
+    </script>
+    <script type="text/javascript">
+      function doSomething() {
+        var bookManager = Seam.Component.getInstance("bookManager");
+        bookManager.something("blah", somethingDone);
+      }
+      function somethingDone(result) {
+        alert(result);
+      }
+    </script>
+
+    <h:form>
+      Click this checkbox: <input type="checkbox" onclick="doSomething()" />
+    </h:form>
+  </div>
+
+
+  <div>
+    <h3>Search example</h3>
+    <ul>
+      <ui:repeat value="#{bookManager.searchResults}" var="resultItem">
+        <li>
+          #{resultItem['dc:title']}
+        </li>
+      </ui:repeat>
+    </ul>
+  </div>
+
+
+  <div>
+    <h3>Link example</h3>
+    <nxd:restDocumentLink document="#{currentDocument}"
+      tab="TAB_EDIT">
+      Edit the current document
+    </nxd:restDocumentLink>
+  </div>
+
+
+  <h:form>
+    <h3>Multiple plage navigation example</h3>
+    <p>Run the wizard:</p>
+    <h:commandButton action="#{bookManager.toWizardPage('1')}"
+      value="Wizard" />
+  </h:form>
+
+</div>

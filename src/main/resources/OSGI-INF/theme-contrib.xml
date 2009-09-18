@@ -1,0 +1,79 @@
+<?xml version="1.0"?>
+<component name="org.nuxeo.project.sample.themes">
+
+  <!--
+  <extension target="org.nuxeo.theme.services.ThemeService" point="themes">
+    <theme>
+      <src>themes/theme-book.xml</src>
+      OR:
+      <src>file:///tmp/theme-book.xml</src>
+    </theme>
+  </extension>
+  -->
+
+  <!--
+    For the setting of a new default theme to take effect, this theme must
+    be registered *after* the other themes and especially the Nuxeo default theme
+    which is defined in the org.nuxeo.ecm.webapp.core component.
+
+    So the following configuration should be present in the MANISFEST.MF file.
+    Require-Bundle: org.nuxeo.ecm.webapp.core
+  -->
+  <!--
+  <extension target="org.nuxeo.theme.services.ThemeService"
+    point="applications">
+
+    <application root="/nuxeo">
+
+      <negotiation>
+        <strategy>nuxeo5</strategy>
+        <default-engine>default</default-engine>
+        <default-theme>book/default</default-theme>
+        <default-perspective>default</default-perspective>
+      </negotiation>
+
+      <resource-caching>
+        <lifetime>36000</lifetime>
+      </resource-caching>
+
+      <style-caching>
+        <lifetime>900</lifetime>
+      </style-caching>
+
+      <view id="/create_relation_search_document_popup.xhtml">
+        <theme>default/popup</theme>
+      </view>
+      <view id="/user_dashboard.xhtml">
+        <theme>default/user_dashboard</theme>
+      </view>
+      <view id="/view_calendar.xhtml">
+        <perspective>view_calendar</perspective>
+      </view>
+      <view id="/print.xhtml">
+        <perspective>print</perspective>
+      </view>
+    </application>
+  </extension>
+  -->
+
+  <extension target="org.nuxeo.theme.services.ThemeService"
+    point="views">
+    <view name="book listing fragment">
+      <format-type>widget</format-type>
+      <class>org.nuxeo.theme.jsf.views.JSFView</class>
+      <template>incl/book_listing_fragment.xhtml</template>
+    </view>
+  </extension>
+
+  <extension target="org.nuxeo.theme.services.ThemeService" point="presets">
+    <palette name="Sample backgrounds" src="themes/sample-backgrounds.properties"
+      category="background" />
+    <palette name="Sample borders" src="themes/sample-borders.properties"
+      category="border" />
+    <palette name="Sample colors" src="themes/sample-colors.properties"
+      category="color" />
+    <palette name="Sample fonts" src="themes/sample-fonts.properties"
+      category="font" />
+  </extension>
+
+</component>

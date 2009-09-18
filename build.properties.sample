@@ -1,0 +1,14 @@
+# Copy this file into build.properties and customize it
+
+# Uncomment this to change the project name.
+# This should be the same than the one in the pom.xml.
+#name=nuxeo-project-sample
+
+# Uncomment this for Windows (notice the forward-slashes)
+jboss.dir=/nuxeo/tools/nuxeo/nuxeo-ep-5.1.6GA/NuxeoServer
+# Uncomment this for Unix
+#jboss.dir=/opt/jboss
+
+# Uncomment this for an offline maven build, which is faster
+# but assumes you have already donwloaded all dependencies
+#mvn.opts=-o

@@ -1,0 +1,15 @@
+<?xml version="1.0"?>
+<component name="org.nuxeo.project.sample.test.booktitle">
+
+  <extension target="org.nuxeo.project.sample.BookTitleService"
+    point="title">
+
+    <configuration>
+      <addInitialCapital>true</addInitialCapital>
+      <removeExtension>false</removeExtension>
+      <addComment>Test</addComment>
+    </configuration>
+
+  </extension>
+
+</component>

@@ -1,0 +1,22 @@
+<?xml version="1.0"?>
+<component name="org.nuxeo.project.sample.event-listeners">
+
+  <extension
+    target="org.nuxeo.ecm.core.listener.CoreEventListenerService"
+    point="listener">
+
+    <listener name="book_create"
+      class="org.nuxeo.project.sample.BookEventListener">
+      <eventId>emptyDocumentModelCreated</eventId>
+    </listener>
+
+    <listener name="book_update_isbn"
+      class="org.nuxeo.project.sample.BookISBNEventListener"
+      order="157">
+      <eventId>documentCreated</eventId>
+      <eventId>documentModified</eventId>
+    </listener>
+
+  </extension>
+
+</component>

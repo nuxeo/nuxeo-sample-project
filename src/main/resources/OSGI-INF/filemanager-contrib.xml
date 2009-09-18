@@ -1,0 +1,14 @@
+<?xml version="1.0"?>
+<component name="org.nuxeo.project.sample.filemanager">
+
+  <extension
+    target="org.nuxeo.ecm.platform.filemanager.service.FileManagerService"
+    point="plugins">
+    <plugin name="book_plugin"
+      class="org.nuxeo.project.sample.BookFileManagerPlugin">
+      <filter>image/gif</filter>
+      <filter>image/jpeg</filter>
+    </plugin>
+  </extension>
+
+</component>

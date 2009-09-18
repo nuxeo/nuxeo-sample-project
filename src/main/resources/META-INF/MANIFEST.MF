@@ -1,0 +1,26 @@
+Manifest-Version: 1.0
+Bundle-ManifestVersion: 1
+Bundle-Name: Nuxeo Sample project
+Bundle-SymbolicName: org.nuxeo.project.sample;singleton:=true
+Bundle-Version: 1.0.0
+Bundle-Vendor: Nuxeo
+Provide-Package: org.nuxeo.project.sample
+Require-Bundle: org.nuxeo.runtime,
+ org.nuxeo.ecm.core.api,
+ org.nuxeo.ecm.core,
+ org.nuxeo.ecm.webapp.core
+Nuxeo-Component: OSGI-INF/core-types-contrib.xml,
+ OSGI-INF/search-contrib.xml,
+ OSGI-INF/lifecycle-contrib.xml,
+ OSGI-INF/ui-types-contrib.xml,
+ OSGI-INF/layouts-contrib.xml,
+ OSGI-INF/actions-contrib.xml,
+ OSGI-INF/event-listener-contrib.xml,
+ OSGI-INF/directories-contrib.xml,
+ OSGI-INF/theme-contrib.xml,
+ OSGI-INF/querymodel-contrib.xml,
+ OSGI-INF/resultsprovider-contrib.xml,
+ OSGI-INF/content-template-contrib.xml,
+ OSGI-INF/filemanager-contrib.xml,
+ OSGI-INF/booktitle-service-contrib.xml,
+ OSGI-INF/booktitle-contrib.xml

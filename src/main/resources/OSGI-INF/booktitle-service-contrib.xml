@@ -1,0 +1,14 @@
+<?xml version="1.0"?>
+<component name="org.nuxeo.project.sample.BookTitleService">
+
+  <implementation class="org.nuxeo.project.sample.BookTitleServiceImpl" />
+
+  <service>
+    <provide interface="org.nuxeo.project.sample.BookTitleService" />
+  </service>
+
+  <extension-point name="title">
+    <object class="org.nuxeo.project.sample.BookTitleDescriptor" />
+  </extension-point>
+
+</component>

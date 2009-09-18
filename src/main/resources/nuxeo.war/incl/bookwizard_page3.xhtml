@@ -1,0 +1,29 @@
+<div xmlns="http://www.w3.org/1999/xhtml"
+  xmlns:f="http://java.sun.com/jsf/core"
+  xmlns:h="http://java.sun.com/jsf/html"
+  xmlns:c="http://java.sun.com/jstl/core"
+  xmlns:t="http://myfaces.apache.org/tomahawk"
+  xmlns:nxdir="http://nuxeo.org/nxdirectory">
+
+<h3>Validate</h3>
+
+<h:form>
+
+  First name: <h:outputText value="#{bookManager.firstName}" />
+
+  <br />
+
+  Last name: <h:outputText value="#{bookManager.lastName}" />
+
+  <br />
+
+  ISBN: <h:outputText value="#{bookManager.isbn}" />
+
+  <br />
+
+  <h:commandButton action="#{bookManager.toWizardPage('2')}" value="Previous" />
+  <h:commandButton action="#{bookManager.validateWizard}" value="Validate" />
+
+</h:form>
+
+</div>

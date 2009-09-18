@@ -1,0 +1,19 @@
+<div xmlns="http://www.w3.org/1999/xhtml"
+  xmlns:h="http://java.sun.com/jsf/html"
+  xmlns:ui="http://java.sun.com/jsf/facelets"
+  xmlns:nxd="http://nuxeo.org/nxweb/document">
+
+  <h:form>
+    <h3>Other books</h3>
+    <ul>
+      <ui:repeat value="#{bookManager.booksInFolder}" var="bookinfo">
+        <li>
+          <nxd:restDocumentLink document="#{bookinfo.document}">
+            #{bookinfo.document.dublincore.title}
+          </nxd:restDocumentLink>
+        </li>
+      </ui:repeat>
+    </ul>
+  </h:form>
+
+</div>
