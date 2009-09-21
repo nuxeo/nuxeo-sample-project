@@ -2,39 +2,38 @@
 
 <component name="org.nuxeo.project.sample.layouts">
 
-  <extension target="org.nuxeo.ecm.platform.forms.layout.WebLayoutManager"
-    point="layouts">
+	<extension target="org.nuxeo.ecm.platform.forms.layout.WebLayoutManager"
+		point="layouts">
 
-	<layout name="book">
+		<layout name="book">
 
-      <templates>
-        <template mode="any">/layouts/layout_default_template.xhtml</template>
-      </templates>
+			<templates>
+				<template mode="any">/layouts/layout_default_template.xhtml
+				</template>
+			</templates>
 
-      <rows>
-		<row>
-		  <widget>isbn</widget>
-		</row>
-      </rows>
+			<rows>
+				<row>
+					<widget>isbn</widget>
+				</row>
+			</rows>
 
-      <widget name="isbn" type="text">
-        <labels>
-          <label mode="any">ISBN</label>
-        </labels>
-        <translated>false</translated>
-        <fields>
-          <field>bk:isbn</field>
-        </fields>
+			<widget name="isbn" type="text">
+				<labels>
+					<label mode="any">ISBN</label>
+				</labels>
+				<translated>false</translated>
+				<fields>
+					<field>bk:isbn</field>
+				</fields>
 
-        <widgetModes>
-          <mode value="create">edit</mode>
-          <mode value="any">view</mode>
-        </widgetModes>
-      </widget>
+				<widgetModes>
+					<mode value="create">edit</mode>
+					<mode value="any">view</mode>
+				</widgetModes>
+			</widget>
 
-    </layout>
+		</layout>
 
-
-  </extension>
-
+	</extension>
 </component>

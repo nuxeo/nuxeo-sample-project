@@ -2,14 +2,10 @@ package org.nuxeo.ecm.sample;
 import java.util.Arrays;
 import java.util.Calendar;
 
-import org.nuxeo.ecm.core.NXCore;
 import org.nuxeo.ecm.core.api.DocumentModel;
 import org.nuxeo.ecm.core.api.DocumentModelList;
 import org.nuxeo.ecm.core.api.DocumentRef;
-import org.nuxeo.ecm.core.listener.CoreEventListenerService;
-import org.nuxeo.ecm.core.listener.EventListener;
 import org.nuxeo.ecm.core.repository.jcr.testing.RepositoryOSGITestCase;
-import org.nuxeo.runtime.api.Framework;
 
 /*
  * (C) Copyright 2006-2007 Nuxeo SAS (http://nuxeo.com/) and contributors.
@@ -50,6 +46,7 @@ public class TestRepository extends RepositoryOSGITestCase {
         // repository
         deployContrib(OSGI_BUNDLE_NAME, "OSGI-INF/core-types-contrib.xml");
         deployContrib(OSGI_BUNDLE_NAME, "OSGI-INF/lifecycle-contrib.xml");
+        deployBundle("org.nuxeo.ecm.core.event");
         openRepository();
     }
 
@@ -71,7 +68,6 @@ public class TestRepository extends RepositoryOSGITestCase {
      * and play a bit with life cycle.
      * @throws Exception
      */
-    /*
     public void testLifeCycle() throws Exception {
         DocumentModel docModel = coreSession.getDocument(createBook());
         assertNotNull(docModel);
@@ -81,9 +77,7 @@ public class TestRepository extends RepositoryOSGITestCase {
         docModel.followTransition("approve");
         assertEquals("approved", docModel.getCurrentLifeCycleState());
     }
-    */
 
-    /*
     public void testBookSchema() throws Exception {
         DocumentModel docModel = coreSession.getDocument(createBook());
         assertNotNull(docModel);
@@ -110,7 +104,6 @@ public class TestRepository extends RepositoryOSGITestCase {
                 "publicationDate");
         assertEquals(cal, cal2);
     }
-    */
 
     // This test Requires Nuxeo Core > 1.4.0 (changeUser appears in rev 30024)
     // To use it, change the dependency of nuxeo-jcr-connector-test to
@@ -143,15 +136,6 @@ public class TestRepository extends RepositoryOSGITestCase {
         DocumentModelList children = coreSession.getChildren(
                 coreSession.getRootDocument().getRef());
         assertEquals(0, children.size());
-    }
-
-    public void testEventListeners() throws Exception {
-        deployContrib(OSGI_BUNDLE_NAME, "OSGI-INF/event-listener-contrib.xml");
-        CoreEventListenerService evtService = Framework.getLocalService(CoreEventListenerService.class);
-        EventListener listener = evtService.getEventListenerByName("book_update_isbn");
-        Integer order = listener.getOrder();
-        assertNotNull(order);
-        assertEquals(157, order.intValue());
     }
 
 }

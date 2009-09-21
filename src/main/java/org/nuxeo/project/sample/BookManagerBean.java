@@ -1,5 +1,6 @@
 package org.nuxeo.project.sample;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashSet;
@@ -25,18 +26,14 @@ import org.jboss.seam.annotations.In;
 import org.jboss.seam.annotations.Name;
 import org.jboss.seam.annotations.Observer;
 import org.jboss.seam.annotations.Scope;
-import org.jboss.seam.annotations.WebRemote;
+import org.jboss.seam.annotations.remoting.WebRemote;
 import org.jboss.seam.core.Events;
-import org.jboss.seam.core.FacesMessages;
+import org.jboss.seam.faces.FacesMessages;
 import org.nuxeo.common.utils.Path;
 import org.nuxeo.ecm.core.api.ClientException;
 import org.nuxeo.ecm.core.api.CoreSession;
 import org.nuxeo.ecm.core.api.DocumentModel;
 import org.nuxeo.ecm.core.api.DocumentModelList;
-import org.nuxeo.ecm.core.search.api.client.SearchService;
-import org.nuxeo.ecm.core.search.api.client.query.ComposedNXQuery;
-import org.nuxeo.ecm.core.search.api.client.query.impl.ComposedNXQueryImpl;
-import org.nuxeo.ecm.core.search.api.client.search.results.ResultSet;
 import org.nuxeo.ecm.directory.Session;
 import org.nuxeo.ecm.directory.api.DirectoryService;
 import org.nuxeo.ecm.platform.ui.web.api.NavigationContext;
@@ -49,7 +46,10 @@ import org.nuxeo.runtime.api.Framework;
 
 @Scope(ScopeType.CONVERSATION)
 @Name("bookManager")
-public class BookManagerBean implements BookManager {
+public class BookManagerBean implements BookManager, Serializable {
+
+    private static final long serialVersionUID = 1L;
+
     private static final Log log = LogFactory.getLog(BookManagerBean.class);
 
     @PrePassivate
@@ -85,7 +85,7 @@ public class BookManagerBean implements BookManager {
 
     @In(required = true)
     protected transient ResultsProvidersCache resultsProvidersCache;
-    
+
     private String firstName;
 
     private String lastName;
@@ -248,12 +248,10 @@ public class BookManagerBean implements BookManager {
     /*
      * Search
      */
-
-    public ResultSet getSearchResults() throws Exception {
-        SearchService searchService = Framework.getService(SearchService.class);
-        ComposedNXQuery query = new ComposedNXQueryImpl("SELECT * FROM Book");
-        ResultSet resultSet = searchService.searchQuery(query, 0, 10);
-        return resultSet;
+    public DocumentModelList getSearchResults() throws Exception {
+        DocumentModelList result = documentManager.query("SELECT * FROM Book",
+                10);
+        return result;
     }
 
     /*
@@ -261,7 +259,7 @@ public class BookManagerBean implements BookManager {
      */
 
     public boolean hasFilter() {
-       return filter != null;
+        return filter != null;
     }
 
     public String getFilter() {
@@ -269,12 +267,11 @@ public class BookManagerBean implements BookManager {
     }
 
     public void setFilter(String newfilter) {
-    	if (!(filter == null || filter.equals(newfilter))) {
-    		resultsProvidersCache.invalidate(BookResultsProviderFarm.KEYWORD_KEY);
-    	}
+        if (!(filter == null || filter.equals(newfilter))) {
+            resultsProvidersCache.invalidate(BookResultsProviderFarm.KEYWORD_KEY);
+        }
         this.filter = newfilter;
     }
-
 
     /*
      * Seam remoting
@@ -282,7 +279,7 @@ public class BookManagerBean implements BookManager {
 
     /**
      * @param param some string, that is directly passed from the Javascript
-     *                code.
+     *            code.
      */
     @WebRemote
     public String something(String param) {
@@ -292,9 +289,8 @@ public class BookManagerBean implements BookManager {
     /*
      * Wizard
      */
-
-    public String toWizardPage(String wizardPage) {
-        this.page = wizardPage;
+    public String toWizardPage(String page) {
+        this.page = page;
         return "bookwizard";
     }
 
@@ -315,8 +311,6 @@ public class BookManagerBean implements BookManager {
     /*
      * Books listing in folder
      */
-
-
     public List<BookInfo> getBooksInFolder() throws ClientException {
         List<BookInfo> list = new LinkedList<BookInfo>();
 
@@ -324,17 +318,11 @@ public class BookManagerBean implements BookManager {
         DocumentModelList children = documentManager.getChildren(
                 folder.getRef(), "Book");
         for (DocumentModel doc : children) {
-            String[] bookKeywords = (String[]) doc.getProperty("book",
-                    "keywords");
-            if(bookKeywords == null) {
-            	return null;
-            }
-            list.add(new BookInfo(doc, Arrays.asList(bookKeywords)));
+            String[] keywords = (String[]) doc.getProperty("book", "keywords");
+            list.add(new BookInfo(doc, Arrays.asList(keywords)));
         }
         return list;
     }
-    
- 
 
     public static class BookInfo {
 
@@ -360,7 +348,6 @@ public class BookManagerBean implements BookManager {
     /*
      * Unused
      */
-
     public String duplicateSiblings() throws ClientException {
         DocumentModel doc = navigationContext.getCurrentDocument();
         DocumentModel folder = documentManager.getParentDocument(doc.getRef());
@@ -388,8 +375,8 @@ public class BookManagerBean implements BookManager {
                 "Book")) {
             DocumentModel newChild = documentManager.createDocumentModel(
                     newFolderPath, child.getName(), "Note");
-            String title = child.getProperty("dublincore", "title") +
-                    " duplicated";
+            String title = child.getProperty("dublincore", "title")
+                    + " duplicated";
             newChild.setProperty("dublincore", "title", title);
             documentManager.createDocument(newChild);
         }
@@ -398,17 +385,16 @@ public class BookManagerBean implements BookManager {
         Events.instance().raiseEvent(EventNames.DOCUMENT_CHILDREN_CHANGED, gp);
         return null;
     }
-    
+
     private Path getContainerPath() {
-    	 DocumentModel currentDocument = navigationContext.getCurrentDocument();
-    	 if (currentDocument.getDocumentType().getName().equals("Book"))
-    		 return currentDocument.getPath().removeLastSegments(1);
-    	 return currentDocument.getPath();
+        DocumentModel currentDocument = navigationContext.getCurrentDocument();
+        if (currentDocument.getDocumentType().getName().equals("Book"))
+            return currentDocument.getPath().removeLastSegments(1);
+        return currentDocument.getPath();
     }
 
-	public KeywordCriteria getKeywordCriteria() {
-		return new KeywordCriteria(getContainerPath(),getFilter());
-	}
+    public KeywordCriteria getKeywordCriteria() {
+        return new KeywordCriteria(getContainerPath(), getFilter());
+    }
 
- 
 }

@@ -8,4 +8,5 @@
     <resultsProvider name="BOOK" farm="bookResultsProviderFarm" />
 
   </extension>
+
 </component>

@@ -1,34 +1,39 @@
 <?xml version="1.0"?>
 <component name="org.nuxeo.project.sample.actions">
 
-  <extension target="org.nuxeo.ecm.platform.actions.ActionService" point="actions">
-    <action id="tab_book_view"
-      link="/incl/tabs/book_view.xhtml" enabled="true"
-      label="Book" icon="/icons/file.gif" order="9">
-      <category>VIEW_ACTION_LIST</category>
-      <filter id="book_filter">
-      </filter>
-    </action>
+	<extension target="org.nuxeo.ecm.platform.actions.ActionService"
+		point="filters">
+		<filter id="jbpm-process" append="true">
+			<rule grant="true">
+				<permission>Read</permission>
+				<type>Book</type>
+			</rule>
+		</filter>
+	</extension>
 
-    <action id="tab_folder_books_list"
-      link="/incl/tabs/folder_books_view.xhtml" enabled="true"
-      label="Books" icon="/icons/file.gif" order="15">
-      <category>VIEW_ACTION_LIST</category>
-      <filter id="workspace_books_filter">
-        <rule grant="true">
-          <type>Folder</type>
-          <type>Workspace</type>
-        </rule>
-      </filter>
-    </action>
-  </extension>
+	<extension target="org.nuxeo.ecm.platform.actions.ActionService"
+		point="actions">
 
-  <extension target="org.nuxeo.ecm.platform.actions.ActionService" point="filters">
-    <filter id="book_filter" append="true">
-      <rule grant="true">
-        <type>Book</type>
-      </rule>
-    </filter>
-  </extension>
+		<action id="tab_book_view" link="/incl/tabs/book_view.xhtml"
+			enabled="true" label="Book" icon="/icons/file.gif" order="9">
+			<category>VIEW_ACTION_LIST</category>
+			<filter id="book_filter">
+				<rule grant="true">
+					<type>Book</type>
+				</rule>
+			</filter>
+		</action>
+
+		<action id="tab_folder_books_list" link="/incl/tabs/folder_books_view.xhtml"
+			enabled="true" label="Books" icon="/icons/file.gif" order="15">
+			<category>VIEW_ACTION_LIST</category>
+			<filter id="workspace_books_filter">
+				<rule grant="true">
+					<type>Folder</type>
+					<type>Workspace</type>
+				</rule>
+			</filter>
+		</action>
+	</extension>
 
 </component>

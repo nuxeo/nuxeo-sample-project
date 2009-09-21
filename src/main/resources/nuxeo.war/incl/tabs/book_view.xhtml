@@ -89,7 +89,7 @@
   <div>
     <h3>Seam remoting example</h3>
     <script type="text/javascript"
-      src="#{baseURL}seam/remoting/interface.js?bookManager">
+      src="#{baseURL}seam/resource/remoting/interface.js?bookManager">
     </script>
     <script type="text/javascript">
       function doSomething() {
@@ -110,9 +110,9 @@
   <div>
     <h3>Search example</h3>
     <ul>
-      <ui:repeat value="#{bookManager.searchResults}" var="resultItem">
+      <ui:repeat value="#{bookManager.searchResults}" var="documentModel">
         <li>
-          #{resultItem['dc:title']}
+          #{documentModel.title}
         </li>
       </ui:repeat>
     </ul>

@@ -34,6 +34,7 @@
     <exec executable="mvn" failonerror="true">
       <arg value="install" />
       <arg value="-Dmaven.test.skip=true" />
+      <arg value="${mvn.opts}" />
     </exec>
   </target>
   <target name="install-windows" if="osfamily-windows">
@@ -42,6 +43,7 @@
       <arg value="mvn.bat" />
       <arg value="install" />
       <arg value="-Dmaven.test.skip=true" />
+      <arg value="${mvn.opts}" />
     </exec>
   </target>
 

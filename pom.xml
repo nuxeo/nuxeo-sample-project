@@ -5,8 +5,8 @@
 
   <parent>
     <groupId>org.nuxeo.ecm.platform</groupId>
-    <artifactId>nuxeo-platform-parent</artifactId>
-    <version>5.1.6-SNAPSHOT</version>
+    <artifactId>nuxeo-features-parent</artifactId>
+    <version>5.2.1-SNAPSHOT</version>
   </parent>
 
   <groupId>nuxeo-project-sample</groupId>
@@ -16,8 +16,8 @@
 
   <repositories>
     <repository>
-      <id>nuxeo-release</id>
-      <url>http://maven.nuxeo.org/nuxeo-release</url>
+      <id>public</id>
+      <url>http://maven.nuxeo.org/public</url>
       <releases>
         <enabled>true</enabled>
       </releases>
@@ -26,8 +26,8 @@
       </snapshots>
     </repository>
     <repository>
-      <id>nuxeo-snapshot</id>
-      <url>http://maven.nuxeo.org/nuxeo-snapshot</url>
+      <id>public-snapshot</id>
+      <url>http://maven.nuxeo.org/public-snapshot</url>
       <releases>
         <enabled>false</enabled>
       </releases>
@@ -43,29 +43,25 @@
       <artifactId>nuxeo-core</artifactId>
     </dependency>
     <dependency>
+      <groupId>org.nuxeo.ecm.core</groupId>
+      <artifactId>nuxeo-core-event</artifactId>
+    </dependency>
+    <dependency>
       <groupId>org.nuxeo.ecm.platform</groupId>
       <artifactId>nuxeo-platform-webapp-core</artifactId>
-      <type>ejb</type>
     </dependency>
     <dependency>
       <groupId>org.nuxeo.ecm.platform</groupId>
-      <artifactId>nuxeo-platform-workflow-jbpm-document-handlers</artifactId>
+      <artifactId>nuxeo-platform-jbpm-core</artifactId>
     </dependency>
     <dependency>
       <groupId>org.nuxeo.ecm.platform</groupId>
-      <artifactId>nuxeo-platform-notification-core</artifactId>
-      <type>ejb</type>
-    </dependency>
-    <dependency>
-      <groupId>org.nuxeo.ecm.platform</groupId>
-      <artifactId>nuxeo-platform-notification-facade</artifactId>
-      <type>ejb</type>
+      <artifactId>nuxeo-platform-jbpm-web</artifactId>
     </dependency>
     <dependency>
       <groupId>org.nuxeo.ecm.platform</groupId>
       <artifactId>nuxeo-platform-filemanager-core</artifactId>
     </dependency>
-
     <dependency>
       <groupId>javax.ejb</groupId>
       <artifactId>ejb</artifactId>
@@ -90,10 +86,6 @@
       <groupId>jboss</groupId>
       <artifactId>jboss-j2ee</artifactId>
       <scope>provided</scope>
-    </dependency>
-    <dependency>
-      <groupId>jboss</groupId>
-      <artifactId>jbpm</artifactId>
     </dependency>
     <dependency>
       <groupId>org.hibernate</groupId>
@@ -127,4 +119,28 @@
     </dependency>
   </dependencies>
 
+  <!--
+    the following should probably be factorized in the nuxeo-features-parent
+    pom.xml file
+  -->
+  <dependencyManagement>
+    <dependencies>
+      <dependency>
+        <groupId>org.nuxeo.ecm.platform</groupId>
+        <artifactId>nuxeo-platform-webapp</artifactId>
+        <version>${nuxeo.features.version}</version>
+      </dependency>
+      <dependency>
+        <groupId>org.nuxeo.ecm.platform</groupId>
+        <artifactId>nuxeo-platform-webapp-core</artifactId>
+        <version>${nuxeo.features.version}</version>
+      </dependency>
+    </dependencies>
+  </dependencyManagement>
+
+  <scm>
+    <connection>scm:svn:http://svn.nuxeo.org/nuxeo/org.nuxeo.project.sample/trunk</connection>
+    <developerConnection>scm:svn:https://svn.nuxeo.org/nuxeo/org.nuxeo.project.sample/trunk</developerConnection>
+    <url>http://svn.nuxeo.org/trac/nuxeo/browser/org.nuxeo.project.sample/trunk</url>
+  </scm>
 </project>

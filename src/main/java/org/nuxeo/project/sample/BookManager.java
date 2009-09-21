@@ -6,18 +6,17 @@ import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
 import javax.faces.model.SelectItem;
 
-import org.jboss.seam.annotations.WebRemote;
+import org.jboss.seam.annotations.remoting.WebRemote;
 import org.nuxeo.ecm.core.api.ClientException;
-import org.nuxeo.ecm.core.search.api.client.search.results.ResultSet;
+import org.nuxeo.ecm.core.api.DocumentModelList;
 import org.nuxeo.project.sample.BookManagerBean.BookInfo;
 
 /**
  * Interface for the <code>bookManager</code> Seam component.
  * <p>
- * Use of this interface would be of course necessary if the Seam
- * component was also an EJB3. In that latter case, the <code>WebRemote</code>
- * annotation has to be put on the interface method, instead of the
- * implementation method.
+ * Use of this interface would be of course necessary if the Seam component was
+ * also an EJB3. In that latter case, the <code>WebRemote</code> annotation has
+ * to be put on the interface method, instead of the implementation method.
  * </p>
  */
 public interface BookManager {
@@ -67,7 +66,7 @@ public interface BookManager {
     public void validation(FacesContext context, UIComponent component,
             Object value);
 
-    public ResultSet getSearchResults() throws Exception;
+    public DocumentModelList getSearchResults() throws Exception;
 
     public String getParentTitle() throws ClientException;
 
@@ -76,7 +75,7 @@ public interface BookManager {
     public List<BookInfo> getBooksInFolder() throws ClientException;
 
     public BookResultsProviderFarm.KeywordCriteria getKeywordCriteria();
-    
+
     public boolean hasFilter();
 
     public String getFilter();
@@ -85,10 +84,11 @@ public interface BookManager {
 
     /**
      * Method to demonstrate Seam Remoting.
-     * <p>The annotation has to be on the
-     * interface in EJB3 situation. Otherwise it has to be on the
-     * component implementation.
+     * <p>
+     * The annotation has to be on the interface in EJB3 situation. Otherwise it
+     * has to be on the component implementation.
      * </p>
+     * 
      * @param param parameter used from the javascript code.
      * @return something that uses the parameter
      */

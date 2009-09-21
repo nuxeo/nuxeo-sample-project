@@ -1,0 +1,81 @@
+<?xml version="1.0"?>
+<process-definition name="book">
+	<swimlane name="initiator" />
+
+	<!-- Start of the workflow -->
+	<start-state name="start state">
+		<task swimlane="initiator" name="start" />
+		<transition name="start process" to="choose participants node" />
+	</start-state>
+
+	<!-- Choosing participants task. -->
+	<task-node name="choose participants node">
+		<task name="choose-participant" swimlane="initiator" />
+		<transition name="to setup rights" to="setup rights" />
+	</task-node>
+	
+	<!--  Set rights on the document -->
+	<node name="setup rights">
+      <action
+        class="org.nuxeo.ecm.platform.jbpm.core.helper.AddRightsActionHandler">
+        <list>participants</list>
+      </action>
+      <transition to="fork each participant" />
+    </node>
+	
+
+	<!-- Loop on each participant -->
+	<node name="fork each participant">
+		<action class="org.nuxeo.ecm.platform.jbpm.core.node.ForeachFork">
+			<var>participant</var>
+			<list>participants</list>
+		</action>
+		<transition to="validate node">
+			<script>
+				<expression><![CDATA[executionContext.setVariable("participants",null)]]></expression>
+			</script>
+		</transition>
+	</node>
+
+	<!-- Task that every participant have to do -->
+	<task-node name="validate node">
+		<task name="validate">
+			<controller
+				class="org.nuxeo.ecm.platform.jbpm.core.node.VirtualTaskInstanceController" />
+			<assignment pooled-actors="#{participant.actors}" />
+		</task>
+		<transition name="valid" to="participants join" />
+		<transition name="reject" to="participants join">
+			<script>
+				<expression><![CDATA[executionContext.setVariable("rejected", true)]]></expression>
+			</script>
+		</transition>
+	</task-node>
+
+	<!--
+		Waits for all participants to finish their tasks before resuming.
+	-->
+	<join name="participants join">
+		<transition to="test rejection decision" />
+	</join>
+
+	<!--
+		If no participant disagree the new title go to update title node, else
+		end the workflow
+	-->
+	<decision name="test rejection decision">
+		<transition to="end" condition="#{contextInstance.variables['rejected']}" />
+		<transition to="update Book Title" condition="#{!contextInstance.variables['rejected']}" />
+	</decision>
+
+	<!--  Update the book with the new title -->
+	<node name="update Book Title">
+		<action class="org.nuxeo.project.sample.jbpm.NewTitleActionHandler" />
+		<transition to="end" />
+	</node>
+
+	<!--  End of the workflow  -->
+	<end-state name="end"/>
+	
+
+</process-definition>

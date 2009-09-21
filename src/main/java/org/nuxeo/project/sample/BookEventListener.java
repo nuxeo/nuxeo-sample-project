@@ -3,27 +3,29 @@ package org.nuxeo.project.sample;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
 import org.nuxeo.ecm.core.api.ClientException;
 import org.nuxeo.ecm.core.api.DocumentModel;
-import org.nuxeo.ecm.core.api.event.CoreEvent;
-import org.nuxeo.ecm.core.listener.AbstractEventListener;
-import org.nuxeo.ecm.core.listener.AsynchronousEventListener;
+import org.nuxeo.ecm.core.event.Event;
+import org.nuxeo.ecm.core.event.EventContext;
+import org.nuxeo.ecm.core.event.EventListener;
+import org.nuxeo.ecm.core.event.impl.DocumentEventContext;
 
-public class BookEventListener extends AbstractEventListener implements
-        AsynchronousEventListener {
+public class BookEventListener implements EventListener {
 
-    private static final Log log = LogFactory.getLog(BookEventListener.class);
+    public void handleEvent(Event event) throws ClientException {
 
-    public void notifyEvent(CoreEvent coreEvent) {
-        DocumentModel doc = (DocumentModel) coreEvent.getSource();
-        String type = doc.getType();
-        if (type.equals("Book")) {
-            try {
-                process(doc);
-            } catch (ClientException e) {
-                log.error(e);
+        EventContext ctx = event.getContext();
+
+        if (ctx instanceof DocumentEventContext) {
+
+            DocumentEventContext docCtx = (DocumentEventContext) ctx;
+            DocumentModel doc = docCtx.getSourceDocument();
+
+            if (doc != null) {
+                String type = doc.getType();
+                if ("Book".equals(type)) {
+                    process(doc);
+                }
             }
         }
     }
@@ -31,9 +33,10 @@ public class BookEventListener extends AbstractEventListener implements
     private static SimpleDateFormat fmt = new SimpleDateFormat("yyyy-MM-dd");
 
     public void process(DocumentModel doc) throws ClientException {
-        doc.setProperty("dublincore", "title", "Super Book");
+        doc.setPropertyValue("dublincore:title", "Sample Book");
         String date = fmt.format(new Date());
-        doc.setProperty("dublincore", "description", "(Created on "+date+")");
+        doc.setPropertyValue("dublincore:description", "(Created on " + date
+                + ")");
     }
 
 }
