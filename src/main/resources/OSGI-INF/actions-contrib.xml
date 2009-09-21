@@ -14,7 +14,7 @@
 	<extension target="org.nuxeo.ecm.platform.actions.ActionService"
 		point="actions">
 
-		<action id="tab_book_view" link="/incl/tabs/book_view.xhtml"
+		<action id="tab_book_view" link="/incl/tabs/sample_book_view.xhtml"
 			enabled="true" label="Book" icon="/icons/file.gif" order="9">
 			<category>VIEW_ACTION_LIST</category>
 			<filter id="book_filter">

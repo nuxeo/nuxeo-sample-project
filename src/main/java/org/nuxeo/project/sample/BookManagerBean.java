@@ -319,6 +319,9 @@ public class BookManagerBean implements BookManager, Serializable {
                 folder.getRef(), "Book");
         for (DocumentModel doc : children) {
             String[] keywords = (String[]) doc.getProperty("book", "keywords");
+            if(keywords == null) {
+            	continue;
+            }
             list.add(new BookInfo(doc, Arrays.asList(keywords)));
         }
         return list;
