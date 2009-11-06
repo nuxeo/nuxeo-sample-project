@@ -1,0 +1,22 @@
+<?xml version="1.0"?>
+<component name="org.nuxeo.project.sample.restpack.contrib">
+
+    <extension target="org.nuxeo.ecm.platform.ui.web.restAPI.service.PluggableRestletService"
+        point="restlets">
+        <documentation>
+           GET /nuxeo/restAPI/lastBook/
+           This Restlet gets the last created Book Document in default domain
+           and send a custom JSon Object to the client.
+        </documentation>
+        <restletPlugin
+            name="lastBook"
+            class="org.nuxeo.project.sample.restAPI.LastBookRestlet"
+            enabled="true"
+            useSeam="false"
+            useConversation="false">
+            <urlPatterns>
+                <urlPattern>/lastBook/</urlPattern>
+            </urlPatterns>
+        </restletPlugin>
+    </extension>
+</component>

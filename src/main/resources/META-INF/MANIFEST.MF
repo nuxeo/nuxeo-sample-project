@@ -24,4 +24,6 @@ Nuxeo-Component: OSGI-INF/core-types-contrib.xml,
  OSGI-INF/filemanager-contrib.xml,
  OSGI-INF/booktitle-service-contrib.xml,
  OSGI-INF/booktitle-contrib.xml,
- OSGI-INF/workflow-contrib.xml
+ OSGI-INF/workflow-contrib.xml,
+ OSGI-INF/restpack-contrib.xml,
+ OSGI-INF/gadget-contrib.xml

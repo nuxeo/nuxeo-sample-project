@@ -7,6 +7,7 @@
     <type id="Book" coretype="Book">
       <label>Book</label>
       <icon>/icons/book.png</icon>
+      <bigIcon>/icons/book_100.png</bigIcon>
       <default-view>view_documents</default-view>
       <layouts mode="any">
         <layout>heading</layout>

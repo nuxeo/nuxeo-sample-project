@@ -14,6 +14,17 @@
         defaultSortAscending="true" />
     </queryModel>
 
+    <queryModel name="LAST_BOOK">
+      <pattern>
+        SELECT * FROM Book WHERE ecm:mixinType != 'HiddenInNavigation' AND
+        ecm:isCheckedInVersion = 0 AND ecm:isProxy = 0 AND
+        ecm:currentLifeCycleState != 'deleted' AND ecm:path STARTSWITH '/default-domain'
+      </pattern>
+      <max>1</max>
+      <sortable value="true" defaultSortColumn="dc:title"
+        defaultSortAscending="false" />
+    </queryModel>
+
   </extension>
 
 </component>
