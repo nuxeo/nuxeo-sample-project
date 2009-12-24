@@ -1,8 +1,3 @@
-package org.nuxeo.ecm.sample;
-import org.nuxeo.project.sample.BookTitleService;
-import org.nuxeo.runtime.api.Framework;
-import org.nuxeo.runtime.test.NXRuntimeTestCase;
-
 /*
  * (C) Copyright 2006-2007 Nuxeo SAS (http://nuxeo.com/) and contributors.
  *
@@ -17,10 +12,14 @@ import org.nuxeo.runtime.test.NXRuntimeTestCase;
  * Lesser General Public License for more details.
  *
  * Contributors:
- *     gracinet
- *
- * $Id$
+ *     Georges Racinet
  */
+
+package org.nuxeo.ecm.sample;
+
+import org.nuxeo.project.sample.BookTitleService;
+import org.nuxeo.runtime.api.Framework;
+import org.nuxeo.runtime.test.NXRuntimeTestCase;
 
 /**
  * The main purpose of this test case is to demonstrate the use of
@@ -29,8 +28,6 @@ import org.nuxeo.runtime.test.NXRuntimeTestCase;
  * It just loads the book service definition and checks that
  * the configuration system works as expected.
  * It does not test the default configuration, however.
- *
- * @author gracinet
  *
  */
 public class TestBookTitleService extends NXRuntimeTestCase {
@@ -41,6 +38,7 @@ public class TestBookTitleService extends NXRuntimeTestCase {
 
     private static final String OSGI_TEST_BUNDLE = "org.nuxeo.project.sample.tests";
 
+    @Override
     public void setUp() throws Exception {
         super.setUp();
         // deployment of the whole nuxeo-project sample bundle
