@@ -58,9 +58,8 @@
 
   <extension target="org.nuxeo.theme.services.ThemeService"
     point="views">
-    <view name="book listing fragment">
+    <view name="book listing fragment" template-engine="jsf-facelets">
       <format-type>widget</format-type>
-      <class>org.nuxeo.theme.jsf.views.JSFView</class>
       <template>incl/book_listing_fragment.xhtml</template>
     </view>
   </extension>
