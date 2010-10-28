@@ -57,7 +57,7 @@ public class LastBookRestlet extends BaseQueryModelRestlet {
     @Override
     protected CoreSession getCoreSession(Request req, Response res,
             String repoName) {
-        repoName = (String) (String) req.getResourceRef().getQueryAsForm().getFirstValue(
+        repoName = req.getResourceRef().getQueryAsForm().getFirstValue(
                 "repo");
         return super.getCoreSession(req, res, repoName);
     }
