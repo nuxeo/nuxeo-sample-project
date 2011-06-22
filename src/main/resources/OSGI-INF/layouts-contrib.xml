@@ -15,9 +15,11 @@
 			<rows>
 				<row>
 					<widget>isbn</widget>
+					<widget>pubdate</widget>
 				</row>
 			</rows>
 
+	
 			<widget name="isbn" type="text">
 				<labels>
 					<label mode="any">ISBN</label>
@@ -33,6 +35,21 @@
 				</widgetModes>
 			</widget>
 
+	
+			<widget name="pubdate" type="datetime">
+				<labels>
+					<label mode="any">Publication date</label>
+				</labels>
+				<translated>false</translated>
+				<fields>
+					<field>bk:publicationDate</field>
+				</fields>
+
+				<widgetModes>
+					<mode value="any">edit</mode>
+				</widgetModes>
+			</widget>
+			
 		</layout>
 
 	</extension>
