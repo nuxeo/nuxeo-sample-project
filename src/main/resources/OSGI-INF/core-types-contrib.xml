@@ -16,7 +16,6 @@
       <schema name="uid" />
       <facet name="Commentable" />
       <facet name="Versionable" />
-      <facet name="Indexable" />
     </doctype>
 
   </extension>

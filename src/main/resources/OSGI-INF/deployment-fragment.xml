@@ -1,11 +1,7 @@
 <?xml version="1.0"?>
-<fragment>
+<fragment version="1">
 
-  <extension target="application#MODULE">
-    <module>
-      <java>${bundle.fileName}</java>
-    </module>
-  </extension>
+  <require>org.nuxeo.ecm.platform.lang</require>
 
   <extension target="faces-config#NAVIGATION">
     <navigation-case>
