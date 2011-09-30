@@ -40,10 +40,6 @@
       <artifactId>nuxeo-platform-filemanager-core</artifactId>
     </dependency>
     <dependency>
-      <groupId>javax.ejb</groupId>
-      <artifactId>ejb</artifactId>
-    </dependency>
-    <dependency>
       <groupId>javax.faces</groupId>
       <artifactId>jsf-api</artifactId>
     </dependency>

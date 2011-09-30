@@ -21,12 +21,6 @@ import org.nuxeo.project.sample.BookManagerBean.BookInfo;
  */
 public interface BookManager {
 
-    public void prePassivate();
-
-    public void postActivate();
-
-    public void destroy();
-
     public List<SelectItem> getAvailableKeywords() throws ClientException;
 
     public List<String> getKeywords();
@@ -88,7 +82,7 @@ public interface BookManager {
      * The annotation has to be on the interface in EJB3 situation. Otherwise it
      * has to be on the component implementation.
      * </p>
-     * 
+     *
      * @param param parameter used from the javascript code.
      * @return something that uses the parameter
      */

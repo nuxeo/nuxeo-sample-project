@@ -9,9 +9,6 @@ import java.util.List;
 import java.util.Random;
 import java.util.Set;
 
-import javax.ejb.PostActivate;
-import javax.ejb.PrePassivate;
-import javax.ejb.Remove;
 import javax.faces.application.FacesMessage;
 import javax.faces.component.EditableValueHolder;
 import javax.faces.component.UIComponent;
@@ -21,7 +18,6 @@ import javax.faces.model.SelectItem;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.jboss.seam.ScopeType;
-import org.jboss.seam.annotations.Destroy;
 import org.jboss.seam.annotations.In;
 import org.jboss.seam.annotations.Name;
 import org.jboss.seam.annotations.Observer;
@@ -51,22 +47,6 @@ public class BookManagerBean implements BookManager, Serializable {
     private static final long serialVersionUID = 1L;
 
     private static final Log log = LogFactory.getLog(BookManagerBean.class);
-
-    @PrePassivate
-    public void prePassivate() {
-        log.debug("prePassivate");
-    }
-
-    @PostActivate
-    public void postActivate() {
-        log.debug("postActivate");
-    }
-
-    @Remove
-    @Destroy
-    public void destroy() {
-        log.debug("destroy");
-    }
 
     @In(create = true)
     protected transient NavigationContext navigationContext;
@@ -320,7 +300,7 @@ public class BookManagerBean implements BookManager, Serializable {
         for (DocumentModel doc : children) {
             String[] keywords = (String[]) doc.getProperty("book", "keywords");
             if(keywords == null) {
-            	continue;
+                continue;
             }
             list.add(new BookInfo(doc, Arrays.asList(keywords)));
         }
