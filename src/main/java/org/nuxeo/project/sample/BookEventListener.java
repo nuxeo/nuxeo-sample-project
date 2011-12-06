@@ -12,6 +12,7 @@ import org.nuxeo.ecm.core.event.impl.DocumentEventContext;
 
 public class BookEventListener implements EventListener {
 
+    @Override
     public void handleEvent(Event event) throws ClientException {
 
         EventContext ctx = event.getContext();
@@ -30,11 +31,9 @@ public class BookEventListener implements EventListener {
         }
     }
 
-    private static SimpleDateFormat fmt = new SimpleDateFormat("yyyy-MM-dd");
-
     public void process(DocumentModel doc) throws ClientException {
         doc.setPropertyValue("dublincore:title", "Sample Book");
-        String date = fmt.format(new Date());
+        String date = new SimpleDateFormat("yyyy-MM-dd").format(new Date());
         doc.setPropertyValue("dublincore:description", "(Created on " + date
                 + ")");
     }
