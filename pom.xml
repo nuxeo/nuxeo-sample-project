@@ -117,25 +117,6 @@
     </dependency>
   </dependencies>
 
-  <!--
-    the following should probably be factorized in the nuxeo-features-parent
-    pom.xml file
-  -->
-  <dependencyManagement>
-    <dependencies>
-      <dependency>
-        <groupId>org.nuxeo.ecm.platform</groupId>
-        <artifactId>nuxeo-platform-webapp</artifactId>
-        <version>${nuxeo.features.version}</version>
-      </dependency>
-      <dependency>
-        <groupId>org.nuxeo.ecm.platform</groupId>
-        <artifactId>nuxeo-platform-webapp-core</artifactId>
-        <version>${nuxeo.features.version}</version>
-      </dependency>
-    </dependencies>
-  </dependencyManagement>
-
   <scm>
     <connection>scm:svn:http://svn.nuxeo.org/nuxeo/org.nuxeo.project.sample/trunk</connection>
     <developerConnection>scm:svn:https://svn.nuxeo.org/nuxeo/org.nuxeo.project.sample/trunk</developerConnection>
