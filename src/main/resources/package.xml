@@ -1,0 +1,34 @@
+<!-- See documentation at http://doc.nuxeo.com/x/HgIz -->
+<package type="addon" name="nuxeo-sample" version="@VERSION@">
+  <title>Nuxeo Sample</title>
+  <description>
+    <p>This addon adds the "sample project" functionality to Nuxeo.</p>
+    <p>Put here an HTML description of your Marketplace package.</p>
+  </description>
+  <home-page>http://doc.nuxeo.com/</home-page>
+  <vendor>Your company</vendor>
+  <installer restart="true" />
+  <uninstaller restart="true" />
+  <!-- <hotreload-support>false</hotreload-support> -->
+  <!-- <require-terms-and-conditions-acceptance>false</require-terms-and-conditions-acceptance> -->
+  <nuxeo-validation>nuxeo_certified</nuxeo-validation>
+  <production-state>production_ready</production-state>
+  <supported>false</supported>
+  <platforms>
+    <platform>cap-@DISTRIB_VERSION@</platform>
+  </platforms>
+  <!-- Dependencies on other packages -->
+  <!-- <dependencies> -->
+  <!-- <package>another-package:1.0.0:1.0.0</package> -->
+  <!-- </dependencies> -->
+  <!-- Conflicts with other packages -->
+  <!-- <conflicts> -->
+  <!-- <package>a-conflicting-package:1.0.0:1.0.0</package> -->
+  <!-- </conflicts> -->
+  <!-- Provides features of other packages -->
+  <!-- <provides> -->
+  <!-- <package>an-embedded-package:1.0.0:1.0.0</package> -->
+  <!-- </provides> -->
+  <license>LGPL</license>
+  <license-url>http://www.gnu.org/licenses/lgpl.html</license-url>
+</package>
