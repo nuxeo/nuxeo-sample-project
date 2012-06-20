@@ -6,7 +6,7 @@
   <parent>
     <groupId>org.nuxeo</groupId>
     <artifactId>nuxeo-addons-parent</artifactId>
-    <version>5.5-SNAPSHOT</version>
+    <version>5.6-SNAPSHOT</version>
   </parent>
 
   <groupId>nuxeo-sample-project</groupId>
@@ -59,12 +59,7 @@
     <!-- Scope test -->
     <dependency>
       <groupId>org.nuxeo.ecm.core</groupId>
-      <artifactId>nuxeo-core-storage-sql</artifactId>
-      <scope>test</scope>
-    </dependency>
-    <dependency>
-      <groupId>org.nuxeo.ecm.core</groupId>
-      <artifactId>nuxeo-core-storage-sql-test</artifactId>
+      <artifactId>nuxeo-core-test</artifactId>
       <scope>test</scope>
     </dependency>
     <dependency>
@@ -80,9 +75,9 @@
   </dependencies>
 
   <scm>
-    <connection>scm:svn:http://hg.nuxeo.org/addons/nuxeo-sample-project/</connection>
-    <developerConnection>scm:svn:https://hg.nuxeo.org/addons/nuxeo-sample-project/</developerConnection>
-    <url>http://hg.nuxeo.org/addons/nuxeo-sample-project/</url>
+    <connection>scm:git:git://github.com/nuxeo/nuxeo-sample-project.git</connection>
+    <developerConnection>scm:git:ssh://git@github.com:nuxeo/nuxeo-sample-project.git</developerConnection>
+    <url>https://github.com/nuxeo/nuxeo-sample-project</url>
   </scm>
 
   <repositories>

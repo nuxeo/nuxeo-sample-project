@@ -1,5 +1,5 @@
 /*
- * (C) Copyright 2006-2007 Nuxeo SAS (http://nuxeo.com/) and contributors.
+ * (C) Copyright 2006-2012 Nuxeo SA (http://nuxeo.com/) and contributors.
  *
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the GNU Lesser General Public License
@@ -12,50 +12,54 @@
  * Lesser General Public License for more details.
  *
  * Contributors:
- *     Georges Racinet
+ *     Georges Racinet, jcarsique
  */
 
 package org.nuxeo.ecm.sample;
 
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotNull;
+
+import org.junit.Test;
+import org.junit.runner.RunWith;
 import org.nuxeo.project.sample.BookTitleService;
-import org.nuxeo.runtime.api.Framework;
-import org.nuxeo.runtime.test.NXRuntimeTestCase;
+import org.nuxeo.runtime.test.runner.Deploy;
+import org.nuxeo.runtime.test.runner.Features;
+import org.nuxeo.runtime.test.runner.FeaturesRunner;
+import org.nuxeo.runtime.test.runner.RuntimeFeature;
+
+import com.google.inject.Inject;
 
 /**
  * The main purpose of this test case is to demonstrate the use of
- * {@link NXRuntimeTestCase}.
+ * {@link RuntimeFeature}.
  *
- * It just loads the book service definition and checks that
- * the configuration system works as expected.
- * It does not test the default configuration, however.
+ * It just loads the book service definition and checks that the configuration
+ * system works as expected. It does not test the default configuration,
+ * however.
  *
  */
-public class TestBookTitleService extends NXRuntimeTestCase {
+@RunWith(FeaturesRunner.class)
+@Features(RuntimeFeature.class)
+// @RepositoryConfig(type = BackendType.H2, user = "Administrator", cleanup =
+// Granularity.METHOD)
+@Deploy({
+// deployment of the whole nuxeo-project sample bundle
+        "org.nuxeo.project.sample",
+        // A test contribution, i.e, used in the scope of these tests only
+        "org.nuxeo.project.sample.tests:sample-booktitle-test.xml" })
+public class TestBookTitleService {
 
-    private BookTitleService service;
+    @Inject
+    protected BookTitleService service;
 
-    private static final String OSGI_BUNDLE_NAME = "org.nuxeo.project.sample";
-
-    private static final String OSGI_TEST_BUNDLE = "org.nuxeo.project.sample.tests";
-
-    @Override
-    public void setUp() throws Exception {
-        super.setUp();
-        // deployment of the whole nuxeo-project sample bundle
-        deployBundle(OSGI_BUNDLE_NAME);
-
-        service = Framework.getService(BookTitleService.class);
-    }
-
+    @Test
     public void testServiceRegistration() throws Exception {
         assertNotNull(service);
     }
 
+    @Test
     public void testServiceContribution() throws Exception {
-        // A test contribution, i.e, used in the scope of these tests only
-        // Lookup is ensured simply by making the 'test' sub-hierarchy a
-        // bundle of its own, with a MANIFEST file
-        deployContrib(OSGI_TEST_BUNDLE, "sample-booktitle-test.xml");
         assertEquals("FOOBAR Test", service.correctTitle("foobar"));
     }
 }

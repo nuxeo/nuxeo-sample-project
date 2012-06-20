@@ -1,5 +1,5 @@
 /*
- * (C) Copyright 2006-2007 Nuxeo SAS (http://nuxeo.com/) and contributors.
+ * (C) Copyright 2006-2012 Nuxeo SA (http://nuxeo.com/) and contributors.
  *
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the GNU Lesser General Public License
@@ -17,9 +17,22 @@
 
 package org.nuxeo.ecm.sample;
 
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertTrue;
+
+import java.io.Serializable;
 import java.util.Arrays;
 import java.util.Calendar;
+import java.util.HashMap;
+import java.util.Map;
 
+import org.junit.Before;
+import org.junit.Ignore;
+import org.junit.Test;
+import org.junit.runner.RunWith;
+import org.nuxeo.ecm.core.api.CoreInstance;
+import org.nuxeo.ecm.core.api.CoreSession;
 import org.nuxeo.ecm.core.api.DocumentModel;
 import org.nuxeo.ecm.core.api.DocumentModelList;
 import org.nuxeo.ecm.core.api.DocumentRef;
@@ -28,29 +41,41 @@ import org.nuxeo.ecm.core.api.security.ACL;
 import org.nuxeo.ecm.core.api.security.ACP;
 import org.nuxeo.ecm.core.api.security.SecurityConstants;
 import org.nuxeo.ecm.core.api.security.impl.ACLImpl;
-import org.nuxeo.ecm.core.storage.sql.SQLRepositoryTestCase;
+import org.nuxeo.ecm.core.test.CoreFeature;
+import org.nuxeo.ecm.core.test.RepositorySettings;
+import org.nuxeo.runtime.test.runner.Deploy;
+import org.nuxeo.runtime.test.runner.Features;
+import org.nuxeo.runtime.test.runner.FeaturesRunner;
+
+import com.google.inject.Inject;
 
 /**
  * Example of a test case that sets up a repository, and in particular checks
  * that our project core contributions are correctly taken into account.
  */
-public class TestRepository extends SQLRepositoryTestCase {
-
-    private static final String OSGI_BUNDLE_NAME = "org.nuxeo.project.sample";
-
-    @Override
-    public void setUp() throws Exception {
-        super.setUp();
-
-        // We have to load our core contributions before opening the
-        // repository
-        deployContrib(OSGI_BUNDLE_NAME, "OSGI-INF/core-types-contrib.xml");
-        deployContrib(OSGI_BUNDLE_NAME, "OSGI-INF/lifecycle-contrib.xml");
+@RunWith(FeaturesRunner.class)
+@Features(CoreFeature.class)
+// @RepositoryConfig(type = BackendType.H2, user = "Administrator", cleanup =
+// Granularity.METHOD)
+@Deploy({
         // We could deploy all the contributions from the bundle (but this would
-        // be less of a "unit" test) by doing:
-        // deployBundle(OSGI_BUNDLE_NAME);
+        // be less
+        // of a "unit" test)
+        "org.nuxeo.project.sample:OSGI-INF/core-types-contrib.xml",
+        "org.nuxeo.project.sample:OSGI-INF/lifecycle-contrib.xml",
+        // A test contribution, i.e, used in the scope of these tests only
+        "org.nuxeo.project.sample.tests:sample-booktitle-test.xml" })
+public class TestRepository {
 
-        openSession();
+    @Inject
+    CoreSession session;
+
+    @Inject
+    RepositorySettings repository;
+
+    @Before
+    public void setUp() throws Exception {
+        // ...
     }
 
     /**
@@ -69,6 +94,7 @@ public class TestRepository extends SQLRepositoryTestCase {
      * Tests the life cycle policy of Book documents and plays a bit with the
      * life cycle.
      */
+    @Test
     public void testLifeCycle() throws Exception {
         DocumentModel doc = session.getDocument(createBook());
         assertNotNull(doc);
@@ -82,6 +108,7 @@ public class TestRepository extends SQLRepositoryTestCase {
     /**
      * Tests properties of the "book" schema.
      */
+    @Test
     public void testBookSchema() throws Exception {
         DocumentModel doc = session.getDocument(createBook());
         assertNotNull(doc);
@@ -110,6 +137,7 @@ public class TestRepository extends SQLRepositoryTestCase {
     /**
      * Tests ACLs and security.
      */
+    @Test
     public void testSecurity() throws Exception {
         DocumentRef docRef = createBook();
         DocumentModel doc = session.getDocument(docRef);
@@ -125,9 +153,12 @@ public class TestRepository extends SQLRepositoryTestCase {
         session.saveDocument(doc);
         session.save();
 
+        String repo = repository.getName();
         // reconnect as "toto"
-        closeSession();
-        session = openSessionAs("toto");
+        CoreInstance.getInstance().close(session);
+        Map<String, Serializable> context = new HashMap<String, Serializable>();
+        context.put("username", "toto");
+        session = CoreInstance.getInstance().open(repo, context);
 
         doc = session.getDocument(docRef);
         assertTrue(session.hasPermission(docRef, SecurityConstants.WRITE));
@@ -136,6 +167,8 @@ public class TestRepository extends SQLRepositoryTestCase {
     /**
      * Demonstrates that the repository is wiped out between two runs.
      */
+    @Test
+    @Ignore
     public void testTearDown() throws Exception {
         DocumentModelList children = session.getChildren(session.getRootDocument().getRef());
         assertEquals(0, children.size());
