@@ -19,30 +19,21 @@ package org.nuxeo.ecm.sample;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
-import static org.junit.Assert.assertTrue;
 
-import java.io.Serializable;
 import java.util.Arrays;
 import java.util.Calendar;
-import java.util.HashMap;
-import java.util.Map;
 
 import org.junit.Before;
-import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.runner.RunWith;
-import org.nuxeo.ecm.core.api.CoreInstance;
 import org.nuxeo.ecm.core.api.CoreSession;
 import org.nuxeo.ecm.core.api.DocumentModel;
 import org.nuxeo.ecm.core.api.DocumentModelList;
 import org.nuxeo.ecm.core.api.DocumentRef;
-import org.nuxeo.ecm.core.api.security.ACE;
-import org.nuxeo.ecm.core.api.security.ACL;
-import org.nuxeo.ecm.core.api.security.ACP;
-import org.nuxeo.ecm.core.api.security.SecurityConstants;
-import org.nuxeo.ecm.core.api.security.impl.ACLImpl;
 import org.nuxeo.ecm.core.test.CoreFeature;
 import org.nuxeo.ecm.core.test.RepositorySettings;
+import org.nuxeo.ecm.core.test.annotations.Granularity;
+import org.nuxeo.ecm.core.test.annotations.RepositoryConfig;
 import org.nuxeo.runtime.test.runner.Deploy;
 import org.nuxeo.runtime.test.runner.Features;
 import org.nuxeo.runtime.test.runner.FeaturesRunner;
@@ -55,8 +46,7 @@ import com.google.inject.Inject;
  */
 @RunWith(FeaturesRunner.class)
 @Features(CoreFeature.class)
-// @RepositoryConfig(type = BackendType.H2, user = "Administrator", cleanup =
-// Granularity.METHOD)
+@RepositoryConfig(cleanup = Granularity.METHOD)
 @Deploy({
         // We could deploy all the contributions from the bundle (but this would
         // be less
@@ -135,40 +125,10 @@ public class TestRepository {
     }
 
     /**
-     * Tests ACLs and security.
+     * Demonstrates that the repository is wiped out between two tests.
+     * (Granularity.METHOD)
      */
     @Test
-    public void testSecurity() throws Exception {
-        DocumentRef docRef = createBook();
-        DocumentModel doc = session.getDocument(docRef);
-        ACP acp = doc.getACP();
-        // use of the 'local' ACL
-        ACL acl = acp.getOrCreateACL(ACL.LOCAL_ACL);
-        acl.add(new ACE("toto", SecurityConstants.READ, true));
-        acp.addACL(acl);
-        acl = new ACLImpl("specific");
-        acl.add(new ACE("toto", SecurityConstants.WRITE, true));
-        acp.addACL(0, acl);
-        doc.setACP(acp, false);
-        session.saveDocument(doc);
-        session.save();
-
-        String repo = repository.getName();
-        // reconnect as "toto"
-        CoreInstance.getInstance().close(session);
-        Map<String, Serializable> context = new HashMap<String, Serializable>();
-        context.put("username", "toto");
-        session = CoreInstance.getInstance().open(repo, context);
-
-        doc = session.getDocument(docRef);
-        assertTrue(session.hasPermission(docRef, SecurityConstants.WRITE));
-    }
-
-    /**
-     * Demonstrates that the repository is wiped out between two runs.
-     */
-    @Test
-    @Ignore
     public void testTearDown() throws Exception {
         DocumentModelList children = session.getChildren(session.getRootDocument().getRef());
         assertEquals(0, children.size());
