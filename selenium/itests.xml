@@ -24,9 +24,6 @@
   <!-- Override default prepare-environment target to make it download your MP -->
   <target name="prepare-environment"
           depends="_init,prepare-db,prepare-tomcat,prepare-jboss">
-    <copy file="tests/user-extensions.js.sample"
-          tofile="${out.dir}/user-extensions.js"
-          overwrite="true" />
     <copy todir="${out.dir}">
       <artifact:resolveFile key="org.nuxeo.marketplace.sample:marketplace::zip" />
     </copy>
