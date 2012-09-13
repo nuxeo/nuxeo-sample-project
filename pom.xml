@@ -10,7 +10,47 @@
 
   <artifactId>marketplace</artifactId>
   <packaging>zip</packaging>
-  <name>Marketplace package</name>
+  <name>Marketplace package - recommended build method</name>
+
+  <dependencies>
+    <!-- Base distribution(s) for the MP -->
+    <dependency>
+      <groupId>org.nuxeo.ecm.distribution</groupId>
+      <artifactId>nuxeo-distribution-cap</artifactId>
+      <type>pom</type>
+    </dependency>
+    <!-- <dependency> -->
+    <!-- <groupId>org.nuxeo.ecm.distribution</groupId> -->
+    <!-- <artifactId>nuxeo-distribution-coreserver</artifactId> -->
+    <!-- <type>pom</type> -->
+    <!-- </dependency> -->
+    <!-- <dependency> -->
+    <!-- <groupId>org.nuxeo.ecm.distribution</groupId> -->
+    <!-- <artifactId>nuxeo-distribution-dm</artifactId> -->
+    <!-- <type>pom</type> -->
+    <!-- </dependency> -->
+    <!-- <dependency> -->
+    <!-- <groupId>org.nuxeo.ecm.distribution</groupId> -->
+    <!-- <artifactId>nuxeo-distribution-dam</artifactId> -->
+    <!-- <type>pom</type> -->
+    <!-- </dependency> -->
+    <!-- <dependency> -->
+    <!-- <groupId>org.nuxeo.ecm.distribution</groupId> -->
+    <!-- <artifactId>nuxeo-distribution-cmf</artifactId> -->
+    <!-- <type>pom</type> -->
+    <!-- </dependency> -->
+    <!-- <dependency> -->
+    <!-- <groupId>org.nuxeo.ecm.distribution</groupId> -->
+    <!-- <artifactId>nuxeo-distribution-social-collaboration</artifactId> -->
+    <!-- <type>pom</type> -->
+    <!-- </dependency> -->
+
+    <!-- Additional bundles to be deployed by the MP -->
+    <dependency>
+      <groupId>org.nuxeo.sample</groupId>
+      <artifactId>nuxeo-sample-project</artifactId>
+    </dependency>
+  </dependencies>
 
   <build>
     <plugins>
