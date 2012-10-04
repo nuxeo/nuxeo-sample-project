@@ -12,7 +12,6 @@
   <artifactId>webdriver</artifactId>
   <name>Sample functional tests with WebDriver</name>
   <description>Sample functional tests with WebDriver</description>
-  <packaging>pom</packaging>
 
   <properties>
     <some.password>setTheValueInYourSettings</some.password>
