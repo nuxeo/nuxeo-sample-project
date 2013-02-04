@@ -30,8 +30,8 @@
           depends="init"
           description="Build Nuxeo sample Marketplace package">
     <tstamp />
-    <delete failonerror="false" dir="${outdir}/ear" />
-    <mkdir dir="${outdir}/ear" />
+    <delete failonerror="false" dir="${outdir}/nxr" />
+    <mkdir dir="${outdir}/nxr" />
     <delete failonerror="false" dir="${outdir}/marketplace" />
     <mkdir dir="${outdir}/marketplace" />
     <copy todir="${outdir}/marketplace">
@@ -46,13 +46,13 @@
     <copy file="${outdir}/test-artifacts-sample.properties"
           todir="${outdir}/marketplace/install" />
 
-    <!-- Base distribution EAR -->
+    <!-- Base distribution NXR -->
     <copy todir="${outdir}">
       <artifact:resolveFile key="org.nuxeo.ecm.distribution:nuxeo-distribution-cap::zip" />
     </copy>
 
     <!-- Nuxeo bundles -->
-    <copy todir="${outdir}/ear/bundles" overwrite="true">
+    <copy todir="${outdir}/nxr/bundles" overwrite="true">
       <artifact:set>
         <includes>
           <artifact groupId="org.nuxeo*" scope="!test" type="!pom" />
@@ -62,7 +62,7 @@
       </artifact:set>
     </copy>
     <!-- Third-party libraries -->
-    <copy todir="${outdir}/ear/lib" overwrite="true">
+    <copy todir="${outdir}/nxr/lib" overwrite="true">
       <artifact:set>
         <includes>
           <artifact groupId="!org.nuxeo*" scope="!test" />
@@ -73,25 +73,25 @@
         </excludes>
       </artifact:set>
     </copy>
-    <move todir="${outdir}/ear/lib">
-      <fileset dir="${outdir}/ear/bundles">
+    <move todir="${outdir}/nxr/lib">
+      <fileset dir="${outdir}/nxr/bundles">
         <include name="nuxeo-generic-wss-front*" />
         <include name="nuxeo-generic-wss-handler*" />
       </fileset>
     </move>
-    <nx:rmdups dir="${outdir}/ear/lib" />
-    <!-- Temporary ZIP Nuxeo EAR to compare with base distribution EAR -->
-    <zip destfile="${outdir}/ear-${marketplace.sample.version}.zip"
-         basedir="${outdir}/ear" />
+    <nx:rmdups dir="${outdir}/nxr/lib" />
+    <!-- Temporary ZIP Nuxeo NXR to compare with base distribution NXR -->
+    <zip destfile="${outdir}/nxr-${marketplace.sample.version}.zip"
+         basedir="${outdir}/nxr" />
 
     <!-- Your MP only needs to include files not already provided by the base distribution -->
-    <nx:zipdiff file1="${outdir}/ear-${marketplace.sample.version}.zip"
+    <nx:zipdiff file1="${outdir}/nxr-${marketplace.sample.version}.zip"
                 file2="${outdir}/nuxeo-distribution-cap-${nuxeo.distribution.version}.zip"
                 includesfile="${outdir}/includes"
                 excludesfile="${outdir}/excludesfile"
                 patternsetid="sample.versus.cap">
     </nx:zipdiff>
-    <unzip src="${outdir}/ear-${marketplace.sample.version}.zip"
+    <unzip src="${outdir}/nxr-${marketplace.sample.version}.zip"
            dest="${outdir}/marketplace/install">
       <patternset refid="sample.versus.cap" />
     </unzip>
