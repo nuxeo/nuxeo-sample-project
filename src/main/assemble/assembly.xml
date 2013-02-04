@@ -5,6 +5,7 @@
   <taskdef resource="org/nuxeo/build/antlib.xml" uri="urn:nuxeo-build" />
   <taskdef resource="org/nuxeo/build/artifact/antlib.xml"
            uri="urn:nuxeo-artifact" />
+  <taskdef resource="net/sf/antcontrib/antlib.xml" />
 
   <target name="init" unless="init.done">
     <property name="outdir" value="${maven.project.build.directory}" />
@@ -94,6 +95,42 @@
            dest="${outdir}/marketplace/install">
       <patternset refid="sample.versus.cap" />
     </unzip>
+
+    <!-- Generate install.xml file -->
+    <!-- See documentation at http://doc.nuxeo.com/x/IgIz -->
+    <var name="install.content" value="&lt;install&gt;" />
+    <var name="install.content"
+         value="${install.content}${line.separator}
+  &lt;update file=&quot;${package.root}/install/bundles&quot; todir=&quot;${env.bundles}&quot; /&gt;" />
+    <if>
+      <available file="${outdir}/marketplace/install/lib" />
+      <then>
+        <var name="install.content"
+             value="${install.content}${line.separator}
+  &lt;update file=&quot;${package.root}/install/lib&quot; todir=&quot;${env.lib}&quot; /&gt;" />
+      </then>
+    </if>
+    <var name="install.content"
+         value="${install.content}${line.separator}
+  &lt;copy file=&quot;${package.root}/install/artifacts-sample.properties&quot;${line.separator}
+    todir=&quot;${env.server.home}/sdk&quot; overwrite=&quot;true&quot; /&gt;${line.separator}
+  &lt;copy file=&quot;${package.root}/install/test-artifacts-sample.properties&quot;${line.separator}
+    todir=&quot;${env.server.home}/sdk&quot; overwrite=&quot;true&quot; /&gt;${line.separator}" />
+    <!-- Optional: use this if you need your MP to deploy and/or activate a dedicated template -->
+    <if>
+      <available file="${outdir}/marketplace/install/templates" />
+      <then>
+        <var name="install.content"
+             value="${install.content}${line.separator}
+  &lt;copy dir=&quot;${package.root}/install/templates&quot; todir=&quot;${env.templates}&quot; overwrite=&quot;true&quot; /&gt;${line.separator}
+  &lt;config addtemplate=&quot;sample&quot; /&gt;${line.separator}" />
+      </then>
+    </if>
+    <var name="install.content"
+         value="${install.content}${line.separator}
+&lt;/install&gt;${line.separator}" />
+    <echo file="${outdir}/marketplace/install.xml"
+          message="${install.content}" />
 
     <zip destfile="${outdir}/${maven.project.artifactId}-${marketplace.sample.version}.zip"
          basedir="${outdir}/marketplace" />
