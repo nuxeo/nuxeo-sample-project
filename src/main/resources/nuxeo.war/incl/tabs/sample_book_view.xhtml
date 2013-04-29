@@ -71,7 +71,7 @@
     <h3>Ajax example</h3>
     <h:form>
       <a4j:region>
-        <a4j:outputPanel id="myfilter">
+        <a4j:outputPanel id="myfilter" layout="block">
           <div>The current selection is: #{bookManager.filter}</div>
         </a4j:outputPanel>
         <nxdir:selectOneListbox value="#{bookManager.filter}"
