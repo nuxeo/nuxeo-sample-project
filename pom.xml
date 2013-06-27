@@ -12,6 +12,14 @@
   <packaging>zip</packaging>
   <name>Marketplace package - recommended build method</name>
 
+
+  <properties>
+    <!-- Version for the Nuxeo Distribution -->
+    <nuxeo.distribution.version></nuxeo.distribution.version>
+    <!-- Version for the MP -->
+    <marketplace.sample.version></marketplace.sample.version>
+  </properties>
+
   <dependencies>
     <!-- Base distribution(s) for the MP -->
     <dependency>

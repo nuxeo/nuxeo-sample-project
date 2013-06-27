@@ -48,7 +48,7 @@
 
     <!-- Base distribution NXR -->
     <copy todir="${outdir}">
-      <artifact:resolveFile key="org.nuxeo.ecm.distribution:nuxeo-distribution-cap::zip" />
+      <artifact:resolveFile key="org.nuxeo.ecm.distribution:nuxeo-distribution-cap:${nuxeo.distribution.version}:zip" />
     </copy>
 
     <!-- Nuxeo bundles -->
