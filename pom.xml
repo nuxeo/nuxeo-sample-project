@@ -17,33 +17,12 @@
     <dependency>
       <groupId>org.nuxeo.ecm.distribution</groupId>
       <artifactId>nuxeo-distribution-cap</artifactId>
+      <!-- <artifactId>nuxeo-distribution-coreserver</artifactId> -->
+      <!-- <artifactId>nuxeo-distribution-dm</artifactId> -->
+      <!-- <artifactId>nuxeo-distribution-dam</artifactId> -->
+      <!-- <artifactId>nuxeo-distribution-social-collaboration</artifactId> -->
       <type>pom</type>
     </dependency>
-    <!-- <dependency> -->
-    <!-- <groupId>org.nuxeo.ecm.distribution</groupId> -->
-    <!-- <artifactId>nuxeo-distribution-coreserver</artifactId> -->
-    <!-- <type>pom</type> -->
-    <!-- </dependency> -->
-    <!-- <dependency> -->
-    <!-- <groupId>org.nuxeo.ecm.distribution</groupId> -->
-    <!-- <artifactId>nuxeo-distribution-dm</artifactId> -->
-    <!-- <type>pom</type> -->
-    <!-- </dependency> -->
-    <!-- <dependency> -->
-    <!-- <groupId>org.nuxeo.ecm.distribution</groupId> -->
-    <!-- <artifactId>nuxeo-distribution-dam</artifactId> -->
-    <!-- <type>pom</type> -->
-    <!-- </dependency> -->
-    <!-- <dependency> -->
-    <!-- <groupId>org.nuxeo.ecm.distribution</groupId> -->
-    <!-- <artifactId>nuxeo-distribution-cmf</artifactId> -->
-    <!-- <type>pom</type> -->
-    <!-- </dependency> -->
-    <!-- <dependency> -->
-    <!-- <groupId>org.nuxeo.ecm.distribution</groupId> -->
-    <!-- <artifactId>nuxeo-distribution-social-collaboration</artifactId> -->
-    <!-- <type>pom</type> -->
-    <!-- </dependency> -->
 
     <!-- Additional bundles to be deployed by the MP -->
     <dependency>
