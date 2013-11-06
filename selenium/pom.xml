@@ -2,19 +2,84 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
   xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
   <modelVersion>4.0.0</modelVersion>
+
+  <!-- Inherit from a corporate POM, not the Nuxeo one -->
+  <!-- <parent> -->
+  <!-- <groupId>com.company</groupId> -->
+  <!-- <artifactId>corporate</artifactId> -->
+  <!-- <version>1.0</version> -->
+  <!-- </parent> -->
+  <!-- This parent is for Nuxeo internal use only -->
   <parent>
-    <groupId>org.nuxeo.marketplace.sample</groupId>
-    <artifactId>parent</artifactId>
-    <version>2.0-SNAPSHOT</version>
-    <relativePath>../../pom.xml</relativePath>
+    <groupId>org.nuxeo</groupId>
+    <artifactId>nuxeo-ecm</artifactId>
+    <version>5.9.1-SNAPSHOT</version>
   </parent>
 
+  <groupId>org.nuxeo.marketplace.sample</groupId>
   <artifactId>selenium</artifactId>
+  <version>2.0-SNAPSHOT</version>
   <name>Sample functional tests with Selenium</name>
   <description>Sample functional tests with Selenium</description>
   <packaging>pom</packaging>
 
+  <properties>
+    <nuxeo.distribution.tools.version>1.15</nuxeo.distribution.tools.version>
+    <nuxeo.distribution.version>5.9.1-SNAPSHOT</nuxeo.distribution.version>
+    <some.password>setTheValueInYourSettings</some.password>
+  </properties>
+
+  <dependencyManagement>
+    <dependencies>
+      <!-- Import Nuxeo BOM -->
+      <dependency>
+        <groupId>org.nuxeo.ecm.distribution</groupId>
+        <artifactId>nuxeo-distribution</artifactId>
+        <version>5.9.1-SNAPSHOT</version>
+        <type>pom</type>
+        <scope>import</scope>
+      </dependency>
+      <dependency>
+        <groupId>org.nuxeo.marketplace.sample</groupId>
+        <artifactId>marketplace</artifactId>
+        <version>${project.version}</version>
+        <type>zip</type>
+      </dependency>
+    </dependencies>
+  </dependencyManagement>
+
+  <dependencies>
+    <dependency>
+      <groupId>junit</groupId>
+      <artifactId>junit</artifactId>
+      <scope>compile</scope>
+    </dependency>
+    <dependency>
+      <groupId>commons-io</groupId>
+      <artifactId>commons-io</artifactId>
+    </dependency>
+    <dependency>
+      <groupId>org.seleniumhq.selenium</groupId>
+      <artifactId>selenium-server-standalone</artifactId>
+    </dependency>
+    <dependency>
+      <groupId>org.nuxeo.ecm.distribution</groupId>
+      <artifactId>nuxeo-functional-tests</artifactId>
+      <scope>test</scope>
+    </dependency>
+  </dependencies>
+
   <build>
+    <pluginManagement>
+      <plugins>
+        <plugin>
+          <groupId>org.nuxeo.build</groupId>
+          <artifactId>nuxeo-distribution-tools</artifactId>
+          <version>${nuxeo.distribution.tools.version}</version>
+          <extensions>true</extensions>
+        </plugin>
+      </plugins>
+    </pluginManagement>
     <plugins>
       <plugin>
         <groupId>org.nuxeo.build</groupId>
@@ -55,6 +120,7 @@
             <configuration>
               <targets>
                 <target>stop</target>
+                <target>cleanup-environment</target>
               </targets>
             </configuration>
           </execution>
@@ -69,6 +135,27 @@
       <activation>
         <activeByDefault>true</activeByDefault>
       </activation>
+    </profile>
+    <profile>
+      <id>jboss</id>
+    </profile>
+    <profile>
+      <id>jbossear</id>
+    </profile>
+    <profile>
+      <id>pgsql</id>
+    </profile>
+    <profile>
+      <id>mssql</id>
+    </profile>
+    <profile>
+      <id>oracle10g</id>
+    </profile>
+    <profile>
+      <id>oracle11g</id>
+    </profile>
+    <profile>
+      <id>mysql</id>
     </profile>
   </profiles>
 
