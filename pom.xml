@@ -1,16 +1,49 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
   xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
   <modelVersion>4.0.0</modelVersion>
+
+  <!-- Inherit from a corporate POM, not the Nuxeo one -->
+  <!-- <parent> -->
+  <!-- <groupId>com.company</groupId> -->
+  <!-- <artifactId>corporate</artifactId> -->
+  <!-- <version>1.0</version> -->
+  <!-- </parent> -->
+  <!-- This parent is for Nuxeo internal use only -->
   <parent>
-    <groupId>org.nuxeo.marketplace.sample</groupId>
-    <artifactId>parent</artifactId>
-    <version>2.0-SNAPSHOT</version>
-    <relativePath>../pom.xml</relativePath>
+    <groupId>org.nuxeo</groupId>
+    <artifactId>nuxeo-ecm</artifactId>
+    <version>5.9.1-SNAPSHOT</version>
   </parent>
 
+  <groupId>org.nuxeo.marketplace.sample</groupId>
   <artifactId>marketplace</artifactId>
+  <version>2.0-SNAPSHOT</version>
   <packaging>zip</packaging>
   <name>Marketplace package - recommended build method</name>
+
+  <properties>
+    <nuxeo.distribution.tools.version>1.15</nuxeo.distribution.tools.version>
+    <nuxeo.distribution.version>5.9.1-SNAPSHOT</nuxeo.distribution.version>
+  </properties>
+
+  <dependencyManagement>
+    <dependencies>
+      <!-- Import Nuxeo BOM -->
+      <dependency>
+        <groupId>org.nuxeo.ecm.distribution</groupId>
+        <artifactId>nuxeo-distribution</artifactId>
+        <version>5.9.1-SNAPSHOT</version>
+        <type>pom</type>
+        <scope>import</scope>
+      </dependency>
+      <!-- Waiting for NXP-12623 -->
+      <dependency>
+        <groupId>org.nuxeo.sample</groupId>
+        <artifactId>nuxeo-sample-project</artifactId>
+        <version>5.7.2-SNAPSHOT</version>
+      </dependency>
+    </dependencies>
+  </dependencyManagement>
 
   <dependencies>
     <!-- Base distribution(s) for the MP -->
@@ -32,6 +65,16 @@
   </dependencies>
 
   <build>
+    <pluginManagement>
+      <plugins>
+        <plugin>
+          <groupId>org.nuxeo.build</groupId>
+          <artifactId>nuxeo-distribution-tools</artifactId>
+          <version>${nuxeo.distribution.tools.version}</version>
+          <extensions>true</extensions>
+        </plugin>
+      </plugins>
+    </pluginManagement>
     <plugins>
       <plugin>
         <groupId>org.nuxeo.build</groupId>
@@ -44,4 +87,61 @@
       </plugin>
     </plugins>
   </build>
+
+  <repositories>
+    <repository>
+      <id>public</id>
+      <url>http://maven.nuxeo.org/nexus/content/groups/public</url>
+      <releases>
+        <enabled>true</enabled>
+      </releases>
+      <snapshots>
+        <enabled>false</enabled>
+      </snapshots>
+    </repository>
+    <repository>
+      <id>public-snapshot</id>
+      <url>http://maven.nuxeo.org/nexus/content/groups/public-snapshot</url>
+      <releases>
+        <enabled>false</enabled>
+      </releases>
+      <snapshots>
+        <updatePolicy>always</updatePolicy>
+        <enabled>true</enabled>
+      </snapshots>
+    </repository>
+  </repositories>
+
+  <pluginRepositories>
+    <pluginRepository>
+      <id>public</id>
+      <url>http://maven.nuxeo.org/nexus/content/groups/public</url>
+      <name>Nuxeo virtual release repository</name>
+      <releases>
+        <enabled>true</enabled>
+      </releases>
+      <snapshots>
+        <enabled>false</enabled>
+      </snapshots>
+    </pluginRepository>
+    <pluginRepository>
+      <id>public-snapshot</id>
+      <url>http://maven.nuxeo.org/nexus/content/groups/public-snapshot</url>
+      <name>Nuxeo virtual snapshot repository</name>
+      <releases>
+        <enabled>false</enabled>
+      </releases>
+      <snapshots>
+        <updatePolicy>always</updatePolicy>
+        <enabled>true</enabled>
+      </snapshots>
+    </pluginRepository>
+  </pluginRepositories>
+
+  <scm>
+    <connection>scm:git:git://github.com/nuxeo/nuxeo-marketplace-sample.git</connection>
+    <developerConnection>scm:git:ssh://git@github.com:nuxeo/nuxeo-marketplace-sample.git</developerConnection>
+    <url>https://github.com/nuxeo/nuxeo-marketplace-sample</url>
+  </scm>
+
 </project>

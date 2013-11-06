@@ -9,6 +9,7 @@
 
   <target name="init" unless="init.done">
     <property name="outdir" value="${maven.project.build.directory}" />
+    <mkdir dir="${outdir}" />
     <antcall target="expand" />
     <property name="init.done" value="true" />
   </target>
@@ -37,7 +38,7 @@
     <copy todir="${outdir}/marketplace">
       <fileset dir="src/main/resources" />
       <filterset>
-        <filter token="VERSION" value="${marketplace.sample.version}" />
+        <filter token="VERSION" value="${maven.project.version}" />
         <filter token="DISTRIB_VERSION" value="${nuxeo.distribution.version}" />
       </filterset>
     </copy>
@@ -81,17 +82,19 @@
     </move>
     <nx:rmdups dir="${outdir}/nxr/lib" />
     <!-- Temporary ZIP Nuxeo NXR to compare with base distribution NXR -->
-    <zip destfile="${outdir}/nxr-${marketplace.sample.version}.zip"
+    <zip destfile="${outdir}/nxr-${maven.project.version}.zip"
          basedir="${outdir}/nxr" />
 
     <!-- Your MP only needs to include files not already provided by the base distribution -->
-    <nx:zipdiff file1="${outdir}/nxr-${marketplace.sample.version}.zip"
+    <nx:zipdiff file1="${outdir}/nxr-${maven.project.version}.zip"
                 file2="${outdir}/nuxeo-distribution-cap-${nuxeo.distribution.version}.zip"
                 includesfile="${outdir}/includes"
                 excludesfile="${outdir}/excludesfile"
-                patternsetid="sample.versus.cap">
+                patternsetid="sample.versus.cap"
+                ignoreContent="false"
+                ignoreContentPattern=".*\.jar$">
     </nx:zipdiff>
-    <unzip src="${outdir}/nxr-${marketplace.sample.version}.zip"
+    <unzip src="${outdir}/nxr-${maven.project.version}.zip"
            dest="${outdir}/marketplace/install">
       <patternset refid="sample.versus.cap" />
     </unzip>
@@ -120,10 +123,10 @@
     </if>
 
     <var name="install.properties"
-          value="${line.separator}
+         value="${line.separator}
   &lt;copy file=&quot;${package.root}/install/artifacts-sample.properties&quot;${line.separator}
     todir=&quot;${env.server.home}/sdk&quot; overwrite=&quot;true&quot; /&gt;${line.separator}
-  &lt;copy file=&quot;${package.root}/install/test-artifacts-sample.properties.properties&quot;${line.separator}
+  &lt;copy file=&quot;${package.root}/install/test-artifacts-sample.properties&quot;${line.separator}
     todir=&quot;${env.server.home}/sdk&quot; overwrite=&quot;true&quot; /&gt;" />
 
     <var name="install.templates" value="" />
@@ -148,9 +151,9 @@
       </filterset>
     </copy>
 
-    <zip destfile="${outdir}/${maven.project.artifactId}-${marketplace.sample.version}.zip"
+    <zip destfile="${outdir}/${maven.project.artifactId}-${maven.project.version}.zip"
          basedir="${outdir}/marketplace" />
-    <artifact:attach file="${outdir}/${maven.project.artifactId}-${marketplace.sample.version}.zip"
+    <artifact:attach file="${outdir}/${maven.project.artifactId}-${maven.project.version}.zip"
                      target="${maven.project.groupId}:${maven.project.artifactId}"
                      type="zip" />
   </target>
