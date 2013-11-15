@@ -1,85 +1,14 @@
 <div xmlns="http://www.w3.org/1999/xhtml"
-	xmlns:f="http://java.sun.com/jsf/core"
-	xmlns:h="http://java.sun.com/jsf/html"
-	xmlns:ui="http://java.sun.com/jsf/facelets"
-	xmlns:nxu="http://nuxeo.org/nxweb/util"
-	xmlns:nxd="http://nuxeo.org/nxweb/document"
-	xmlns:a4j="https://ajax4jsf.dev.java.net/ajax">
+  xmlns:ui="http://java.sun.com/jsf/facelets">
 
-<h2>Books in this folder (from getChildren)</h2>
+  <ui:decorate template="/incl/content_view.xhtml">
+    <ui:param name="contentViewName" value="book_content" />
+    <ui:param name="contentViewId" value="book_content" />
+  </ui:decorate>
 
-<h:dataTable var="bookinfo" value="#{bookManager.booksInFolder}"
-	columnClasses="fieldColumn, fieldColumn, fieldColumn">
-	<h:column>
-		<f:facet name="header">
-			<h:outputText value="title" />
-		</f:facet>
-		<nxd:restDocumentLink document="#{bookinfo.document}">
-        #{bookinfo.document.dublincore.title}
-      </nxd:restDocumentLink>
-	</h:column>
-	<h:column>
-		<f:facet name="header">
-			<h:outputText value="keywords" />
-		</f:facet>
-		<ui:repeat value="#{bookinfo.document.book.keywords}" var="keyword">
-			<div>#{keyword}</div>
-		</ui:repeat>
-	</h:column>
-	<h:column>
-		<f:facet name="header">
-			<h:outputText value="rating" />
-		</f:facet>
-		<h:outputText value="#{bookinfo.document.book.rating}" />
-	</h:column>
-</h:dataTable>
-
-<h2>Books sharing this folder path and filtered by keywords (using query model)</h2>
-<div><a4j:region>
-	<a4j:outputPanel id="myfilter" layout="block">
-		<div><nxu:methodResult name="provider"
-			value="#{resultsProvidersCache.get('BOOK')}">
-
-			<h:form>
-				<ui:decorate template="/pagination/pageNavigationControls.xhtml">
-					<ui:param name="provider" value="#{provider}" />
-				</ui:decorate>
-			</h:form>
-
-			<h:dataTable var="bookDocument" value="#{provider.currentPage}"
-				columnClasses="fieldColumn, fieldColumn, fieldColumn">
-				<h:column>
-					<f:facet name="header">
-						<h:outputText value="title" />
-					</f:facet>
-					<nxd:restDocumentLink document="#{bookDocument}">
-                            #{bookDocument.dublincore.title}
-                        </nxd:restDocumentLink>
-				</h:column>
-				<h:column>
-					<f:facet name="header">
-						<h:outputText value="keywords" />
-					</f:facet>
-					<ui:repeat value="#{bookDocument.book.keywords}" var="keyword">
-						<div>#{keyword}</div>
-					</ui:repeat>
-				</h:column>
-				<h:column>
-					<f:facet name="header">
-						<h:outputText value="rating" />
-					</f:facet>
-					<h:outputText value="#{bookDocument.book.rating}" />
-				</h:column>
-			</h:dataTable>
-		</nxu:methodResult></div>
-	</a4j:outputPanel>
-	<h:form>
-		<h:selectOneListbox value="#{bookManager.filter}">
-			<f:selectItems value="#{bookManager.availableKeywords}" />
-			<a4j:support event="onchange" reRender="myfilter" />
-		</h:selectOneListbox>
-	</h:form>
-</a4j:region></div>
-
+  <ui:decorate template="/incl/content_view.xhtml">
+    <ui:param name="contentViewName" value="parent_books_content" />
+    <ui:param name="contentViewId" value="parent_books_content" />
+  </ui:decorate>
 
 </div>
