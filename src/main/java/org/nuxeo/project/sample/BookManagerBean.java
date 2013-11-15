@@ -36,8 +36,6 @@ import org.nuxeo.ecm.platform.ui.web.api.NavigationContext;
 import org.nuxeo.ecm.platform.ui.web.api.WebActions;
 import org.nuxeo.ecm.webapp.helpers.EventNames;
 import org.nuxeo.ecm.webapp.helpers.ResourcesAccessor;
-import org.nuxeo.ecm.webapp.pagination.ResultsProvidersCache;
-import org.nuxeo.project.sample.BookResultsProviderFarm.KeywordCriteria;
 import org.nuxeo.runtime.api.Framework;
 
 @Scope(ScopeType.CONVERSATION)
@@ -62,9 +60,6 @@ public class BookManagerBean implements BookManager, Serializable {
 
     @In(create = true)
     protected transient ResourcesAccessor resourcesAccessor;
-
-    @In(required = true)
-    protected transient ResultsProvidersCache resultsProvidersCache;
 
     private String firstName;
 
@@ -166,8 +161,9 @@ public class BookManagerBean implements BookManager, Serializable {
             DocumentModelList entries = dir.getEntries();
             keywordList = new ArrayList<SelectItem>(entries.size());
             for (DocumentModel e : entries) {
+                String value = (String) e.getProperty("vocabulary", "id");
                 String label = (String) e.getProperty("vocabulary", "label");
-                SelectItem item = new SelectItem(label);
+                SelectItem item = new SelectItem(value, label);
                 keywordList.add(item);
             }
         } finally {
@@ -202,7 +198,7 @@ public class BookManagerBean implements BookManager, Serializable {
                     "First name and last name must be different");
         }
 
-        DocumentModel document = navigationContext.getChangeableDocument();
+        DocumentModel document = navigationContext.getCurrentDocument();
         String title = getFirstName() + " " + getLastName();
         document.setProperty("dublincore", "title", title);
         document.setProperty("book", "rating", Long.valueOf(rating));
@@ -248,7 +244,7 @@ public class BookManagerBean implements BookManager, Serializable {
 
     public void setFilter(String newfilter) {
         if (!(filter == null || filter.equals(newfilter))) {
-            resultsProvidersCache.invalidate(BookResultsProviderFarm.KEYWORD_KEY);
+            //resultsProvidersCache.invalidate(BookResultsProviderFarm.KEYWORD_KEY);
         }
         this.filter = newfilter;
     }
@@ -369,15 +365,11 @@ public class BookManagerBean implements BookManager, Serializable {
         return null;
     }
 
-    private Path getContainerPath() {
+    public String getContainerPath() {
         DocumentModel currentDocument = navigationContext.getCurrentDocument();
         if (currentDocument.getDocumentType().getName().equals("Book"))
-            return currentDocument.getPath().removeLastSegments(1);
-        return currentDocument.getPath();
-    }
-
-    public KeywordCriteria getKeywordCriteria() {
-        return new KeywordCriteria(getContainerPath(), getFilter());
+            return currentDocument.getPath().removeLastSegments(1).toString();
+        return currentDocument.getPathAsString();
     }
 
 }

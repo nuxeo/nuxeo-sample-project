@@ -4,6 +4,7 @@
   <extension target="org.nuxeo.ecm.core.schema.TypeService"
     point="schema">
     <schema name="book" src="schemas/book.xsd" prefix="bk" />
+    <schema name="book_search" src="schemas/book_search.xsd" prefix="bks" />
   </extension>
 
   <extension target="org.nuxeo.ecm.core.schema.TypeService"
@@ -16,6 +17,9 @@
       <schema name="uid" />
       <facet name="Commentable" />
       <facet name="Versionable" />
+    </doctype>
+    <doctype name="BookSearch" extends="Document">
+      <schema name="book_search" />
     </doctype>
 
   </extension>

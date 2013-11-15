@@ -68,8 +68,6 @@ public interface BookManager {
 
     public List<BookInfo> getBooksInFolder() throws ClientException;
 
-    public BookResultsProviderFarm.KeywordCriteria getKeywordCriteria();
-
     public boolean hasFilter();
 
     public String getFilter();

@@ -2,55 +2,157 @@
 
 <component name="org.nuxeo.project.sample.layouts">
 
-	<extension target="org.nuxeo.ecm.platform.forms.layout.WebLayoutManager"
-		point="layouts">
+  <extension target="org.nuxeo.ecm.platform.forms.layout.WebLayoutManager"
+    point="widgets">
 
-		<layout name="book">
+    <widget name="search_book_keyword" type="suggestOneDirectory">
+      <labels>
+        <label mode="any">Keyword</label>
+      </labels>
+      <translated>false</translated>
+      <fields>
+        <field>book_search:keyword</field>
+      </fields>
+      <properties mode="any">
+        <property name="width">300</property>
+        <property name="minChars">0</property>
+        <property name="directoryName">book_keywords</property>
+      </properties>
+    </widget>
 
-			<templates>
-				<template mode="any">/layouts/layout_default_template.xhtml
-				</template>
-			</templates>
+    <widget name="listing_rating" type="text">
+      <labels>
+        <label mode="any">Rating</label>
+      </labels>
+      <translated>true</translated>
+      <fields>
+        <field>data.bk.rating</field>
+      </fields>
+    </widget>
 
-			<rows>
-				<row>
-					<widget>isbn</widget>
-					<widget>pubdate</widget>
-				</row>
-			</rows>
+    <widget name="listing_keywords" type="list">
+      <labels>
+        <label mode="any">Keywords</label>
+      </labels>
+      <translated>false</translated>
+      <fields>
+        <field>data.bk.keywords</field>
+      </fields>
+      <properties widgetMode="any">
+        <property name="hideSubLabels">true</property>
+      </properties>
+      <subWidgets>
+        <widget name="listItem" type="selectOneDirectory">
+          <fields>
+            <field></field>
+          </fields>
+          <properties mode="any">
+            <property name="directoryName">book_keywords</property>
+          </properties>
+          <labels>
+            <label mode="any"></label>
+          </labels>
+        </widget>
+      </subWidgets>
+    </widget>
 
-	
-			<widget name="isbn" type="text">
-				<labels>
-					<label mode="any">ISBN</label>
-				</labels>
-				<translated>false</translated>
-				<fields>
-					<field>bk:isbn</field>
-				</fields>
+  </extension>
 
-				<widgetModes>
-					<mode value="create">edit</mode>
-					<mode value="any">view</mode>
-				</widgetModes>
-			</widget>
+  <extension target="org.nuxeo.ecm.platform.forms.layout.WebLayoutManager"
+    point="layouts">
 
-	
-			<widget name="pubdate" type="datetime">
-				<labels>
-					<label mode="any">Publication date</label>
-				</labels>
-				<translated>false</translated>
-				<fields>
-					<field>bk:publicationDate</field>
-				</fields>
+    <layout name="book">
+      <templates>
+        <template mode="any">/layouts/layout_default_template.xhtml
+        </template>
+      </templates>
+      <rows>
+        <row>
+          <widget>isbn</widget>
+          <widget>pubdate</widget>
+        </row>
+      </rows>
+      <widget name="isbn" type="text">
+        <labels>
+          <label mode="any">ISBN</label>
+        </labels>
+        <translated>false</translated>
+        <fields>
+          <field>bk:isbn</field>
+        </fields>
+        <widgetModes>
+          <mode value="create">edit</mode>
+          <mode value="any">view</mode>
+        </widgetModes>
+      </widget>
+      <widget name="pubdate" type="datetime">
+        <labels>
+          <label mode="any">Publication date</label>
+        </labels>
+        <translated>false</translated>
+        <fields>
+          <field>bk:publicationDate</field>
+        </fields>
+        <widgetModes>
+          <mode value="any">edit</mode>
+        </widgetModes>
+      </widget>
+    </layout>
 
-				<widgetModes>
-					<mode value="any">edit</mode>
-				</widgetModes>
-			</widget>
-			
-		</layout>
+    <layout name="book_listing_ajax">
+      <templates>
+        <template mode="any">
+          /layouts/layout_listing_ajax_template.xhtml
+        </template>
+        <template mode="csv">
+          /layouts/layout_listing_csv_template.xhtml
+        </template>
+        <template mode="pdf">
+          /layouts/layout_listing_pdf_template.xhtml
+        </template>
+      </templates>
+      <properties mode="any">
+        <property name="showListingHeader">true</property>
+        <property name="showRowEvenOddClass">true</property>
+        <property name="display">table</property>
+      </properties>
+      <columns>
+        <column>
+          <properties mode="any">
+            <property name="useFirstWidgetLabelAsColumnHeader">true</property>
+            <property name="sortPropertyName">dc:title</property>
+          </properties>
+          <widget>listing_title_link</widget>
+        </column>
+        <column>
+          <properties mode="any">
+            <property name="useFirstWidgetLabelAsColumnHeader">true</property>
+            <property name="isSortable">false</property>
+          </properties>
+          <widget>listing_keywords</widget>
+        </column>
+        <column>
+          <properties mode="any">
+            <property name="useFirstWidgetLabelAsColumnHeader">true</property>
+            <property name="sortPropertyName">bk:rating</property>
+          </properties>
+          <widget>listing_rating</widget>
+        </column>
+      </columns>
+    </layout>
+    
+    <layout name="book_filter">
+       <templates>
+        <template mode="any">/layouts/layout_default_template.xhtml
+        </template>
+      </templates>
+      <rows>
+        <row>
+          <widget>search_book_keyword</widget>
+        </row>
+      </rows>   
+    </layout>
 
-	</extension>
+  </extension>
+
 </component>
