@@ -36,12 +36,6 @@
         <type>pom</type>
         <scope>import</scope>
       </dependency>
-      <!-- Waiting for NXP-12623 -->
-      <dependency>
-        <groupId>org.nuxeo.sample</groupId>
-        <artifactId>nuxeo-sample-project</artifactId>
-        <version>5.7.2-SNAPSHOT</version>
-      </dependency>
     </dependencies>
   </dependencyManagement>
 
