@@ -1,6 +1,8 @@
 <?xml version="1.0"?>
 <component name="org.nuxeo.project.sample.themes">
 
+  <require>org.nuxeo.theme.nuxeo.default</require>
+
   <extension target="org.nuxeo.theme.services.ThemeService"
     point="views">
     <view name="book listing fragment" template-engine="jsf-facelets">
