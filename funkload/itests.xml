@@ -29,11 +29,7 @@
 
   <!-- Funkload tests to run -->
   <property name="funkload-tests" value="
-        test_rest.py[testWriter:testReader],
-        test_pages.py,
-        test_nuxeo.py[testInit:testWriter:testReader],
-        test_webengine.py,
-        test_dav.py
+        test_sample.py[testAvailable:test_sample]
     " />
 
   <!-- Those shouldn't be there but needs to be changed both
