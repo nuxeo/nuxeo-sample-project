@@ -24,7 +24,7 @@
   <packaging>pom</packaging>
 
   <properties>
-    <nuxeo.distribution.tools.version>1.15</nuxeo.distribution.tools.version>
+    <nuxeo.distribution.tools.version>2.0-SNAPSHOT</nuxeo.distribution.tools.version>
     <nuxeo.distribution.version>5.9.1-SNAPSHOT</nuxeo.distribution.version>
     <some.password>setTheValueInYourSettings</some.password>
   </properties>
@@ -74,7 +74,7 @@
       <plugins>
         <plugin>
           <groupId>org.nuxeo.build</groupId>
-          <artifactId>nuxeo-distribution-tools</artifactId>
+          <artifactId>ant-assembly-maven-plugin</artifactId>
           <version>${nuxeo.distribution.tools.version}</version>
           <extensions>true</extensions>
         </plugin>
@@ -83,7 +83,7 @@
     <plugins>
       <plugin>
         <groupId>org.nuxeo.build</groupId>
-        <artifactId>nuxeo-distribution-tools</artifactId>
+        <artifactId>ant-assembly-maven-plugin</artifactId>
         <configuration>
           <buildFile>${basedir}/itests.xml</buildFile>
         </configuration>
