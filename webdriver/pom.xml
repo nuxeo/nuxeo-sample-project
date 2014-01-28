@@ -14,6 +14,7 @@
     <groupId>org.nuxeo</groupId>
     <artifactId>nuxeo-ecm</artifactId>
     <version>5.9.2-SNAPSHOT</version>
+    <relativePath />
   </parent>
 
   <groupId>org.nuxeo.marketplace.sample</groupId>
@@ -109,7 +110,7 @@
             </goals>
             <configuration>
               <argLine>-Dlog4j.configuration=${file.uri.prefix}${basedir}/src/test/resources/log4j.xml
-                -Dnuxeo.log.dir=${build.directory}
+                -Dnuxeo.log.dir=${project.build.directory}
                 -DsomePassword=${some.password}
                 ${it.failsafe.argLine}
               </argLine>
