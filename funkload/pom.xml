@@ -23,7 +23,7 @@
   <packaging>pom</packaging>
 
   <properties>
-    <nuxeo.distribution.tools.version>2.1-SNAPSHOT</nuxeo.distribution.tools.version>
+    <nuxeo.distribution.tools.version>2.0</nuxeo.distribution.tools.version>
     <nuxeo.distribution.version>5.9.3-SNAPSHOT</nuxeo.distribution.version>
     <some.password>setTheValueInYourSettings</some.password>
   </properties>
