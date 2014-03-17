@@ -22,18 +22,13 @@ package org.nuxeo.project.sample.restAPI;
 import java.io.Serializable;
 import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
-
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
 import org.dom4j.dom.DOMDocument;
 import org.dom4j.dom.DOMDocumentFactory;
 import org.nuxeo.ecm.core.api.ClientException;
+import org.nuxeo.ecm.core.api.CoreInstance;
 import org.nuxeo.ecm.core.api.CoreSession;
 import org.nuxeo.ecm.core.api.DocumentModel;
 import org.nuxeo.ecm.core.api.model.PropertyException;
-import org.nuxeo.ecm.core.api.repository.Repository;
-import org.nuxeo.ecm.core.api.repository.RepositoryManager;
 import org.nuxeo.ecm.platform.query.api.PageProvider;
 import org.nuxeo.ecm.platform.query.api.PageProviderDefinition;
 import org.nuxeo.ecm.platform.query.api.PageProviderService;
@@ -47,12 +42,10 @@ import org.restlet.data.Response;
 /**
  * This Restlet get the latest created Book document and send back a custom JSon
  * object to the client.
- * 
+ *
  * @author ldoguin
  */
 public class LastBookRestlet extends BaseNuxeoRestlet {
-
-	private static final Log log = LogFactory.getLog(LastBookRestlet.class);
 
 	public static final String LAST_BOOK_PROVIDER = "LAST_BOOK";
 
@@ -61,12 +54,11 @@ public class LastBookRestlet extends BaseNuxeoRestlet {
 	 */
 	@Override
 	public void handle(Request req, Response res) {
-
 		DOMDocumentFactory domfactory = new DOMDocumentFactory();
 		DOMDocument result = (DOMDocument) domfactory.createDocument();
 
-		CoreSession session = getCoreSession(req, res);
-		try {
+        try (CoreSession session = CoreInstance.openCoreSession(null,
+                getUserPrincipal(req))) {
 
 			PageProviderService pps = Framework
 					.getService(PageProviderService.class);
@@ -93,12 +85,6 @@ public class LastBookRestlet extends BaseNuxeoRestlet {
 			res.setEntity(json, MediaType.TEXT_PLAIN);
 		} catch (Exception e) {
 			handleError(res, e);
-		} finally {
-			try {
-				Repository.close(session);
-			} catch (Exception e) {
-				log.error("Repository close failed", e);
-			}
 		}
 	}
 
@@ -116,21 +102,4 @@ public class LastBookRestlet extends BaseNuxeoRestlet {
 		return jSonString;
 	}
 
-	private CoreSession getCoreSession(Request req, Response res) {
-		CoreSession session;
-		try {
-			Repository repository = Framework.getService(
-					RepositoryManager.class).getDefaultRepository();
-			if (repository == null) {
-				throw new ClientException("Cannot get default repository");
-			}
-			Map<String, Serializable> context = new HashMap<String, Serializable>();
-			context.put("principal", getSerializablePrincipal(req));
-			session = repository.open(context);
-		} catch (Exception e) {
-			handleError(res, e);
-			return null;
-		}
-		return session;
-	}
 }
