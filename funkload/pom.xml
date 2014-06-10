@@ -17,7 +17,7 @@
 
   <groupId>org.nuxeo.marketplace.sample</groupId>
   <artifactId>funkload</artifactId>
-  <version>2.0.2-SNAPSHOT</version>
+  <version>2.0.3-SNAPSHOT</version>
   <name>Sample functional or performance tests with Funkload</name>
   <description>Sample functional or performance tests with Funkload</description>
   <packaging>pom</packaging>
