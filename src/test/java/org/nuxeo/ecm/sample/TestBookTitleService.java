@@ -22,6 +22,7 @@ import static org.junit.Assert.assertNotNull;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;
+import org.nuxeo.ecm.core.test.TransactionalFeature;
 import org.nuxeo.project.sample.BookTitleService;
 import org.nuxeo.runtime.test.runner.Deploy;
 import org.nuxeo.runtime.test.runner.Features;
@@ -40,9 +41,7 @@ import com.google.inject.Inject;
  *
  */
 @RunWith(FeaturesRunner.class)
-@Features(RuntimeFeature.class)
-// @RepositoryConfig(type = BackendType.H2, user = "Administrator", cleanup =
-// Granularity.METHOD)
+@Features({TransactionalFeature.class, RuntimeFeature.class})
 @Deploy({
 // deployment of the whole nuxeo-project sample bundle
         "org.nuxeo.project.sample",

@@ -18,60 +18,34 @@
 
 package org.nuxeo.ecm.sample;
 
-import java.io.File;
 import java.sql.Connection;
 
 import javax.sql.DataSource;
 
-import org.apache.commons.io.FileUtils;
 import org.junit.Test;
-import org.nuxeo.ecm.core.storage.sql.SQLRepositoryTestCase;
+import org.nuxeo.ecm.core.storage.sql.TXSQLRepositoryTestCase;
 import org.nuxeo.runtime.api.DataSourceHelper;
-import org.nuxeo.runtime.api.Framework;
-import org.nuxeo.runtime.jtajca.NuxeoContainer;
 
 /**
  * Test a datasource as explained in http://doc.nuxeo.com/x/5AFc
  *
  * @since 5.7
  */
-public class TestDatasourceJUnit3 extends SQLRepositoryTestCase {
-    private static final String DIRECTORY = "target/test/h2";
-
-    private static final String PROP_NAME = "ds.test.home";
+public class TestDatasourceJUnit3 extends TXSQLRepositoryTestCase {
 
     @Override
-    public void setUp() throws Exception {
-        super.setUp();
-        // Required since 5.6
-        NuxeoContainer.installNaming();
-        File dir = new File(DIRECTORY);
-        FileUtils.deleteQuietly(dir);
-        dir.mkdirs();
-        Framework.getProperties().put(PROP_NAME, dir.getPath());
+    protected void deployRepositoryContrib() throws Exception {
         deployBundle("org.nuxeo.runtime.datasource");
         deployContrib("org.nuxeo.project.sample.tests",
                 "OSGI-INF/datasource-contrib.xml");
-        // Required since 5.7
-        fireFrameworkStarted();
-    }
-
-    @Override
-    public void tearDown() throws Exception {
-        if (NuxeoContainer.isInstalled()) {
-            NuxeoContainer.uninstallNaming();
-        }
-        super.tearDown();
+        super.deployRepositoryContrib();
     }
 
     @Test
     public void test() throws Exception {
         DataSource ds = DataSourceHelper.getDataSource("foo");
-        Connection conn = ds.getConnection();
-        try {
+        try (Connection conn = ds.getConnection()) {
             // ... use the connection ...
-        } finally {
-            conn.close();
         }
     }
 }
