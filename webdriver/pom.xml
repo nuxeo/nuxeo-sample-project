@@ -114,6 +114,7 @@
           <execution>
             <goals>
               <goal>integration-test</goal>
+              <goal>verify</goal>
             </goals>
             <configuration>
               <argLine>-Dlog4j.configuration=${file.uri.prefix}${basedir}/src/test/resources/log4j.xml
@@ -122,12 +123,6 @@
                 ${it.failsafe.argLine}
               </argLine>
             </configuration>
-          </execution>
-          <execution>
-            <id>verify</id>
-            <goals>
-              <goal>verify</goal>
-            </goals>
           </execution>
         </executions>
       </plugin>
