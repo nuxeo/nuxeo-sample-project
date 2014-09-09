@@ -1,5 +1,5 @@
 /*
- * (C) Copyright 2012-2013 Nuxeo SA (http://nuxeo.com/) and contributors.
+ * (C) Copyright 2014 Nuxeo SA (http://nuxeo.com/) and contributors.
  *
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the GNU Lesser General Public License
@@ -12,9 +12,7 @@
  * Lesser General Public License for more details.
  *
  * Contributors:
- *     Sun Seng David TAN
- *     Florent Guillaume
- *     Antoine Taillefer
+ *     Nuxeo
  */
 package org.nuxeo.functionaltests;
 
@@ -22,7 +20,7 @@ import org.junit.Test;
 import org.nuxeo.functionaltests.pages.DocumentBasePage.UserNotConnectedException;
 
 /**
- * Tests login / logout.
+ * Simple login, logout test.
  */
 public class ITLoginLogoutTest extends AbstractTest {
 
