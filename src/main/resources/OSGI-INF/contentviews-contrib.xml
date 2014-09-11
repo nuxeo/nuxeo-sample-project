@@ -32,7 +32,7 @@
         <event>documentChanged</event>
         <event>documentChildrenChanged</event>
       </refresh>
-      <cacheKey>#{currentDocument.id}</cacheKey>
+      <cacheKey>#{currentDocument.repositoryName}_#{currentDocument.id}</cacheKey>
       <cacheSize>10</cacheSize>
 
       <resultLayouts>
@@ -75,7 +75,7 @@
         <event>documentChanged</event>
         <event>documentChildrenChanged</event>
       </refresh>
-      <cacheKey>#{currentDocument.id}</cacheKey>
+      <cacheKey>#{currentDocument.repositoryName}_#{currentDocument.id}</cacheKey>
       <cacheSize>10</cacheSize>
 
       <searchLayout name="book_filter" filterDisplayType="quick" />
