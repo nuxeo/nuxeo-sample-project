@@ -1,23 +1,14 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
   <modelVersion>4.0.0</modelVersion>
 
-  <!-- Inherit from a corporate POM, not the Nuxeo one -->
-  <!-- <parent> -->
-  <!-- <groupId>com.company</groupId> -->
-  <!-- <artifactId>corporate</artifactId> -->
-  <!-- <version>1.0</version> -->
-  <!-- </parent> -->
-  <!-- This parent is for Nuxeo internal use only -->
   <parent>
-    <groupId>org.nuxeo</groupId>
-    <artifactId>nuxeo-ecm</artifactId>
-    <version>5.9.6-SNAPSHOT</version>
-    <relativePath></relativePath>
+    <groupId>org.nuxeo.marketplace.sample</groupId>
+    <artifactId>parent</artifactId>
+    <version>2.0.3-SNAPSHOT</version>
+    <relativePath>../pom.xml</relativePath>
   </parent>
 
-  <groupId>org.nuxeo.marketplace.sample</groupId>
   <artifactId>marketplace</artifactId>
-  <version>2.0.3-SNAPSHOT</version>
   <packaging>zip</packaging>
   <name>Marketplace package - recommended build method</name>
 
