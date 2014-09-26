@@ -24,7 +24,7 @@ import javax.sql.DataSource;
 
 import org.junit.Test;
 import org.nuxeo.ecm.core.storage.sql.TXSQLRepositoryTestCase;
-import org.nuxeo.runtime.api.DataSourceHelper;
+import org.nuxeo.runtime.datasource.DataSourceHelper;
 
 /**
  * Test a datasource as explained in http://doc.nuxeo.com/x/5AFc
