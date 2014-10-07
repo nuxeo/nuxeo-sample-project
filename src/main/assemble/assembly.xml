@@ -7,14 +7,8 @@
            uri="urn:nuxeo-artifact" />
   <taskdef resource="net/sf/antcontrib/antlib.xml" />
 
-  <target name="init" unless="init.done">
+  <target name="build" description="Build Nuxeo sample Marketplace package">
     <property name="outdir" value="${maven.project.build.directory}" />
-    <mkdir dir="${outdir}" />
-    <antcall target="expand" />
-    <property name="init.done" value="true" />
-  </target>
-
-  <target name="expand">
     <!-- Include your artifacts in the graph adding your groupId to groupPrefixes -->
     <artifact:nuxeo-expand includeTestScope="true"
                            groupPrefixes="org.nuxeo,com.nuxeo" />
@@ -25,12 +19,8 @@
                     scopes="test" />
     <!-- Prints the graph for debugging purpose -->
     <artifact:print output="${outdir}/dependency-tree.log" />
-  </target>
-
-  <target name="build"
-          depends="init"
-          description="Build Nuxeo sample Marketplace package">
     <tstamp />
+
     <delete failonerror="false" dir="${outdir}/nxr" />
     <mkdir dir="${outdir}/nxr" />
     <delete failonerror="false" dir="${outdir}/marketplace" />
@@ -60,6 +50,9 @@
           <!-- Include your artifacts using their groupId for instance -->
           <artifact groupId="com.nuxeo*" scope="!test" type="!pom" />
         </includes>
+        <excludes>
+          <artifact groupId="org.nuxeo.lib*" />
+        </excludes>
       </artifact:set>
     </copy>
     <!-- Third-party libraries -->
@@ -67,6 +60,7 @@
       <artifact:set>
         <includes>
           <artifact groupId="!org.nuxeo*" scope="!test" />
+          <artifact groupId="org.nuxeo.lib*" scope="!test" />
         </includes>
         <excludes>
           <!-- Filter out your artifacts using their groupId for instance -->
@@ -74,16 +68,14 @@
         </excludes>
       </artifact:set>
     </copy>
-    <move todir="${outdir}/nxr/lib">
-      <fileset dir="${outdir}/nxr/bundles">
-        <include name="nuxeo-generic-wss-front*" />
-        <include name="nuxeo-generic-wss-handler*" />
-      </fileset>
-    </move>
     <nx:rmdups dir="${outdir}/nxr/lib" />
     <!-- Temporary ZIP Nuxeo NXR to compare with base distribution NXR -->
     <zip destfile="${outdir}/nxr-${maven.project.version}.zip"
          basedir="${outdir}/nxr" />
+    <!-- Optionally attach the NXR for later use by other modules -->
+    <artifact:attach file="${outdir}/nxr-${maven.project.version}.zip"
+                     classifier="nxr"
+                     type="zip" />
 
     <!-- Your MP only needs to include files not already provided by the base distribution -->
     <nx:zipdiff file1="${outdir}/nxr-${maven.project.version}.zip"
