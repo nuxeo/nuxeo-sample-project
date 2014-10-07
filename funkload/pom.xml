@@ -1,4 +1,5 @@
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
   <modelVersion>4.0.0</modelVersion>
 
   <parent>
@@ -14,7 +15,8 @@
   <packaging>pom</packaging>
 
   <properties>
-    <nuxeo.distribution.tools.version>2.0</nuxeo.distribution.tools.version>
+    <!-- Copy some properties from org.nuxeo:nuxeo-ecm if not inheriting -->
+    <!-- <ant.assembly.version>2.0.2</ant.assembly.version> -->
     <nuxeo.distribution.version>5.9.6-SNAPSHOT</nuxeo.distribution.version>
     <some.password>setTheValueInYourSettings</some.password>
   </properties>
@@ -47,16 +49,17 @@
   </dependencyManagement>
 
   <build>
-    <pluginManagement>
-      <plugins>
-        <plugin>
-          <groupId>org.nuxeo.build</groupId>
-          <artifactId>ant-assembly-maven-plugin</artifactId>
-          <version>${nuxeo.distribution.tools.version}</version>
-          <extensions>true</extensions>
-        </plugin>
-      </plugins>
-    </pluginManagement>
+    <!-- Copy pluginManagement from org.nuxeo:nuxeo-ecm if not inheriting -->
+    <!-- <pluginManagement> -->
+    <!-- <plugins> -->
+    <!-- <plugin> -->
+    <!-- <groupId>org.nuxeo.build</groupId> -->
+    <!-- <artifactId>ant-assembly-maven-plugin</artifactId> -->
+    <!-- <version>${ant.assembly.version}</version> -->
+    <!-- <extensions>true</extensions> -->
+    <!-- </plugin> -->
+    <!-- </plugins> -->
+    <!-- </pluginManagement> -->
     <plugins>
       <plugin>
         <groupId>org.nuxeo.build</groupId>
