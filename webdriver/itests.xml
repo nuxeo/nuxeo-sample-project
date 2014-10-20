@@ -6,8 +6,8 @@
            uri="urn:nuxeo-artifact" />
   <taskdef resource="net/sf/antcontrib/antlib.xml" />
 
-  <!-- Base distribution (nuxeo-cap, nuxeo-dm, ...) -->
-  <property name="wizard.preset" value="nuxeo-cap" />
+  <!-- Base distribution (nuxeo-cap is the default value) -->
+  <!-- <property name="wizard.preset" value="nuxeo-cap" /> -->
 
   <property name="out.dir" value="${maven.project.build.directory}" />
   <unzip dest="${out.dir}/" overwrite="false">

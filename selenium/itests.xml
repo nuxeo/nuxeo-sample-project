@@ -9,8 +9,8 @@
   <!-- List of Selenium HTML test suites (without the ".html" file extension)  -->
   <property name="suites" value="suite" />
 
-  <!-- Base distribution (nuxeo-cap, nuxeo-dm, ...) -->
-  <property name="wizard.preset" value="nuxeo-cap" />
+  <!-- Base distribution (nuxeo-cap is the default value) -->
+  <!-- <property name="wizard.preset" value="nuxeo-cap" /> -->
 
   <property name="out.dir" value="${maven.project.build.directory}" />
   <unzip dest="${out.dir}/" overwrite="false">
