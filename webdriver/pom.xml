@@ -16,7 +16,7 @@
   <properties>
     <!-- Copy some properties from org.nuxeo:nuxeo-ecm if not inheriting -->
     <!-- <ant.assembly.version>2.0.2</ant.assembly.version> -->
-    <nuxeo.distribution.version>5.9.6-SNAPSHOT</nuxeo.distribution.version>
+    <nuxeo.distribution.version>6.0-SNAPSHOT</nuxeo.distribution.version>
     <some.password>setTheValueInYourSettings</some.password>
   </properties>
 
