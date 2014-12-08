@@ -40,66 +40,55 @@ import org.restlet.data.Request;
 import org.restlet.data.Response;
 
 /**
- * This Restlet get the latest created Book document and send back a custom JSon
- * object to the client.
+ * This Restlet get the latest created Book document and send back a custom JSon object to the client.
  *
  * @author ldoguin
  */
 public class LastBookRestlet extends BaseNuxeoRestlet {
 
-	public static final String LAST_BOOK_PROVIDER = "LAST_BOOK";
+    public static final String LAST_BOOK_PROVIDER = "LAST_BOOK";
 
-	/**
-	 * override the handle method to do custom json serialization.
-	 */
-	@Override
-	public void handle(Request req, Response res) {
-		DOMDocumentFactory domfactory = new DOMDocumentFactory();
-		DOMDocument result = (DOMDocument) domfactory.createDocument();
+    /**
+     * override the handle method to do custom json serialization.
+     */
+    @Override
+    public void handle(Request req, Response res) {
+        DOMDocumentFactory domfactory = new DOMDocumentFactory();
+        DOMDocument result = (DOMDocument) domfactory.createDocument();
 
-        try (CoreSession session = CoreInstance.openCoreSession(null,
-                getUserPrincipal(req))) {
+        try (CoreSession session = CoreInstance.openCoreSession(null, getUserPrincipal(req))) {
 
-			PageProviderService pps = Framework
-					.getService(PageProviderService.class);
+            PageProviderService pps = Framework.getService(PageProviderService.class);
 
+            PageProviderDefinition ppd = pps.getPageProviderDefinition(LAST_BOOK_PROVIDER);
+            HashMap<String, Serializable> props = new HashMap<String, Serializable>();
+            props.put(CoreQueryDocumentPageProvider.CORE_SESSION_PROPERTY, (Serializable) session);
 
-			PageProviderDefinition ppd = pps
-					.getPageProviderDefinition(LAST_BOOK_PROVIDER);
-			HashMap<String, Serializable> props = new HashMap<String, Serializable>();
-			props.put(CoreQueryDocumentPageProvider.CORE_SESSION_PROPERTY,
-					(Serializable) session);
+            PageProvider<?> provider = pps.getPageProvider(LAST_BOOK_PROVIDER, ppd, null, null, Long.valueOf(1),
+                    Long.valueOf(0), props);
 
-			PageProvider<?> provider = pps.getPageProvider(LAST_BOOK_PROVIDER, ppd,
-					null, null, Long.valueOf(1), Long.valueOf(0), props);
+            // fetch result
+            List<?> dms = provider.getCurrentPage();
+            if (dms.size() == 0) {
+                handleError(result, res, "No result available");
+                return;
+            }
+            DocumentModel lastBookDm = (DocumentModel) dms.get(0);
+            // serialize and write in response
+            String json = serialize(lastBookDm);
+            res.setEntity(json, MediaType.TEXT_PLAIN);
+        } catch (Exception e) {
+            handleError(res, e);
+        }
+    }
 
-			// fetch result
-			List<?> dms = provider.getCurrentPage();
-			if (dms.size() == 0) {
-				handleError(result, res, "No result available");
-				return;
-			}
-			DocumentModel lastBookDm = (DocumentModel) dms.get(0);
-			// serialize and write in response
-			String json = serialize(lastBookDm);
-			res.setEntity(json, MediaType.TEXT_PLAIN);
-		} catch (Exception e) {
-			handleError(res, e);
-		}
-	}
-
-	private String serialize(DocumentModel lastBookDm)
-			throws PropertyException, ClientException {
-		String jSonString = "{\"book\": {" + "\"title\": \""
-				+ lastBookDm.getPropertyValue("dc:title") + "\","
-				+ "\"isbn\": \"" + lastBookDm.getPropertyValue("bk:isbn")
-				+ "\"," + "\"rating\": \""
-				+ lastBookDm.getPropertyValue("bk:rating") + "\","
-				+ "\"publicationDate\": \""
-				+ lastBookDm.getPropertyValue("bk:publicationDate") + "\","
-				+ "\"keywords\": \""
-				+ lastBookDm.getPropertyValue("bk:keywords") + "\"}}";
-		return jSonString;
-	}
+    private String serialize(DocumentModel lastBookDm) throws PropertyException, ClientException {
+        String jSonString = "{\"book\": {" + "\"title\": \"" + lastBookDm.getPropertyValue("dc:title") + "\","
+                + "\"isbn\": \"" + lastBookDm.getPropertyValue("bk:isbn") + "\"," + "\"rating\": \""
+                + lastBookDm.getPropertyValue("bk:rating") + "\"," + "\"publicationDate\": \""
+                + lastBookDm.getPropertyValue("bk:publicationDate") + "\"," + "\"keywords\": \""
+                + lastBookDm.getPropertyValue("bk:keywords") + "\"}}";
+        return jSonString;
+    }
 
 }

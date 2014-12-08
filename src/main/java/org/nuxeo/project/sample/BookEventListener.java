@@ -34,8 +34,7 @@ public class BookEventListener implements EventListener {
     public void process(DocumentModel doc) throws ClientException {
         doc.setPropertyValue("dublincore:title", "Sample Book");
         String date = new SimpleDateFormat("yyyy-MM-dd").format(new Date());
-        doc.setPropertyValue("dublincore:description", "(Created on " + date
-                + ")");
+        doc.setPropertyValue("dublincore:description", "(Created on " + date + ")");
     }
 
 }

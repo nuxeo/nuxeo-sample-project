@@ -177,8 +177,7 @@ public class BookManagerBean implements BookManager, Serializable {
 
     protected static String[] FIRSTNAMES = { "Steve", "John", "Raoul", "James" };
 
-    protected static String[] LASTNAMES = { "Bond", "Einstein", "Tanaka",
-            "Presley" };
+    protected static String[] LASTNAMES = { "Bond", "Einstein", "Tanaka", "Presley" };
 
     public void randomFirstName() {
         firstName = FIRSTNAMES[rand.nextInt(FIRSTNAMES.length)];
@@ -194,8 +193,7 @@ public class BookManagerBean implements BookManager, Serializable {
 
     public void changeData() throws ClientException {
         if (getFirstName().equals(getLastName())) {
-            facesMessages.add(FacesMessage.SEVERITY_ERROR,
-                    "First name and last name must be different");
+            facesMessages.add(FacesMessage.SEVERITY_ERROR, "First name and last name must be different");
         }
 
         DocumentModel document = navigationContext.getCurrentDocument();
@@ -208,8 +206,7 @@ public class BookManagerBean implements BookManager, Serializable {
         documentManager.save();
     }
 
-    public void validation(FacesContext context, UIComponent component,
-            Object value) {
+    public void validation(FacesContext context, UIComponent component, Object value) {
         Integer v = (Integer) value;
         if ((v.intValue() % 2) != 0) {
             ((EditableValueHolder) component).setValid(false);
@@ -225,8 +222,7 @@ public class BookManagerBean implements BookManager, Serializable {
      * Search
      */
     public DocumentModelList getSearchResults() throws Exception {
-        DocumentModelList result = documentManager.query("SELECT * FROM Book",
-                10);
+        DocumentModelList result = documentManager.query("SELECT * FROM Book", 10);
         return result;
     }
 
@@ -244,7 +240,7 @@ public class BookManagerBean implements BookManager, Serializable {
 
     public void setFilter(String newfilter) {
         if (!(filter == null || filter.equals(newfilter))) {
-            //resultsProvidersCache.invalidate(BookResultsProviderFarm.KEYWORD_KEY);
+            // resultsProvidersCache.invalidate(BookResultsProviderFarm.KEYWORD_KEY);
         }
         this.filter = newfilter;
     }
@@ -254,8 +250,7 @@ public class BookManagerBean implements BookManager, Serializable {
      */
 
     /**
-     * @param param some string, that is directly passed from the Javascript
-     *            code.
+     * @param param some string, that is directly passed from the Javascript code.
      */
     @WebRemote
     public String something(String param) {
@@ -291,11 +286,10 @@ public class BookManagerBean implements BookManager, Serializable {
         List<BookInfo> list = new LinkedList<BookInfo>();
 
         DocumentModel folder = navigationContext.getCurrentDocument();
-        DocumentModelList children = documentManager.getChildren(
-                folder.getRef(), "Book");
+        DocumentModelList children = documentManager.getChildren(folder.getRef(), "Book");
         for (DocumentModel doc : children) {
             String[] keywords = (String[]) doc.getProperty("book", "keywords");
-            if(keywords == null) {
+            if (keywords == null) {
                 continue;
             }
             list.add(new BookInfo(doc, Arrays.asList(keywords)));
@@ -343,19 +337,16 @@ public class BookManagerBean implements BookManager, Serializable {
             newFolderName += "copy";
         }
         // create the new folder
-        DocumentModel newFolder = documentManager.createDocumentModel(
-                gp.getPathAsString(), newFolderName, folder.getType());
+        DocumentModel newFolder = documentManager.createDocumentModel(gp.getPathAsString(), newFolderName,
+                folder.getType());
         newFolder.setProperty("dublincore", "title", "Nouveau folder");
         documentManager.createDocument(newFolder);
 
         // create the children
         String newFolderPath = newFolder.getPathAsString();
-        for (DocumentModel child : documentManager.getChildren(folder.getRef(),
-                "Book")) {
-            DocumentModel newChild = documentManager.createDocumentModel(
-                    newFolderPath, child.getName(), "Note");
-            String title = child.getProperty("dublincore", "title")
-                    + " duplicated";
+        for (DocumentModel child : documentManager.getChildren(folder.getRef(), "Book")) {
+            DocumentModel newChild = documentManager.createDocumentModel(newFolderPath, child.getName(), "Note");
+            String title = child.getProperty("dublincore", "title") + " duplicated";
             newChild.setProperty("dublincore", "title", title);
             documentManager.createDocument(newChild);
         }

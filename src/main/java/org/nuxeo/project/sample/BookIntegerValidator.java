@@ -8,8 +8,7 @@ import javax.faces.validator.ValidatorException;
 
 public class BookIntegerValidator implements Validator {
 
-    public void validate(FacesContext context, UIComponent component,
-            Object value) throws ValidatorException {
+    public void validate(FacesContext context, UIComponent component, Object value) throws ValidatorException {
         Integer v = (Integer) value;
         if ((v.intValue() % 7) != 0) {
             FacesMessage message = new FacesMessage();

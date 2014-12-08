@@ -36,8 +36,7 @@ public class TestDatasourceJUnit3 extends TXSQLRepositoryTestCase {
     @Override
     protected void deployRepositoryContrib() throws Exception {
         deployBundle("org.nuxeo.runtime.datasource");
-        deployContrib("org.nuxeo.project.sample.tests",
-                "OSGI-INF/datasource-contrib.xml");
+        deployContrib("org.nuxeo.project.sample.tests", "OSGI-INF/datasource-contrib.xml");
         super.deployRepositoryContrib();
     }
 

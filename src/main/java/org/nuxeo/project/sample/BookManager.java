@@ -14,9 +14,8 @@ import org.nuxeo.project.sample.BookManagerBean.BookInfo;
 /**
  * Interface for the <code>bookManager</code> Seam component.
  * <p>
- * Use of this interface would be of course necessary if the Seam component was
- * also an EJB3. In that latter case, the <code>WebRemote</code> annotation has
- * to be put on the interface method, instead of the implementation method.
+ * Use of this interface would be of course necessary if the Seam component was also an EJB3. In that latter case, the
+ * <code>WebRemote</code> annotation has to be put on the interface method, instead of the implementation method.
  * </p>
  */
 public interface BookManager {
@@ -57,8 +56,7 @@ public interface BookManager {
 
     public void setRating(int rating);
 
-    public void validation(FacesContext context, UIComponent component,
-            Object value);
+    public void validation(FacesContext context, UIComponent component, Object value);
 
     public DocumentModelList getSearchResults() throws Exception;
 
@@ -77,8 +75,8 @@ public interface BookManager {
     /**
      * Method to demonstrate Seam Remoting.
      * <p>
-     * The annotation has to be on the interface in EJB3 situation. Otherwise it
-     * has to be on the component implementation.
+     * The annotation has to be on the interface in EJB3 situation. Otherwise it has to be on the component
+     * implementation.
      * </p>
      *
      * @param param parameter used from the javascript code.

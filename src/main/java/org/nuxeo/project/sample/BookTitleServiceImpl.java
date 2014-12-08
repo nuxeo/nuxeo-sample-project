@@ -6,8 +6,7 @@ import java.util.List;
 import org.nuxeo.runtime.model.ComponentInstance;
 import org.nuxeo.runtime.model.DefaultComponent;
 
-public class BookTitleServiceImpl extends DefaultComponent implements
-        BookTitleService {
+public class BookTitleServiceImpl extends DefaultComponent implements BookTitleService {
 
     private List<BookTitleDescriptor> config = new ArrayList<BookTitleDescriptor>();
 
@@ -44,14 +43,12 @@ public class BookTitleServiceImpl extends DefaultComponent implements
     }
 
     @Override
-    public void registerContribution(Object contribution,
-            String extensionPoint, ComponentInstance contributor) {
+    public void registerContribution(Object contribution, String extensionPoint, ComponentInstance contributor) {
         config.add((BookTitleDescriptor) contribution);
     }
 
     @Override
-    public void unregisterContribution(Object contribution,
-            String extensionPoint, ComponentInstance contributor) {
+    public void unregisterContribution(Object contribution, String extensionPoint, ComponentInstance contributor) {
         config.remove(contribution);
     }
 

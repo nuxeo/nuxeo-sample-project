@@ -41,8 +41,8 @@ import org.nuxeo.runtime.test.runner.FeaturesRunner;
 import com.google.inject.Inject;
 
 /**
- * Example of a test case that sets up a repository, and in particular checks
- * that our project core contributions are correctly taken into account.
+ * Example of a test case that sets up a repository, and in particular checks that our project core contributions are
+ * correctly taken into account.
  */
 @RunWith(FeaturesRunner.class)
 @Features(CoreFeature.class)
@@ -81,8 +81,7 @@ public class TestRepository {
     }
 
     /**
-     * Tests the life cycle policy of Book documents and plays a bit with the
-     * life cycle.
+     * Tests the life cycle policy of Book documents and plays a bit with the life cycle.
      */
     @Test
     public void testLifeCycle() throws Exception {
@@ -117,16 +116,14 @@ public class TestRepository {
         // Reload from repository
         doc = session.getDocument(doc.getRef());
         assertEquals("12-ISBN-98765", doc.getProperty("book", "isbn"));
-        assertEquals(Arrays.asList(kw),
-                Arrays.asList((String[]) doc.getProperty("book", "keywords")));
+        assertEquals(Arrays.asList(kw), Arrays.asList((String[]) doc.getProperty("book", "keywords")));
         assertEquals(new Long(15L), doc.getProperty("book", "rating"));
         Calendar cal2 = (Calendar) doc.getProperty("book", "publicationDate");
         assertEquals(cal, cal2);
     }
 
     /**
-     * Demonstrates that the repository is wiped out between two tests.
-     * (Granularity.METHOD)
+     * Demonstrates that the repository is wiped out between two tests. (Granularity.METHOD)
      */
     @Test
     public void testTearDown() throws Exception {

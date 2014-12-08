@@ -8,8 +8,7 @@ import javax.faces.convert.ConverterException;
 
 public class BookIntegerConverter implements Converter {
 
-    public Object getAsObject(FacesContext context, UIComponent component,
-            String value) {
+    public Object getAsObject(FacesContext context, UIComponent component, String value) {
         Integer result;
         if (value.trim().length() == 0) {
             result = Integer.valueOf(0);
@@ -27,8 +26,7 @@ public class BookIntegerConverter implements Converter {
         return result;
     }
 
-    public String getAsString(FacesContext context, UIComponent component,
-            Object value) {
+    public String getAsString(FacesContext context, UIComponent component, Object value) {
         int v = ((Integer) value).intValue();
         if (v == 0) {
             return "";

@@ -17,9 +17,8 @@ public class BookFileManagerPlugin extends AbstractFileImporter {
 
     private static final long serialVersionUID = 1L;
 
-    public DocumentModel create(CoreSession documentManager, Blob content,
-            String path, boolean overwrite, String filename,
-            TypeManager typeService) throws ClientException, IOException {
+    public DocumentModel create(CoreSession documentManager, Blob content, String path, boolean overwrite,
+            String filename, TypeManager typeService) throws ClientException, IOException {
 
         String title = FileManagerUtils.fetchTitle(FileManagerUtils.fetchFileName(filename));
 
@@ -35,8 +34,7 @@ public class BookFileManagerPlugin extends AbstractFileImporter {
         Random random = new Random(new Date().getTime());
         String randomName = String.valueOf(random.nextLong());
 
-        DocumentModel doc = documentManager.createDocumentModel(path,
-                randomName, "Book");
+        DocumentModel doc = documentManager.createDocumentModel(path, randomName, "Book");
         doc.setPropertyValue("dublincore:title", title);
         doc.setPropertyValue("dublincore:description", filename);
         doc.setProperty("file", "content", content);

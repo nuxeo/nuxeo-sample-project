@@ -37,8 +37,7 @@ public class BookISBNEventListener implements EventListener {
     public void process(DocumentModel doc) throws ClientException {
         String isbn = (String) doc.getPropertyValue("book:isbn");
         String title = (String) doc.getPropertyValue("dublincore:title");
-        if (isbn == null || title == null || isbn.trim().equals("")
-                || title.trim().equals("")) {
+        if (isbn == null || title == null || isbn.trim().equals("") || title.trim().equals("")) {
             return;
         }
 

@@ -32,16 +32,12 @@ import org.nuxeo.runtime.test.runner.RuntimeFeature;
 import com.google.inject.Inject;
 
 /**
- * The main purpose of this test case is to demonstrate the use of
- * {@link RuntimeFeature}.
- *
- * It just loads the book service definition and checks that the configuration
- * system works as expected. It does not test the default configuration,
- * however.
- *
+ * The main purpose of this test case is to demonstrate the use of {@link RuntimeFeature}. It just loads the book
+ * service definition and checks that the configuration system works as expected. It does not test the default
+ * configuration, however.
  */
 @RunWith(FeaturesRunner.class)
-@Features({TransactionalFeature.class, RuntimeFeature.class})
+@Features({ TransactionalFeature.class, RuntimeFeature.class })
 @Deploy({
 // deployment of the whole nuxeo-project sample bundle
         "org.nuxeo.project.sample",
