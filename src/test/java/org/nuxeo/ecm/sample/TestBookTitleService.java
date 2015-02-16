@@ -20,6 +20,8 @@ package org.nuxeo.ecm.sample;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
 
+import javax.inject.Inject;
+
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.nuxeo.ecm.core.test.TransactionalFeature;
@@ -28,8 +30,6 @@ import org.nuxeo.runtime.test.runner.Deploy;
 import org.nuxeo.runtime.test.runner.Features;
 import org.nuxeo.runtime.test.runner.FeaturesRunner;
 import org.nuxeo.runtime.test.runner.RuntimeFeature;
-
-import com.google.inject.Inject;
 
 /**
  * The main purpose of this test case is to demonstrate the use of {@link RuntimeFeature}. It just loads the book
