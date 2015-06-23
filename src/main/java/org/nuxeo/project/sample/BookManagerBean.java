@@ -25,7 +25,6 @@ import org.jboss.seam.annotations.Scope;
 import org.jboss.seam.annotations.remoting.WebRemote;
 import org.jboss.seam.core.Events;
 import org.jboss.seam.faces.FacesMessages;
-import org.nuxeo.common.utils.Path;
 import org.nuxeo.ecm.core.api.ClientException;
 import org.nuxeo.ecm.core.api.CoreSession;
 import org.nuxeo.ecm.core.api.DocumentModel;
@@ -155,9 +154,7 @@ public class BookManagerBean implements BookManager, Serializable {
             throw new ClientException(e);
         }
 
-        Session dir = null;
-        try {
-            dir = dirService.open("book_keywords");
+        try (Session dir = dirService.open("book_keywords")) {
             DocumentModelList entries = dir.getEntries();
             keywordList = new ArrayList<SelectItem>(entries.size());
             for (DocumentModel e : entries) {
@@ -165,10 +162,6 @@ public class BookManagerBean implements BookManager, Serializable {
                 String label = (String) e.getProperty("vocabulary", "label");
                 SelectItem item = new SelectItem(value, label);
                 keywordList.add(item);
-            }
-        } finally {
-            if (dir != null) {
-                dir.close();
             }
         }
     }

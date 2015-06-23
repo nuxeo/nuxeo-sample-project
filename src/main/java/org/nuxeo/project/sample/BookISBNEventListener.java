@@ -50,9 +50,7 @@ public class BookISBNEventListener implements EventListener {
             throw new ClientException(e);
         }
 
-        Session dir = null;
-        try {
-            dir = dirService.open("book_keywords");
+        try (Session dir = dirService.open("book_keywords")) {
             DocumentModel entry = dir.getEntry(isbn);
 
             if (entry == null) {
@@ -65,10 +63,6 @@ public class BookISBNEventListener implements EventListener {
                 // update
                 entry.setPropertyValue("vocabulary:label", title);
                 dir.updateEntry(entry);
-            }
-        } finally {
-            if (dir != null) {
-                dir.close();
             }
         }
     }
