@@ -15,7 +15,7 @@ import org.nuxeo.runtime.api.Framework;
 
 public class BookISBNEventListener implements EventListener {
 
-    public void handleEvent(Event event) throws ClientException {
+    public void handleEvent(Event event) {
 
         EventContext ctx = event.getContext();
 
@@ -34,7 +34,7 @@ public class BookISBNEventListener implements EventListener {
 
     }
 
-    public void process(DocumentModel doc) throws ClientException {
+    public void process(DocumentModel doc) {
         String isbn = (String) doc.getPropertyValue("book:isbn");
         String title = (String) doc.getPropertyValue("dublincore:title");
         if (isbn == null || title == null || isbn.trim().equals("") || title.trim().equals("")) {

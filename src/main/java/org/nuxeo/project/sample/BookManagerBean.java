@@ -76,7 +76,7 @@ public class BookManagerBean implements BookManager, Serializable {
 
     private String filter;
 
-    public String getParentTitle() throws ClientException {
+    public String getParentTitle() {
         DocumentModel doc = navigationContext.getCurrentDocument();
         DocumentModel parent = documentManager.getParentDocument(doc.getRef());
         return (String) parent.getProperty("dublincore", "title");
@@ -132,7 +132,7 @@ public class BookManagerBean implements BookManager, Serializable {
         this.keywords = keywords;
     }
 
-    public List<SelectItem> getAvailableKeywords() throws ClientException {
+    public List<SelectItem> getAvailableKeywords() {
         if (keywordList == null) {
             computeKeywordValues();
         }
@@ -144,7 +144,7 @@ public class BookManagerBean implements BookManager, Serializable {
         keywordList = null;
     }
 
-    private void computeKeywordValues() throws ClientException {
+    private void computeKeywordValues() {
         DirectoryService dirService;
         try {
             // This should work but doesn't in 5.1.3
@@ -184,7 +184,7 @@ public class BookManagerBean implements BookManager, Serializable {
      * Validation / change
      */
 
-    public void changeData() throws ClientException {
+    public void changeData() {
         if (getFirstName().equals(getLastName())) {
             facesMessages.add(FacesMessage.SEVERITY_ERROR, "First name and last name must be different");
         }
@@ -262,7 +262,7 @@ public class BookManagerBean implements BookManager, Serializable {
         return "/incl/bookwizard_page" + page + ".xhtml";
     }
 
-    public String validateWizard() throws ClientException {
+    public String validateWizard() {
         DocumentModel document = navigationContext.getChangeableDocument();
         String title = getFirstName() + " " + getLastName();
         document.setProperty("dublincore", "title", title);
@@ -275,7 +275,7 @@ public class BookManagerBean implements BookManager, Serializable {
     /*
      * Books listing in folder
      */
-    public List<BookInfo> getBooksInFolder() throws ClientException {
+    public List<BookInfo> getBooksInFolder() {
         List<BookInfo> list = new LinkedList<BookInfo>();
 
         DocumentModel folder = navigationContext.getCurrentDocument();
@@ -314,7 +314,7 @@ public class BookManagerBean implements BookManager, Serializable {
     /*
      * Unused
      */
-    public String duplicateSiblings() throws ClientException {
+    public String duplicateSiblings() {
         DocumentModel doc = navigationContext.getCurrentDocument();
         DocumentModel folder = documentManager.getParentDocument(doc.getRef());
         DocumentModel gp = documentManager.getParentDocument(folder.getRef());

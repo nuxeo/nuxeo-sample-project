@@ -18,7 +18,7 @@ public class BookFileManagerPlugin extends AbstractFileImporter {
     private static final long serialVersionUID = 1L;
 
     public DocumentModel create(CoreSession documentManager, Blob content, String path, boolean overwrite,
-            String filename, TypeManager typeService) throws ClientException, IOException {
+            String filename, TypeManager typeService) throws IOException {
 
         String title = FileManagerUtils.fetchTitle(FileManagerUtils.fetchFileName(filename));
 
