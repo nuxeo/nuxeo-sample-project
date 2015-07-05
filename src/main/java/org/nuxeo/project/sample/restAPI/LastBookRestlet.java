@@ -82,7 +82,7 @@ public class LastBookRestlet extends BaseNuxeoRestlet {
         }
     }
 
-    private String serialize(DocumentModel lastBookDm) throws PropertyException, ClientException {
+    private String serialize(DocumentModel lastBookDm) throws PropertyException {
         String jSonString = "{\"book\": {" + "\"title\": \"" + lastBookDm.getPropertyValue("dc:title") + "\","
                 + "\"isbn\": \"" + lastBookDm.getPropertyValue("bk:isbn") + "\"," + "\"rating\": \""
                 + lastBookDm.getPropertyValue("bk:rating") + "\"," + "\"publicationDate\": \""

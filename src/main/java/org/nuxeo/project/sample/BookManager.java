@@ -20,13 +20,13 @@ import org.nuxeo.project.sample.BookManagerBean.BookInfo;
  */
 public interface BookManager {
 
-    public List<SelectItem> getAvailableKeywords() throws ClientException;
+    public List<SelectItem> getAvailableKeywords();
 
     public List<String> getKeywords();
 
     public void setKeywords(List<String> keywords);
 
-    public void changeData() throws ClientException;
+    public void changeData();
 
     public String getFirstName();
 
@@ -48,7 +48,7 @@ public interface BookManager {
 
     public String getWizardPage();
 
-    public String validateWizard() throws ClientException;
+    public String validateWizard();
 
     public void resetKeywordValues();
 
@@ -60,11 +60,11 @@ public interface BookManager {
 
     public DocumentModelList getSearchResults() throws Exception;
 
-    public String getParentTitle() throws ClientException;
+    public String getParentTitle();
 
-    public String duplicateSiblings() throws ClientException;
+    public String duplicateSiblings();
 
-    public List<BookInfo> getBooksInFolder() throws ClientException;
+    public List<BookInfo> getBooksInFolder();
 
     public boolean hasFilter();
 
