@@ -24,10 +24,10 @@ import java.util.HashMap;
 import java.util.List;
 import org.dom4j.dom.DOMDocument;
 import org.dom4j.dom.DOMDocumentFactory;
-import org.nuxeo.ecm.core.api.ClientException;
 import org.nuxeo.ecm.core.api.CoreInstance;
 import org.nuxeo.ecm.core.api.CoreSession;
 import org.nuxeo.ecm.core.api.DocumentModel;
+import org.nuxeo.ecm.core.api.NuxeoException;
 import org.nuxeo.ecm.core.api.model.PropertyException;
 import org.nuxeo.ecm.platform.query.api.PageProvider;
 import org.nuxeo.ecm.platform.query.api.PageProviderDefinition;
@@ -77,7 +77,7 @@ public class LastBookRestlet extends BaseNuxeoRestlet {
             // serialize and write in response
             String json = serialize(lastBookDm);
             res.setEntity(json, MediaType.TEXT_PLAIN);
-        } catch (Exception e) {
+        } catch (NuxeoException e) {
             handleError(res, e);
         }
     }

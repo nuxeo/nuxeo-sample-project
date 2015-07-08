@@ -7,7 +7,6 @@ import javax.faces.context.FacesContext;
 import javax.faces.model.SelectItem;
 
 import org.jboss.seam.annotations.remoting.WebRemote;
-import org.nuxeo.ecm.core.api.ClientException;
 import org.nuxeo.ecm.core.api.DocumentModelList;
 import org.nuxeo.project.sample.BookManagerBean.BookInfo;
 
@@ -58,7 +57,7 @@ public interface BookManager {
 
     public void validation(FacesContext context, UIComponent component, Object value);
 
-    public DocumentModelList getSearchResults() throws Exception;
+    public DocumentModelList getSearchResults();
 
     public String getParentTitle();
 

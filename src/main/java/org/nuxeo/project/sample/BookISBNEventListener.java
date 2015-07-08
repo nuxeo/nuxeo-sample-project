@@ -3,7 +3,6 @@ package org.nuxeo.project.sample;
 import java.util.HashMap;
 import java.util.Map;
 
-import org.nuxeo.ecm.core.api.ClientException;
 import org.nuxeo.ecm.core.api.DocumentModel;
 import org.nuxeo.ecm.core.event.Event;
 import org.nuxeo.ecm.core.event.EventContext;
@@ -41,14 +40,7 @@ public class BookISBNEventListener implements EventListener {
             return;
         }
 
-        DirectoryService dirService;
-        try {
-            // This should work but doesn't in 5.1.3
-            // dirService = Framework.getService(DirectoryService.class);
-            dirService = Framework.getLocalService(DirectoryService.class);
-        } catch (Exception e) {
-            throw new ClientException(e);
-        }
+        DirectoryService dirService = Framework.getService(DirectoryService.class);
 
         try (Session dir = dirService.open("book_keywords")) {
             DocumentModel entry = dir.getEntry(isbn);

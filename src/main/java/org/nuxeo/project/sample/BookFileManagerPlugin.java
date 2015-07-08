@@ -5,7 +5,6 @@ import java.util.Date;
 import java.util.Random;
 
 import org.nuxeo.ecm.core.api.Blob;
-import org.nuxeo.ecm.core.api.ClientException;
 import org.nuxeo.ecm.core.api.CoreSession;
 import org.nuxeo.ecm.core.api.DocumentModel;
 import org.nuxeo.ecm.platform.filemanager.service.extension.AbstractFileImporter;
@@ -22,12 +21,7 @@ public class BookFileManagerPlugin extends AbstractFileImporter {
 
         String title = FileManagerUtils.fetchTitle(FileManagerUtils.fetchFileName(filename));
 
-        BookTitleService service;
-        try {
-            service = Framework.getService(BookTitleService.class);
-        } catch (Exception e) {
-            throw new ClientException(e);
-        }
+        BookTitleService service = Framework.getService(BookTitleService.class);
 
         title = service.correctTitle(title);
 

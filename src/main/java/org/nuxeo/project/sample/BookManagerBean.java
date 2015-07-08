@@ -25,7 +25,6 @@ import org.jboss.seam.annotations.Scope;
 import org.jboss.seam.annotations.remoting.WebRemote;
 import org.jboss.seam.core.Events;
 import org.jboss.seam.faces.FacesMessages;
-import org.nuxeo.ecm.core.api.ClientException;
 import org.nuxeo.ecm.core.api.CoreSession;
 import org.nuxeo.ecm.core.api.DocumentModel;
 import org.nuxeo.ecm.core.api.DocumentModelList;
@@ -145,14 +144,7 @@ public class BookManagerBean implements BookManager, Serializable {
     }
 
     private void computeKeywordValues() {
-        DirectoryService dirService;
-        try {
-            // This should work but doesn't in 5.1.3
-            // dirService = Framework.getService(DirectoryService.class);
-            dirService = Framework.getLocalService(DirectoryService.class);
-        } catch (Exception e) {
-            throw new ClientException(e);
-        }
+        DirectoryService dirService = Framework.getLocalService(DirectoryService.class);
 
         try (Session dir = dirService.open("book_keywords")) {
             DocumentModelList entries = dir.getEntries();
@@ -214,7 +206,7 @@ public class BookManagerBean implements BookManager, Serializable {
     /*
      * Search
      */
-    public DocumentModelList getSearchResults() throws Exception {
+    public DocumentModelList getSearchResults() {
         DocumentModelList result = documentManager.query("SELECT * FROM Book", 10);
         return result;
     }
