@@ -22,7 +22,6 @@ import java.io.File;
 
 import org.apache.commons.io.FileUtils;
 import org.nuxeo.ecm.core.test.CoreFeature;
-import org.nuxeo.ecm.core.test.TransactionalFeature;
 import org.nuxeo.runtime.test.runner.Deploy;
 import org.nuxeo.runtime.test.runner.Features;
 import org.nuxeo.runtime.test.runner.FeaturesRunner;
@@ -32,7 +31,7 @@ import org.nuxeo.runtime.test.runner.SimpleFeature;
 /**
  * @since 5.7
  */
-@Features({ TransactionalFeature.class, CoreFeature.class })
+@Features(CoreFeature.class)
 @Deploy({ "org.nuxeo.runtime.datasource", "org.nuxeo.project.sample.tests" })
 @LocalDeploy("org.nuxeo.project.sample.tests:OSGI-INF/datasource-contrib.xml")
 public class DatasourceFeature extends SimpleFeature {

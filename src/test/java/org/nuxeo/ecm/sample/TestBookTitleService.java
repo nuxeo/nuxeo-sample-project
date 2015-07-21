@@ -24,7 +24,6 @@ import javax.inject.Inject;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;
-import org.nuxeo.ecm.core.test.TransactionalFeature;
 import org.nuxeo.project.sample.BookTitleService;
 import org.nuxeo.runtime.test.runner.Deploy;
 import org.nuxeo.runtime.test.runner.Features;
@@ -37,7 +36,7 @@ import org.nuxeo.runtime.test.runner.RuntimeFeature;
  * configuration, however.
  */
 @RunWith(FeaturesRunner.class)
-@Features({ TransactionalFeature.class, RuntimeFeature.class })
+@Features(RuntimeFeature.class)
 @Deploy({
 // deployment of the whole nuxeo-project sample bundle
         "org.nuxeo.project.sample",
