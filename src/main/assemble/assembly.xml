@@ -1,22 +1,15 @@
-<project name="nuxeo-assembly"
-         default="build"
-         xmlns:nx="urn:nuxeo-build"
-         xmlns:artifact="urn:nuxeo-artifact">
+<project name="nuxeo-sample-assembly" default="build" xmlns:nx="urn:nuxeo-build" xmlns:artifact="urn:nuxeo-artifact">
   <taskdef resource="org/nuxeo/build/antlib.xml" uri="urn:nuxeo-build" />
-  <taskdef resource="org/nuxeo/build/artifact/antlib.xml"
-           uri="urn:nuxeo-artifact" />
+  <taskdef resource="org/nuxeo/build/artifact/antlib.xml" uri="urn:nuxeo-artifact" />
   <taskdef resource="net/sf/antcontrib/antlib.xml" />
 
   <target name="build" description="Build Nuxeo sample Marketplace package">
     <property name="outdir" value="${maven.project.build.directory}" />
     <!-- Include your artifacts in the graph adding your groupId to groupPrefixes -->
-    <artifact:nuxeo-expand includeTestScope="true"
-                           groupPrefixes="org.nuxeo,com.nuxeo" />
+    <artifact:nuxeo-expand includeTestScope="true" groupPrefixes="org.nuxeo,com.sample.company" />
     <!-- For Nuxeo IDE being able to use that distribution as a SDK -->
     <artifact:print output="${outdir}/artifacts-sample.properties" mode="sdk" />
-    <artifact:print output="${outdir}/test-artifacts-sample.properties"
-                    mode="sdk"
-                    scopes="test" />
+    <artifact:print output="${outdir}/test-artifacts-sample.properties" mode="sdk" scopes="test" />
     <!-- Prints the graph for debugging purpose -->
     <artifact:print output="${outdir}/dependency-tree.log" />
     <tstamp />
@@ -32,10 +25,8 @@
         <filter token="DISTRIB_VERSION" value="${nuxeo.distribution.version}" />
       </filterset>
     </copy>
-    <copy file="${outdir}/artifacts-sample.properties"
-          todir="${outdir}/marketplace/install" />
-    <copy file="${outdir}/test-artifacts-sample.properties"
-          todir="${outdir}/marketplace/install" />
+    <copy file="${outdir}/artifacts-sample.properties" todir="${outdir}/marketplace/install" />
+    <copy file="${outdir}/test-artifacts-sample.properties" todir="${outdir}/marketplace/install" />
 
     <!-- Base distribution NXR -->
     <copy todir="${outdir}">
@@ -48,7 +39,7 @@
         <includes>
           <artifact groupId="org.nuxeo*" scope="!test" type="!pom" />
           <!-- Include your artifacts using their groupId for instance -->
-          <artifact groupId="com.nuxeo*" scope="!test" type="!pom" />
+          <artifact groupId="com.sample.company*" scope="!test" type="!pom" />
         </includes>
         <excludes>
           <artifact groupId="org.nuxeo.lib*" />
@@ -64,18 +55,15 @@
         </includes>
         <excludes>
           <!-- Filter out your artifacts using their groupId for instance -->
-          <artifact groupId="com.nuxeo*" />
+          <artifact groupId="com.sample.company*" />
         </excludes>
       </artifact:set>
     </copy>
     <nx:rmdups dir="${outdir}/nxr/lib" />
     <!-- Temporary ZIP Nuxeo NXR to compare with base distribution NXR -->
-    <zip destfile="${outdir}/nxr-${maven.project.version}.zip"
-         basedir="${outdir}/nxr" />
+    <zip destfile="${outdir}/nxr-${maven.project.version}.zip" basedir="${outdir}/nxr" />
     <!-- Optionally attach the NXR for later use by other modules -->
-    <artifact:attach file="${outdir}/nxr-${maven.project.version}.zip"
-                     classifier="nxr"
-                     type="zip" />
+    <artifact:attach file="${outdir}/nxr-${maven.project.version}.zip" classifier="nxr" type="zip" />
 
     <!-- Your MP only needs to include files not already provided by the base distribution -->
     <nx:zipdiff file1="${outdir}/nxr-${maven.project.version}.zip"
@@ -86,8 +74,7 @@
                 ignoreContent="false"
                 ignoreContentPattern=".*\.jar$">
     </nx:zipdiff>
-    <unzip src="${outdir}/nxr-${maven.project.version}.zip"
-           dest="${outdir}/marketplace/install">
+    <unzip src="${outdir}/nxr-${maven.project.version}.zip" dest="${outdir}/marketplace/install">
       <patternset refid="sample.versus.cap" />
     </unzip>
 
@@ -132,9 +119,7 @@
       </then>
     </if>
 
-    <copy file="src/main/resources/install.xml"
-          todir="${outdir}/marketplace"
-          overwrite="true">
+    <copy file="src/main/resources/install.xml" todir="${outdir}/marketplace" overwrite="true">
       <filterset>
         <filter token="BUNDLES" value="${install.bundles}" />
         <filter token="LIBS" value="${install.libs}" />
@@ -145,8 +130,7 @@
 
     <zip destfile="${outdir}/${maven.project.artifactId}-${maven.project.version}.zip"
          basedir="${outdir}/marketplace" />
-    <artifact:attach file="${outdir}/${maven.project.artifactId}-${maven.project.version}.zip"
-                     type="zip" />
+    <artifact:attach file="${outdir}/${maven.project.artifactId}-${maven.project.version}.zip" type="zip" />
   </target>
 
 </project>
