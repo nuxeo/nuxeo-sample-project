@@ -1,9 +1,6 @@
-<project name="nuxeo-sample-tests"
-         xmlns:nx="urn:nuxeo-build"
-         xmlns:artifact="urn:nuxeo-artifact">
+<project name="sample-selenium-tests" xmlns:nx="urn:nuxeo-build" xmlns:artifact="urn:nuxeo-artifact">
   <taskdef resource="org/nuxeo/build/antlib.xml" uri="urn:nuxeo-build" />
-  <taskdef resource="org/nuxeo/build/artifact/antlib.xml"
-           uri="urn:nuxeo-artifact" />
+  <taskdef resource="org/nuxeo/build/artifact/antlib.xml" uri="urn:nuxeo-artifact" />
   <taskdef resource="net/sf/antcontrib/antlib.xml" />
 
   <!-- List of Selenium HTML test suites (without the ".html" file extension)  -->
@@ -19,11 +16,9 @@
   <import file="${out.dir}/nuxeo-ftest.xml" />
 
   <!-- Instruction for installing the MP to be tested -->
-  <property name="mp.install"
-            value="file:${out.dir}/marketplace-${maven.project.version}.zip" />
+  <property name="mp.install" value="file:${out.dir}/marketplace-${maven.project.version}.zip" />
   <!-- Override default prepare-environment target to make it download your MP -->
-  <target name="prepare-environment"
-          depends="_init,prepare-db,prepare-tomcat,prepare-jboss">
+  <target name="prepare-environment" depends="_init,prepare-db,prepare-tomcat,prepare-jboss">
     <copy todir="${out.dir}">
       <artifact:resolveFile key="org.nuxeo.marketplace.sample:marketplace::zip" />
     </copy>

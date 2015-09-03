@@ -1,10 +1,9 @@
-<project name="funkload-tests"
+<project name="sample-funkload-tests"
          default="run-funkload-tests"
          xmlns:nx="urn:nuxeo-build"
          xmlns:artifact="urn:nuxeo-artifact">
   <taskdef resource="org/nuxeo/build/antlib.xml" uri="urn:nuxeo-build" />
-  <taskdef resource="org/nuxeo/build/artifact/antlib.xml"
-           uri="urn:nuxeo-artifact" />
+  <taskdef resource="org/nuxeo/build/artifact/antlib.xml" uri="urn:nuxeo-artifact" />
   <taskdef resource="net/sf/antcontrib/antlib.xml" />
 
   <!-- Base distribution (nuxeo-cap is the default value) -->
@@ -17,24 +16,20 @@
   <import file="${out.dir}/nuxeo-ftest.xml" />
 
   <!-- Instruction for installing the MP to be tested -->
-  <property name="mp.install"
-            value="file:${out.dir}/marketplace-${maven.project.version}.zip" />
+  <property name="mp.install" value="file:${out.dir}/marketplace-${maven.project.version}.zip" />
   <!-- Override default prepare-environment target to make it download your MP -->
-  <target name="prepare-environment"
-          depends="_init,prepare-db,prepare-tomcat,prepare-jboss">
+  <target name="prepare-environment" depends="_init,prepare-db,prepare-tomcat,prepare-jboss">
     <copy todir="${out.dir}">
       <artifact:resolveFile key="org.nuxeo.marketplace.sample:marketplace::zip" />
     </copy>
   </target>
 
   <!-- Funkload tests to run -->
-  <property name="funkload-tests"
-            value="
+  <property name="funkload-tests" value="
         test_sample.py[testAvailable]
     " />
 
-  <!-- Those shouldn't be there but needs to be changed both
-       in the conf files and the builds at the same time -->
+  <!-- Those shouldn't be there but needs to be changed both in the conf files and the builds at the same time -->
   <target name="make-legacy-dirs">
     <mkdir dir="../../target/ftest/funkload/log" />
     <mkdir dir="../../target/ftest/funkload/report" />
