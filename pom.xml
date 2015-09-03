@@ -12,35 +12,18 @@
   <packaging>zip</packaging>
   <name>Marketplace package - recommended build method</name>
 
-  <properties>
-    <!-- Copy some properties from org.nuxeo:nuxeo-ecm if not inheriting -->
-    <!-- <ant.assembly.version>2.0.2</ant.assembly.version> -->
-    <nuxeo.distribution.version>7.4-SNAPSHOT</nuxeo.distribution.version>
-  </properties>
-
-  <dependencyManagement>
-    <dependencies>
-      <!-- Import Nuxeo BOM -->
-      <dependency>
-        <groupId>org.nuxeo.ecm.distribution</groupId>
-        <artifactId>nuxeo-distribution</artifactId>
-        <version>${nuxeo.distribution.version}</version>
-        <type>pom</type>
-        <scope>import</scope>
-      </dependency>
-    </dependencies>
-  </dependencyManagement>
-
   <dependencies>
     <!-- Base distribution(s) for the MP -->
     <dependency>
       <groupId>org.nuxeo.ecm.distribution</groupId>
       <artifactId>nuxeo-distribution-cap</artifactId>
-      <!-- <artifactId>nuxeo-distribution-coreserver</artifactId> -->
-      <!-- <artifactId>nuxeo-distribution-dm</artifactId> -->
-      <!-- <artifactId>nuxeo-distribution-dam</artifactId> -->
-      <!-- <artifactId>nuxeo-distribution-social-collaboration</artifactId> -->
       <type>pom</type>
+    </dependency>
+    <dependency>
+      <groupId>org.nuxeo.ecm.distribution</groupId>
+      <artifactId>nuxeo-distribution-cap</artifactId>
+      <type>zip</type>
+      <scope>provided</scope>
     </dependency>
 
     <!-- Additional bundles to be deployed by the MP -->
@@ -51,17 +34,6 @@
   </dependencies>
 
   <build>
-    <!-- Copy pluginManagement from org.nuxeo:nuxeo-ecm if not inheriting -->
-    <!-- <pluginManagement> -->
-    <!-- <plugins> -->
-    <!-- <plugin> -->
-    <!-- <groupId>org.nuxeo.build</groupId> -->
-    <!-- <artifactId>ant-assembly-maven-plugin</artifactId> -->
-    <!-- <version>${ant.assembly.version}</version> -->
-    <!-- <extensions>true</extensions> -->
-    <!-- </plugin> -->
-    <!-- </plugins> -->
-    <!-- </pluginManagement> -->
     <plugins>
       <plugin>
         <groupId>org.nuxeo.build</groupId>
@@ -74,61 +46,5 @@
       </plugin>
     </plugins>
   </build>
-
-  <repositories>
-    <repository>
-      <id>public</id>
-      <url>http://maven.nuxeo.org/nexus/content/groups/public</url>
-      <releases>
-        <enabled>true</enabled>
-      </releases>
-      <snapshots>
-        <enabled>false</enabled>
-      </snapshots>
-    </repository>
-    <repository>
-      <id>public-snapshot</id>
-      <url>http://maven.nuxeo.org/nexus/content/groups/public-snapshot</url>
-      <releases>
-        <enabled>false</enabled>
-      </releases>
-      <snapshots>
-        <updatePolicy>always</updatePolicy>
-        <enabled>true</enabled>
-      </snapshots>
-    </repository>
-  </repositories>
-
-  <pluginRepositories>
-    <pluginRepository>
-      <id>public</id>
-      <url>http://maven.nuxeo.org/nexus/content/groups/public</url>
-      <name>Nuxeo virtual release repository</name>
-      <releases>
-        <enabled>true</enabled>
-      </releases>
-      <snapshots>
-        <enabled>false</enabled>
-      </snapshots>
-    </pluginRepository>
-    <pluginRepository>
-      <id>public-snapshot</id>
-      <url>http://maven.nuxeo.org/nexus/content/groups/public-snapshot</url>
-      <name>Nuxeo virtual snapshot repository</name>
-      <releases>
-        <enabled>false</enabled>
-      </releases>
-      <snapshots>
-        <updatePolicy>always</updatePolicy>
-        <enabled>true</enabled>
-      </snapshots>
-    </pluginRepository>
-  </pluginRepositories>
-
-  <scm>
-    <connection>scm:git:git://github.com/nuxeo/nuxeo-marketplace-sample.git</connection>
-    <developerConnection>scm:git:ssh://git@github.com:nuxeo/nuxeo-marketplace-sample.git</developerConnection>
-    <url>https://github.com/nuxeo/nuxeo-marketplace-sample</url>
-  </scm>
 
 </project>
