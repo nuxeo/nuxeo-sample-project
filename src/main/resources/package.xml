@@ -3,7 +3,7 @@
   <title>Nuxeo Sample</title>
   <description>
     <p>This addon adds the "sample project" functionality to Nuxeo.</p>
-    <p>Put here an HTML description of your Marketplace package.</p>
+    <p>Put here an HTML description of your Nuxeo Package.</p>
   </description>
   <home-page>http://doc.nuxeo.com/</home-page>
   <vendor>Your company</vendor>

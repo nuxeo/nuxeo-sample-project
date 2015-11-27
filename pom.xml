@@ -9,7 +9,7 @@
 
   <artifactId>marketplace</artifactId>
   <packaging>zip</packaging>
-  <name>Marketplace package - recommended build method</name>
+  <name>Nuxeo Package - recommended build method</name>
 
   <dependencies>
     <!-- Base distribution(s) for the MP -->

@@ -3,7 +3,7 @@
   <taskdef resource="org/nuxeo/build/artifact/antlib.xml" uri="urn:nuxeo-artifact" />
   <taskdef resource="net/sf/antcontrib/antlib.xml" />
 
-  <target name="build" description="Build Nuxeo sample Marketplace package">
+  <target name="build" description="Build sample Nuxeo Package">
     <property name="outdir" value="${maven.project.build.directory}" />
     <!-- Include your artifacts in the graph adding your groupId to groupPrefixes -->
     <artifact:nuxeo-expand includeTestScope="true" groupPrefixes="org.nuxeo,com.sample.company" />
