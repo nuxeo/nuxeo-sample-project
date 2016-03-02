@@ -11,13 +11,10 @@
   <uninstaller restart="true" />
   <!-- <hotreload-support>false</hotreload-support> -->
   <!-- <require-terms-and-conditions-acceptance>false</require-terms-and-conditions-acceptance> -->
+  <!-- Nuxeo Validation: none | inprocess | primary_validation | nuxeo_certified -->
   <nuxeo-validation>none</nuxeo-validation>
-  <!-- <nuxeo-validation>inprocess</nuxeo-validation> -->
-  <!-- <nuxeo-validation>primary_validation</nuxeo-validation> -->
-  <!-- <nuxeo-validation>nuxeo_certified</nuxeo-validation> -->
-  <!-- <production-state>proto</production-state> -->
+  <!-- Production State: production_ready | testing | proto -->
   <production-state>testing</production-state>
-  <!-- <production-state>production_ready</production-state> -->
   <supported>false</supported>
   <platforms>
     <platform>cap-@DISTRIB_VERSION@</platform>
@@ -37,5 +34,6 @@
   <!-- </provides> -->
   <license>LGPL 2.1</license>
   <license-url>http://www.gnu.org/licenses/lgpl-2.1.html</license-url>
+  <!-- Visibility: PRIVATE | MARKETPLACE | DEV | PUBLIC -->`
   <visibility>PUBLIC</visibility>
 </package>
