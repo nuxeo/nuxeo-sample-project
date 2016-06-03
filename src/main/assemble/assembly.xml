@@ -35,27 +35,33 @@
 
     <!-- Nuxeo bundles -->
     <copy todir="${outdir}/nxr/bundles" overwrite="true">
-      <artifact:set>
+      <artifact:set excludeRoots="true">
         <includes>
-          <artifact groupId="org.nuxeo*" scope="!test" type="!pom" />
+          <artifact groupId="org.nuxeo*" />
           <!-- Include your artifacts using their groupId for instance -->
-          <artifact groupId="com.sample.company*" scope="!test" type="!pom" />
+          <artifact groupId="com.sample.company*" />
         </includes>
         <excludes>
           <artifact groupId="org.nuxeo.lib*" />
+          <artifact scope="test" />
+          <artifact scope="provided" />
+          <artifact type="pom" />
         </excludes>
       </artifact:set>
     </copy>
     <!-- Third-party libraries -->
     <copy todir="${outdir}/nxr/lib" overwrite="true">
-      <artifact:set>
+      <artifact:set excludeRoots="true">
         <includes>
-          <artifact groupId="!org.nuxeo*" scope="!test" />
-          <artifact groupId="org.nuxeo.lib*" scope="!test" />
+          <artifact groupId="!org.nuxeo*" />
+          <artifact groupId="org.nuxeo.lib*" />
         </includes>
         <excludes>
           <!-- Filter out your artifacts using their groupId for instance -->
           <artifact groupId="com.sample.company*" />
+          <artifact scope="test" />
+          <artifact scope="provided" />
+          <artifact type="pom" />
         </excludes>
       </artifact:set>
     </copy>
