@@ -1,17 +1,9 @@
 <?xml version="1.0"?>
 <component name="org.nuxeo.project.sample.directories">
 
-  <extension target="org.nuxeo.ecm.directory.sql.SQLDirectoryFactory"
-    point="directories">
+  <extension target="org.nuxeo.ecm.directory.GenericDirectory" point="directories">
 
-    <directory name="book_keywords">
-      <schema>vocabulary</schema>
-      <idField>id</idField>
-
-      <dataSource>java:/nxsqldirectory</dataSource>
-      <table>book_keywords</table>
-      <!-- one of "never", "on_missing_columns" or "always" -->
-      <createTablePolicy>on_missing_columns</createTablePolicy>
+    <directory name="book_keywords" extends="template-vocabulary">
       <dataFile>directories/book_keywords.csv</dataFile>
     </directory>
 
