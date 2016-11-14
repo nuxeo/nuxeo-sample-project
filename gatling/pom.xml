@@ -44,14 +44,13 @@
     </dependency>
     <dependency>
       <groupId>org.nuxeo.ecm.distribution</groupId>
-      <artifactId>nuxeo-distribution-tomcat</artifactId>
-      <classifier>nuxeo-cap</classifier>
+      <artifactId>nuxeo-server-tomcat</artifactId>
       <type>zip</type>
       <scope>provided</scope>
     </dependency>
     <dependency>
       <groupId>org.nuxeo.ecm.distribution</groupId>
-      <artifactId>nuxeo-distribution-cap-gatling-tests</artifactId>
+      <artifactId>nuxeo-jsf-ui-gatling-tests</artifactId>
       <type>test-jar</type>
       <scope>test</scope>
     </dependency>

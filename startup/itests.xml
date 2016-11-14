@@ -1,13 +1,7 @@
-<project name="sample-selenium-tests" xmlns:nx="urn:nuxeo-build" xmlns:artifact="urn:nuxeo-artifact">
+<project name="sample-webdriver-tests" xmlns:nx="urn:nuxeo-build" xmlns:artifact="urn:nuxeo-artifact">
   <taskdef resource="org/nuxeo/build/antlib.xml" uri="urn:nuxeo-build" />
   <taskdef resource="org/nuxeo/build/artifact/antlib.xml" uri="urn:nuxeo-artifact" />
   <taskdef resource="net/sf/antcontrib/antlib.xml" />
-
-  <!-- List of Selenium HTML test suites (without the ".html" file extension)  -->
-  <property name="suites" value="suite" />
-
-  <!-- Base distribution (nuxeo-cap is the default value) -->
-  <!-- <property name="wizard.preset" value="nuxeo-cap" /> -->
 
   <property name="out.dir" value="${maven.project.build.directory}" />
   <unzip dest="${out.dir}/" overwrite="false">
@@ -18,7 +12,7 @@
   <!-- Instruction for installing the MP to be tested -->
   <property name="mp.install" value="file:${out.dir}/marketplace-${maven.project.version}.zip" />
   <!-- Override default prepare-environment target to make it download your MP -->
-  <target name="prepare-environment" depends="_init,prepare-db,prepare-tomcat,prepare-jboss">
+  <target name="prepare-environment" depends="_init,prepare-db,prepare-tomcat">
     <copy todir="${out.dir}">
       <artifact:file key="org.nuxeo.marketplace.sample:marketplace::zip" />
     </copy>
