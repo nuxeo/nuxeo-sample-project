@@ -1,0 +1,12 @@
+<?xml version="1.0"?>
+<component name="org.nuxeo.sample.listener.sample-async-listener">
+
+  <extension target="org.nuxeo.ecm.core.event.EventServiceComponent" point="listener">
+    <listener async="false" postCommit="true" name="sample-async-listener"
+      class="org.nuxeo.sample.SampleAsyncListener">
+        <event>documentCreated</event>
+        <event>documentModified</event>
+    </listener>
+  </extension>
+
+</component>
