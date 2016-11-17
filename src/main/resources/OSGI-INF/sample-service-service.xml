@@ -1,0 +1,9 @@
+<?xml version="1.0"?>
+<component name="org.nuxeo.sample.service.sample-service" version="1.0">
+
+  <implementation class="org.nuxeo.sample.SampleServiceImpl" />
+
+  <service>
+    <provide interface="org.nuxeo.sample.SampleService" />
+  </service>
+</component>

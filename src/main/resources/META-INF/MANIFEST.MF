@@ -1,0 +1,13 @@
+Bundle-ActivationPolicy: lazy
+Bundle-ClassPath: .
+Manifest-Version: 1.0
+Bundle-Vendor: org.nuxeo.sample
+Bundle-Version: 1.0.0
+Bundle-Name: nuxeo-sample-project
+Bundle-ManifestVersion: 2
+Bundle-SymbolicName: org.nuxeo.sample.nuxeo-sample-project;singleton=true
+Nuxeo-Component: OSGI-INF/sample-operation-operation-contrib.xml,
+ OSGI-INF/sample-document-enricher-contrib.xml,
+ OSGI-INF/sample-sync-listener-listener-contrib.xml,
+ OSGI-INF/sample-service-service.xml,
+ OSGI-INF/sample-async-listener-listener-contrib.xml
