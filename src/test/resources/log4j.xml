@@ -24,7 +24,8 @@
 
 
   <category name="org.nuxeo">
-    <priority value="TRACE"/>
+    <!-- <priority value="TRACE"/> -->
+    <priority value="INFO"/>
     <appender-ref ref="FILE"/>
   </category>
   
