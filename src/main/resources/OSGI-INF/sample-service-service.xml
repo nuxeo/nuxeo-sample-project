@@ -1,5 +1,5 @@
 <?xml version="1.0"?>
-<component name="org.nuxeo.sample.service.sample-service" version="1.0">
+<component name="org.nuxeo.sample.SampleService" version="1.0">
 
   <implementation class="org.nuxeo.sample.SampleServiceImpl" />
 
