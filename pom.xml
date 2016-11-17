@@ -9,7 +9,7 @@
   <artifactId>nuxeo-sample-project</artifactId>
   <groupId>org.nuxeo.sample</groupId>
   <name>Nuxeo sample project</name>
-  <description/>
+  <description>Nuxeo sample project</description>
 
   <repositories>
     <repository>
