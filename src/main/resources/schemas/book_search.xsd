@@ -1,8 +1,0 @@
-<?xml version="1.0"?>
-<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema"
-  targetNamespace="http://sample.nuxeo.org/sample/schemas/book/"
-  xmlns:bs="http://sample.nuxeo.org/sample/schemas/booksearch/">
-
-  <xs:element name="keyword" type="xs:string"/>  
-
-</xs:schema>

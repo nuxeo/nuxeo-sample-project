@@ -5,9 +5,9 @@
 #name=nuxeo-project-sample
 
 # Uncomment this for Windows (notice the forward-slashes)
-jboss.dir=/nuxeo/tools/nuxeo/nuxeo-ep-5.1.6GA/NuxeoServer
+#server.dir=/nuxeo/tools/nuxeo/
 # Uncomment this for Unix
-#jboss.dir=/opt/jboss
+#server.dir=/opt/nuxeo
 
 # Uncomment this for an offline maven build, which is faster
 # but assumes you have already donwloaded all dependencies
