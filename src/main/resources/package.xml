@@ -2,7 +2,7 @@
 <package type="addon" name="nuxeo-sample" version="@VERSION@">
   <title>Nuxeo Sample</title>
   <description>
-    <p>This addon adds the "sample project" functionality to Nuxeo.</p>
+    <p>The Nuxeo Sample addon will create a Sample Content workspace on your Nuxeo Platform.</p>
     <p>Put here an HTML description of your Nuxeo Package.</p>
   </description>
   <home-page>http://doc.nuxeo.com/</home-page>
