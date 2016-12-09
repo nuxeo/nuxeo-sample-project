@@ -13,8 +13,8 @@ module.exports = {
       selector: '//input[@class="login_button"]',
       locateStrategy: 'xpath'
     },
-    welcomemsg: {
-      selector: '//div[@class="copyrights"]',
+    domainTitle: {
+      selector: '//div/div/h1',
       locateStrategy: 'xpath'
     }
   }

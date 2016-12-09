@@ -6,9 +6,9 @@ module.exports = {
         .setValue('@username', 'Administrator')
         .setValue('@password', 'Administrator')
         .click('@submit')
-        .waitForElementVisible('@welcomemsg', 5000)
+        .waitForElementVisible('@domainTitle', 5000)
         .assert.title('Nuxeo Platform - Domain')
-        .assert.containsText('@welcomemsg', 'Copyright © 2001-2016 Nuxeo and respective authors.');
+        .assert.containsText('@domainTitle', 'Domain');
         browser.end();
     }
 }
