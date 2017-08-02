@@ -1,0 +1,12 @@
+{
+  "devDependencies": {
+    "nightwatch": "0.9.9",
+    "selenium-standalone": "5.9.0"
+  },
+  "scripts": {
+    "postinstall": "selenium-standalone install",
+    "start": "selenium-standalone start",
+    "test": "nightwatch",
+    "stop": "pkill -f selenium-standalone"
+  }
+}

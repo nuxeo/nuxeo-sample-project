@@ -16,6 +16,12 @@
   <modules>
     <module>nuxeo-sample-project-core</module>
     <module>nuxeo-sample-project-package</module>
+    <module>ftest/startup</module>
+    <module>ftest/webdriver</module>
+    <module>ftest/funkload</module>
+    <module>ftest/gatling</module>
+    <module>ftest/nightwatchjs</module>
+    <!-- <module>ftest/cmis</module> -->
   </modules>
 
   <dependencyManagement>
@@ -29,6 +35,12 @@
         <groupId>org.nuxeo.sample</groupId>
         <artifactId>nuxeo-sample-project-package</artifactId>
         <version>${project.version}</version>
+      </dependency>
+      <dependency>
+        <groupId>org.nuxeo.sample</groupId>
+        <artifactId>nuxeo-sample-project-package</artifactId>
+        <version>${project.version}</version>
+        <type>zip</type>
       </dependency>
     </dependencies>
   </dependencyManagement>
