@@ -1,14 +1,55 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
   <modelVersion>4.0.0</modelVersion>
   <parent>
-    <groupId>org.nuxeo</groupId>
-    <artifactId>nuxeo-addons-parent</artifactId>
+    <groupId>org.nuxeo.ecm.distribution</groupId>
+    <artifactId>nuxeo-distribution</artifactId>
     <version>9.3-SNAPSHOT</version>
   </parent>
-  <artifactId>nuxeo-sample-project</artifactId>
+
   <groupId>org.nuxeo.sample</groupId>
-  <name>Nuxeo sample project</name>
-  <description>Nuxeo sample project</description>
+  <artifactId>nuxeo-sample-project-parent</artifactId>
+  <version>2.4.2-SNAPSHOT</version>
+  <name>Nuxeo sample project parent</name>
+  <description>Nuxeo sample project parent</description>
+  <packaging>pom</packaging>
+
+  <modules>
+    <module>nuxeo-sample-project-core</module>
+    <module>nuxeo-sample-project-package</module>
+    <module>ftest/startup</module>
+    <module>ftest/webdriver</module>
+    <module>ftest/funkload</module>
+    <module>ftest/gatling</module>
+    <module>ftest/nightwatchjs</module>
+    <!-- <module>ftest/cmis</module> -->
+  </modules>
+
+  <dependencyManagement>
+    <dependencies>
+      <dependency>
+        <groupId>org.nuxeo.sample</groupId>
+        <artifactId>nuxeo-sample-project-core</artifactId>
+        <version>${project.version}</version>
+      </dependency>
+      <dependency>
+        <groupId>org.nuxeo.sample</groupId>
+        <artifactId>nuxeo-sample-project-package</artifactId>
+        <version>${project.version}</version>
+      </dependency>
+      <dependency>
+        <groupId>org.nuxeo.sample</groupId>
+        <artifactId>nuxeo-sample-project-package</artifactId>
+        <version>${project.version}</version>
+        <type>zip</type>
+      </dependency>
+    </dependencies>
+  </dependencyManagement>
+
+  <scm>
+    <connection>scm:git:git://github.com/nuxeo/nuxeo-sample-project.git</connection>
+    <developerConnection>scm:git:ssh://git@github.com:nuxeo/nuxeo-sample-project.git</developerConnection>
+    <url>https://github.com/nuxeo/nuxeo-sample-project</url>
+  </scm>
 
   <repositories>
     <repository>
@@ -58,43 +99,5 @@
       </snapshots>
     </pluginRepository>
   </pluginRepositories>
-  <dependencies>
-    <dependency>
-      <groupId>org.nuxeo.ecm.automation</groupId>
-      <artifactId>nuxeo-automation-core</artifactId>
-    </dependency>
-    <dependency>
-      <groupId>org.nuxeo.ecm.automation</groupId>
-      <artifactId>nuxeo-automation-test</artifactId>
-      <scope>test</scope>
-    </dependency>
-    <dependency>
-      <groupId>org.nuxeo.ecm.core</groupId>
-      <artifactId>nuxeo-core-io</artifactId>
-    </dependency>
-    <dependency>
-      <groupId>org.nuxeo.runtime</groupId>
-      <artifactId>nuxeo-runtime-test</artifactId>
-      <scope>test</scope>
-    </dependency>
-    <dependency>
-      <groupId>org.nuxeo.ecm.core</groupId>
-      <artifactId>nuxeo-core-test</artifactId>
-      <type>test-jar</type>
-      <scope>test</scope>
-    </dependency>
-    <dependency>
-      <groupId>org.nuxeo.ecm.platform</groupId>
-      <artifactId>nuxeo-platform-test</artifactId>
-      <scope>test</scope>
-    </dependency>
-    <dependency>
-      <groupId>org.nuxeo.ecm.core</groupId>
-      <artifactId>nuxeo-core-event</artifactId>
-    </dependency>
-    <dependency>
-      <groupId>org.nuxeo.runtime</groupId>
-      <artifactId>nuxeo-runtime</artifactId>
-    </dependency>
-  </dependencies>
+
 </project>
