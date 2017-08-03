@@ -1,0 +1,41 @@
+<project name="nuxeo-sample-project-package-explicit-assembly"
+         default="build"
+         xmlns:nx="urn:nuxeo-build"
+         xmlns:artifact="urn:nuxeo-artifact">
+  <taskdef resource="org/nuxeo/build/antlib.xml" uri="urn:nuxeo-build" />
+  <taskdef resource="org/nuxeo/build/artifact/antlib.xml" uri="urn:nuxeo-artifact" />
+
+  <property name="outdir" value="${maven.project.build.directory}" />
+
+  <target name="build" description="Build sample Nuxeo Package">
+    <tstamp />
+    <delete failonerror="false" dir="${outdir}/marketplace" />
+    <mkdir dir="${outdir}/marketplace" />
+    <copy todir="${outdir}/marketplace">
+      <fileset dir="src/main/resources" />
+      <filterset>
+        <filter token="VERSION" value="${maven.project.version}" />
+        <filter token="DISTRIB_VERSION" value="${nuxeo.distribution.version}" />
+      </filterset>
+    </copy>
+
+    <copy todir="${outdir}/marketplace/install/bundles">
+      <!-- Your bundles -->
+      <artifact:file key="org.nuxeo.sample:nuxeo-sample-project-package-explicit" />
+    </copy>
+    <!-- Whereas the marketplace build using an NXR is automatically downloading the
+    required libraries, that simpler solution requires you explicitly list them -->
+    <copy todir="${outdir}/marketplace/install/lib">
+      <!-- Some needed third-party libraries -->
+      <artifact:resolveFile key="javax.faces:jsf-api" />
+      <artifact:resolveFile key="org.jboss.seam:jboss-seam" />
+      <artifact:resolveFile key="org.jboss.seam:jboss-seam-remoting" />
+      <artifact:resolveFile key="org.hibernate:hibernate-validator" />
+    </copy>
+
+    <zip destfile="${outdir}/${maven.project.artifactId}-${maven.project.version}.zip"
+         basedir="${outdir}/marketplace" />
+    <artifact:attach file="${outdir}/${maven.project.artifactId}-${maven.project.version}.zip" type="zip" />
+  </target>
+
+</project>
