@@ -1,6 +1,7 @@
 syntax:glob
 .checkstyle
 .classpath
+.idea
 .metadata
 .mylar
 .pmd

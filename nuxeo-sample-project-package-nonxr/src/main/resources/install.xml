@@ -1,0 +1,15 @@
+<!-- See documentation at http://doc.nuxeo.com/x/IgIz -->
+<install>
+  <update file="${package.root}/install/bundles" todir="${env.bundles}" />
+  <update file="${package.root}/install/lib" todir="${env.lib}" />
+  <copy file="${package.root}/install/artifacts-sample.properties" todir="${env.server.home}/sdk"
+    overwrite="true" />
+  <copy file="${package.root}/install/test-artifacts-sample.properties"
+    todir="${env.server.home}/sdk" overwrite="true" />
+
+  <!-- Optional: use it if you need your MP to deploy a dedicated template -->
+  <copy dir="${package.root}/install/templates" todir="${env.templates}"
+    overwrite="true" />
+  <!-- Optional: use it if you need your MP to activate the dedicated template -->
+  <config addtemplate="nuxeo-sample" />
+</install>

@@ -1,0 +1,73 @@
+<project name="nuxeo-sample-project-package-nonxr-assembly"
+         default="build"
+         xmlns:nx="urn:nuxeo-build"
+         xmlns:artifact="urn:nuxeo-artifact">
+  <taskdef resource="org/nuxeo/build/antlib.xml" uri="urn:nuxeo-build" />
+  <taskdef resource="org/nuxeo/build/artifact/antlib.xml" uri="urn:nuxeo-artifact" />
+
+  <target name="build" description="Build Nuxeo Package">
+    <property name="outdir" value="${maven.project.build.directory}" />
+    <!-- Include your artifacts in the graph adding your groupId to groupPrefixes -->
+    <artifact:nuxeo-expand includeTestScope="true" groupPrefixes="org.nuxeo,org.nuxeo.sample" />
+    <!-- For Nuxeo IDE being able to use that distribution as a SDK -->
+    <artifact:print output="${outdir}/artifacts-sample.properties" mode="sdk" />
+    <artifact:print output="${outdir}/test-artifacts-sample.properties" mode="sdk" scopes="test" />
+    <!-- Prints the graph for debugging purpose -->
+    <artifact:print output="${outdir}/dependency-tree.log" />
+    <tstamp />
+
+    <delete failonerror="false" dir="${outdir}/marketplace" />
+    <mkdir dir="${outdir}/marketplace" />
+    <copy todir="${outdir}/marketplace">
+      <fileset dir="src/main/resources" />
+      <filterset>
+        <filter token="VERSION" value="${maven.project.version}" />
+        <filter token="DISTRIB_VERSION" value="${nuxeo.distribution.version}" />
+      </filterset>
+    </copy>
+    <copy file="${outdir}/artifacts-sample.properties" todir="${outdir}/marketplace/install" />
+    <copy file="${outdir}/test-artifacts-sample.properties" todir="${outdir}/marketplace/install" />
+
+    <!-- Nuxeo bundles -->
+    <copy todir="${outdir}/marketplace/install/bundles" overwrite="true">
+      <artifact:set>
+        <includes>
+          <artifact groupId="org.nuxeo*" />
+          <artifact groupId="nuxeo-studio" />
+          <!-- Include your artifacts using their groupId for instance -->
+          <artifact groupId="org.nuxeo.sample*" />
+        </includes>
+        <excludes>
+          <artifact groupId="${maven.project.groupId}" artifactId="${maven.project.artifactId}" version="${maven.project.version}" type="${maven.project.packaging}"/>
+          <artifact scope="test"/>
+          <artifact scope="provided"/>
+          <artifact type="pom"/>
+          <artifact groupId="org.nuxeo.lib*"/>
+        </excludes>
+      </artifact:set>
+    </copy>
+    <!-- Third-party libraries -->
+    <copy todir="${outdir}/marketplace/install/lib" overwrite="true">
+      <artifact:set>
+        <includes>
+          <artifact groupId="!org.nuxeo*" />
+          <artifact groupId="org.nuxeo.lib*" />
+        </includes>
+        <excludes>
+          <artifact scope="test" />
+          <artifact scope="provided" />
+          <artifact type="pom" />
+          <artifact groupId="nuxeo-studio" />
+          <!-- Filter out your artifacts using their groupId for instance -->
+          <artifact groupId="org.nuxeo.sample*"/>
+        </excludes>
+      </artifact:set>
+    </copy>
+    <nx:rmdups dir="${outdir}/marketplace/install/lib" />
+
+    <zip destfile="${outdir}/${maven.project.artifactId}-${maven.project.version}.zip"
+         basedir="${outdir}/marketplace" />
+    <artifact:attach file="${outdir}/${maven.project.artifactId}-${maven.project.version}.zip" type="zip" />
+  </target>
+
+</project>
