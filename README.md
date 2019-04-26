@@ -10,8 +10,7 @@ See [CORG/Compiling Nuxeo from sources](http://doc.nuxeo.com/x/xION)
  
 ## Deploying
  
-Install [the Sample Marketplace Package](https://connect.nuxeo.com/nuxeo/site/marketplace/package/nuxeo-sample).  
-Or manually copy the built artifacts into `$NUXEO_HOME/templates/custom/bundles/` and activate the "custom" template.
+Install the Marketplace Package built in `nuxeo-sample-package/target/nuxeo-sample-package-*.zip`.
 
 # Resources
  
@@ -21,7 +20,7 @@ https://jira.nuxeo.com/browse/NXP/component/14503/
  
 # Licensing
  
-[GNU Lesser General Public License (LGPL) v2.1](http://www.gnu.org/licenses/lgpl-2.1.html)
+[Apache License, Version 2.0](http://www.apache.org/licenses/LICENSE-2.0)
  
 # About Nuxeo
  
