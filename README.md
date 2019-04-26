@@ -8,10 +8,6 @@
  
 See [CORG/Compiling Nuxeo from sources](http://doc.nuxeo.com/x/xION)
  
-## QA 
- 
-[![Build Status](https://qa.nuxeo.org/jenkins/buildStatus/icon?job=addons_nuxeo-sample-project-master)](https://qa.nuxeo.org/jenkins/job/addons_nuxeo-sample-project-master/)
-
 ## Deploying
  
 Install [the Sample Marketplace Package](https://connect.nuxeo.com/nuxeo/site/marketplace/package/nuxeo-sample).  
