@@ -6,7 +6,6 @@
     <version>11.1-SNAPSHOT</version>
   </parent>
   <artifactId>nuxeo-sample</artifactId>
-  <groupId>org.nuxeo.sample</groupId>
   <name>Nuxeo sample project</name>
   <description>Nuxeo sample project</description>
 

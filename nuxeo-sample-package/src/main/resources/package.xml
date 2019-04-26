@@ -1,0 +1,39 @@
+<!-- See documentation at http://doc.nuxeo.com/x/HgIz -->
+<package type="addon" name="nuxeo-sample" version="@VERSION@">
+  <title>Nuxeo Sample</title>
+  <description>
+    <p>Sample Nuxeo Package to let you discover how it is developed.</p>
+    <p>Put here an HTML description of your Nuxeo Package.</p>
+  </description>
+  <home-page>https://doc.nuxeo.com/nxdoc/develop-with-nuxeo-platform/</home-page>
+  <vendor>Your company</vendor>
+  <installer restart="true" />
+  <uninstaller restart="true" />
+  <!-- <hotreload-support>false</hotreload-support> -->
+  <!-- <require-terms-and-conditions-acceptance>false</require-terms-and-conditions-acceptance> -->
+  <!-- Nuxeo Validation: none | inprocess | primary_validation | nuxeo_certified -->
+  <nuxeo-validation>nuxeo_certified</nuxeo-validation>
+  <!-- Production State: production_ready | testing | proto -->
+  <production-state>proto</production-state>
+  <supported>true</supported>
+  <platforms>
+    <platform>server-@DISTRIB_VERSION@</platform>
+    <platform>server-@DISTRIB_VERSION@-*</platform>
+  </platforms>
+  <!-- Dependencies on other packages -->
+  <!-- <dependencies> -->
+  <!-- <package>another-package:1.0.0:1.0.0</package> -->
+  <!-- </dependencies> -->
+  <!-- Conflicts with other packages -->
+  <!-- <conflicts> -->
+  <!-- <package>a-conflicting-package:1.0.0:1.0.0</package> -->
+  <!-- </conflicts> -->
+  <!-- Provides features of other packages -->
+  <!-- <provides> -->
+  <!-- <package>an-embedded-package:1.0.0:1.0.0</package> -->
+  <!-- </provides> -->
+  <license>Apache License, Version 2.0</license>
+  <license-url>http://www.apache.org/licenses/LICENSE-2.0</license-url>
+  <!-- Visibility: PRIVATE | MARKETPLACE | DEV | PUBLIC -->
+  <visibility>PUBLIC</visibility>
+</package>
