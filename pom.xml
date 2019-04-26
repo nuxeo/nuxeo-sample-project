@@ -16,12 +16,28 @@
     <module>nuxeo-sample-package</module>
   </modules>
 
+  <profiles>
+    <profile>
+      <id>ftest</id>
+      <modules>
+        <module>ftest/startup</module>
+        <module>ftest/webdriver</module>
+      </modules>
+    </profile>
+  </profiles>
+
   <dependencyManagement>
     <dependencies>
       <dependency>
         <groupId>org.nuxeo.sample</groupId>
         <artifactId>nuxeo-sample</artifactId>
         <version>${project.version}</version>
+      </dependency>
+      <dependency>
+        <groupId>org.nuxeo.sample</groupId>
+        <artifactId>nuxeo-sample-package</artifactId>
+        <version>${project.version}</version>
+        <type>zip</type>
       </dependency>
     </dependencies>
   </dependencyManagement>
