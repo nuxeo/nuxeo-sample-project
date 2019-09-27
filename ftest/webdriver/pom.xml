@@ -17,7 +17,7 @@
         <groupId>org.nuxeo.ecm.distribution</groupId>
         <artifactId>nuxeo-marketplace-jsf-ui</artifactId>
         <type>zip</type>
-        <version>${nuxeo.distribution.version}</version>
+        <version>${nuxeo.platform.version}</version>
       </dependency>
     </dependencies>
   </dependencyManagement>
