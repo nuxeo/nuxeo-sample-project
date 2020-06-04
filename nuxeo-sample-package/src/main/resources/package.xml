@@ -2,8 +2,7 @@
 <package type="addon" name="nuxeo-sample" version="@VERSION@">
   <title>Nuxeo Sample</title>
   <description>
-    <p>Sample Nuxeo Package to let you discover how it is developed.</p>
-    <p>Put here an HTML description of your Nuxeo Package.</p>
+    <p>This is a sample Nuxeo Package containing a number of different content types and corresponding configurations. Please note this example is designed for educational purposes.</p>
   </description>
   <home-page>https://doc.nuxeo.com/nxdoc/develop-with-nuxeo-platform/</home-page>
   <vendor>Your company</vendor>
